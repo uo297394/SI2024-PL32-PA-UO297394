@@ -1,4 +1,4 @@
-package giis.inscripciones;
+package giis.aperturaInscripciones;
 
 /**
  * Datos del modelo de dominio de cada una de las carreras
