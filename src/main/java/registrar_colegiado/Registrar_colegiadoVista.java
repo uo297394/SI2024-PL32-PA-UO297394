@@ -23,6 +23,9 @@ public class Registrar_colegiadoVista {
 	private JLabel lblNewLabel_3;
 	private JLabel lblNewLabel_4;
 	private JTextField titulación_colegiado;
+	private JButton registrar_colegiado;
+	private JTextField numero_cuenta;
+	private JTextField banco;
 
 	/**
 	 * Launch the application.
@@ -60,38 +63,38 @@ public class Registrar_colegiadoVista {
 		frame.getContentPane().add(panel, BorderLayout.CENTER);
 		
 		nombre_colegiado = new JTextField();
-		nombre_colegiado.setBounds(23, 75, 96, 19);
+		nombre_colegiado.setBounds(23, 57, 96, 19);
 		frame.getContentPane().add(nombre_colegiado);
 		nombre_colegiado.setColumns(10);
 		
 		JLabel la = new JLabel("Nombre:");
-		la.setBounds(26, 52, 80, 13);
+		la.setBounds(23, 34, 80, 13);
 		frame.getContentPane().add(la);
 		
 		lblNewLabel = new JLabel("Apellidos:");
-		lblNewLabel.setBounds(244, 52, 86, 13);
+		lblNewLabel.setBounds(244, 34, 86, 13);
 		frame.getContentPane().add(lblNewLabel);
 		
 		apellidos_colegiado = new JTextField();
-		apellidos_colegiado.setBounds(210, 75, 174, 19);
+		apellidos_colegiado.setBounds(210, 57, 174, 19);
 		frame.getContentPane().add(apellidos_colegiado);
 		apellidos_colegiado.setColumns(10);
 		
 		lblNewLabel_1 = new JLabel("DNI:");
-		lblNewLabel_1.setBounds(26, 115, 45, 13);
+		lblNewLabel_1.setBounds(33, 86, 45, 13);
 		frame.getContentPane().add(lblNewLabel_1);
 		
 		DNI_colegiado = new JTextField();
-		DNI_colegiado.setBounds(23, 138, 132, 19);
+		DNI_colegiado.setBounds(23, 109, 132, 19);
 		frame.getContentPane().add(DNI_colegiado);
 		DNI_colegiado.setColumns(10);
 		
 		lblNewLabel_2 = new JLabel("Dirección");
-		lblNewLabel_2.setBounds(244, 115, 86, 13);
+		lblNewLabel_2.setBounds(244, 86, 86, 13);
 		frame.getContentPane().add(lblNewLabel_2);
 		
 		direccion_colegiado = new JTextField();
-		direccion_colegiado.setBounds(210, 138, 161, 19);
+		direccion_colegiado.setBounds(210, 109, 161, 19);
 		frame.getContentPane().add(direccion_colegiado);
 		direccion_colegiado.setColumns(10);
 		
@@ -100,11 +103,11 @@ public class Registrar_colegiadoVista {
 		frame.getContentPane().add(lblNewLabel_3);
 		
 		lblNewLabel_4 = new JLabel("Titulación");
-		lblNewLabel_4.setBounds(33, 167, 96, 13);
+		lblNewLabel_4.setBounds(33, 138, 96, 13);
 		frame.getContentPane().add(lblNewLabel_4);
 		
 		titulación_colegiado = new JTextField();
-		titulación_colegiado.setBounds(23, 197, 161, 19);
+		titulación_colegiado.setBounds(25, 161, 161, 19);
 		frame.getContentPane().add(titulación_colegiado);
 		titulación_colegiado.setColumns(10);
 		
@@ -114,13 +117,31 @@ public class Registrar_colegiadoVista {
 
 	        // Crear el selector de fecha
 	        JDateChooser nacimiento_colegiado = new JDateChooser();
-	        nacimiento_colegiado.setBounds(210, 197, 161, 19);
+	        nacimiento_colegiado.setBounds(210, 161, 161, 19);
 	        // Agregarlo a la ventana
 	        frame.getContentPane().add(nacimiento_colegiado);
 	        
 	        JLabel lblNewLabel_5 = new JLabel("Fecha de nacimiento");
-	        lblNewLabel_5.setBounds(220, 167, 45, 13);
+	        lblNewLabel_5.setBounds(220, 138, 132, 13);
 	        frame.getContentPane().add(lblNewLabel_5);
+	        
+	        JLabel lblNewLabel_6 = new JLabel("Número de cuenta:");
+	        lblNewLabel_6.setBounds(33, 190, 45, 13);
+	        frame.getContentPane().add(lblNewLabel_6);
+	        
+	        numero_cuenta = new JTextField();
+	        numero_cuenta.setBounds(23, 210, 96, 19);
+	        frame.getContentPane().add(numero_cuenta);
+	        numero_cuenta.setColumns(10);
+	        
+	        JLabel lblNewLabel_7 = new JLabel("Banco:");
+	        lblNewLabel_7.setBounds(220, 190, 45, 13);
+	        frame.getContentPane().add(lblNewLabel_7);
+	        
+	        banco = new JTextField();
+	        banco.setBounds(210, 210, 96, 19);
+	        frame.getContentPane().add(banco);
+	        banco.setColumns(10);
 
 	}
 	//Getters y setters 
@@ -171,4 +192,14 @@ public class Registrar_colegiadoVista {
 	public void setTitulación_colegiado(String titulación_colegiado) {
 		this.titulación_colegiado.setText(titulación_colegiado);
 	}
+	public  JButton getBotonColegiado() {
+		return this.registrar_colegiado;
+	}
+	public String getBanco() {
+		return this.banco.getText();
+	}public int getNumeroCuenta() {
+	return Integer.parseInt(this.numero_cuenta.getText());}
 }
+
+
+
