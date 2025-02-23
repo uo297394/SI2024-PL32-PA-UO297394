@@ -18,8 +18,19 @@ public class Main {
         Registrar_colegiadoControlador controlador = new Registrar_colegiadoControlador(vista, modelo);
         
         // Hacer visible la vista
-        String sql="DELETE FROM Colegiados WHERE id=123";
-        db.executeUpdate(sql);
+        try {
+            List<Object[]> resultado = db.executeQueryArray("PRAGMA table_info(Colegiados);");
+
+            if (resultado.isEmpty()) {
+                System.out.println("⚠️ La tabla Colegiados no existe o no tiene columnas.");
+            } else {
+                for (Object[] fila : resultado) {
+                    System.out.println(Arrays.toString(fila)); // Imprime cada columna correctamente
+                }
+            }
+        } catch (Exception e) {
+            System.out.println("❌ Error al ejecutar PRAGMA: " + e.getMessage());
+        }
         vista.getFrame().setVisible(true);
         List<Object[]> resultados = db.executeQueryArray("SELECT * FROM Colegiados");
         for (Object[] fila : resultados) {
