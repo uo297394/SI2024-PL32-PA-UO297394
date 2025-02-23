@@ -111,7 +111,7 @@ public class Registrar_colegiadoVista {
 		frame.getContentPane().add(titulación_colegiado);
 		titulación_colegiado.setColumns(10);
 		
-		JButton registrar_colegiado = new JButton("Registrar");
+		 registrar_colegiado = new JButton("Registrar");
 		registrar_colegiado.setBounds(320, 232, 106, 21);
 		frame.getContentPane().add(registrar_colegiado);
 
@@ -126,7 +126,7 @@ public class Registrar_colegiadoVista {
 	        frame.getContentPane().add(lblNewLabel_5);
 	        
 	        JLabel lblNewLabel_6 = new JLabel("Número de cuenta:");
-	        lblNewLabel_6.setBounds(33, 190, 45, 13);
+	        lblNewLabel_6.setBounds(33, 190, 122, 13);
 	        frame.getContentPane().add(lblNewLabel_6);
 	        
 	        numero_cuenta = new JTextField();
@@ -135,7 +135,7 @@ public class Registrar_colegiadoVista {
 	        numero_cuenta.setColumns(10);
 	        
 	        JLabel lblNewLabel_7 = new JLabel("Banco:");
-	        lblNewLabel_7.setBounds(220, 190, 45, 13);
+	        lblNewLabel_7.setBounds(220, 190, 70, 13);
 	        frame.getContentPane().add(lblNewLabel_7);
 	        
 	        banco = new JTextField();

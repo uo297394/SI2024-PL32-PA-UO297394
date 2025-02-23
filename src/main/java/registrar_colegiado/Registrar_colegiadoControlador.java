@@ -24,13 +24,9 @@ this.v.getBotonColegiado().addActionListener(new ActionListener(){
 		String DNI=this.v.getDNI_colegiado();
 		String direccion=this.v.getDireccion_colegiado();
 		String titulacion=this.v.getTitulación_colegiado();
+		String banco=this.v.getBanco();
+		int cuenta=this.v.getNumeroCuenta();
+		this.m.registro(nombre, apellidos, DNI, direccion,"a", cuenta, banco, false, 1,  titulacion);
 		
-		
-		
-		
-	}
-	
-	
-	
-	
+	}	
 }
