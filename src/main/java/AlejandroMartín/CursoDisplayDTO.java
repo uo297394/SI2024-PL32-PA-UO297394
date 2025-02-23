@@ -1,4 +1,4 @@
-package giis.historia3.tkrun;
+package AlejandroMartín;
 
 public class CursoDisplayDTO {
     private String titulo_curso;

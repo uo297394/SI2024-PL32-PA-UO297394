@@ -1,4 +1,4 @@
-package giis.historia3.tkrun;
+package AlejandroMartín;
 
 public class Entity {
 	private String tituloCurso;
