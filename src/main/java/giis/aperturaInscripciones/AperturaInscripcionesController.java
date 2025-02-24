@@ -21,7 +21,6 @@ import giis.demo.util.Util;
 public class AperturaInscripcionesController {
 	private AperturaInscripcionesModel model;
 	private AperturaInscripcionesView view;
-	private String lastSelectedKey=""; //recuerda la ultima fila seleccionada para restaurarla cuando cambie la tabla de carreras
 
 	public AperturaInscripcionesController(AperturaInscripcionesModel m, AperturaInscripcionesView v) {
 		this.model = m;
@@ -44,8 +43,7 @@ public class AperturaInscripcionesController {
 		view.getFrame().setVisible(true); 
 	}
 	/**
-	 * La obtencion de la lista de carreras solo necesita obtener la lista de objetos del modelo 
-	 * y usar metodo de SwingUtil para crear un tablemodel que se asigna finalmente a la tabla.
+	 * La obtencion de la lista de cursos y insercion de la misma en la combo box de los cursos
 	 */
 	public void getListaCursos() {
 		List<Object[]> cursos=model.getListaCursosArray();
@@ -54,12 +52,13 @@ public class AperturaInscripcionesController {
 	}
 	
 	/**
-	 * Al seleccionar un item de la tabla muestra el detalle con el valor del porcentaje de descuento
-	 * de la carrera seleccinada y los valores de esta entidad
-	 */
+	 * Actualiza la lista de cursos, se utiliza despues de asignar las fechas de uno de ellos */
 	public void updateDetail() {
 		this.getListaCursos();
 	}
+	/**
+	 * Actualizacion de los plazos de inscripcion del curso selecionado
+	 */
 	public void updatePlazo() {
 		String inicio = view.getTfFechaInicio();
 		String fin = view.getTfFechaFin();

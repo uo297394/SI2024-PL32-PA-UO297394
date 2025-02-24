@@ -36,7 +36,11 @@ public class AperturaInscripcionesModel {
 		String sql="UPDATE Cursos SET fecha_inicio_inscripcion=?, fecha_fin_inscripcion=? WHERE titulo_curso=?";
 		db.executeUpdate(sql, inicio, fin, titulo);
 	}
-	
+	/**
+	 * Valida las fechas de inicio y fin de inscripcion a un curso
+	 * @param inicio fecha de inicio
+	 * @param fin fecha de fin
+	 */
 	private void validateFechasApertura(Date inicio, Date fin) {
 		String[] fechaHoy = LocalDate.now().atStartOfDay().toString().split("T");
 		validateNotNull(inicio,MSG_FECHAS_NULAS);
