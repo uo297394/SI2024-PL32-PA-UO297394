@@ -64,7 +64,7 @@ public class AperturaInscripcionesView {
 		lblError.setForeground(new Color(255, 0, 0));
 		frame.getContentPane().add(lblError, "cell 0 7");
 		//Label
-		JLabel lblNota = new JLabel("Nota: Las fechas deben estar en formato ISO , ejemplo : 01-01-2000");
+		JLabel lblNota = new JLabel("Nota: Las fechas deben estar en formato DD-MM-YYYY , ejemplo : 01-01-2000");
 		frame.getContentPane().add(lblNota, "cell 0 9");
 		
 		//Adicion del boton que se utiliza para registrar el plazo del curso seleccionado

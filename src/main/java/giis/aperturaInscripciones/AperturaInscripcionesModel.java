@@ -1,5 +1,6 @@
 package giis.aperturaInscripciones;
 
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.*;
 import giis.demo.util.Util;
@@ -32,7 +33,7 @@ public class AperturaInscripcionesModel {
 	 * Actualiza las fechas de apertura de un curso
 	 */
 	public void updateAperturaCurso(String titulo, String inicio, String fin) {
-		validateFechasApertura(Util.isoStringToDate(inicio), Util.isoStringToDate(fin));
+		validateFechasApertura(Util.isoStringToDate(Util.dateReformatToISO(inicio)), Util.isoStringToDate(Util.dateReformatToISO(fin)));
 		String sql="UPDATE Cursos SET fecha_inicio_inscripcion=?, fecha_fin_inscripcion=? WHERE titulo_curso=?";
 		db.executeUpdate(sql, inicio, fin, titulo);
 	}
@@ -42,11 +43,10 @@ public class AperturaInscripcionesModel {
 	 * @param fin fecha de fin
 	 */
 	private void validateFechasApertura(Date inicio, Date fin) {
-		String[] fechaHoy = LocalDate.now().atStartOfDay().toString().split("T");
 		validateNotNull(inicio,MSG_FECHAS_NULAS);
 		validateNotNull(fin,MSG_FECHAS_NULAS);
-		validateCondition(inicio.compareTo(Util.isoStringToDate(fechaHoy[0]))<0, MSG_FECHA_INICIO_POSTERIOR);
-		validateCondition(fin.compareTo(Util.isoStringToDate(fechaHoy[0]))>0, MSG_FECHA_FIN_POSTERIOR);
+		validateCondition(inicio.compareTo(Util.isoStringToDate(Util.getTodayISO()))>=0, MSG_FECHA_INICIO_POSTERIOR);
+		validateCondition(fin.compareTo(Util.isoStringToDate(Util.getTodayISO()))>=0, MSG_FECHA_FIN_POSTERIOR);
 		validateCondition(inicio.compareTo(fin)<=0, MSG_FECHAS_NO_VALIDAS);
 	}
 
