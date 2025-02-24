@@ -1,5 +1,6 @@
 package giis.aperturaInscripciones;
 
+import java.time.LocalDate;
 import java.util.*;
 import giis.demo.util.Util;
 import giis.demo.util.ApplicationException;
@@ -7,6 +8,9 @@ import giis.demo.util.Database;
 
 public class AperturaInscripcionesModel {
 	private static final String MSG_FECHAS_NO_VALIDAS = "La fecha de inicio debe ser menor a la fecha de fin";
+	private static final String MSG_FECHAS_NULAS = "La fecha de inscripcion no puede ser nula";
+	private static final String MSG_FECHA_FIN_POSTERIOR = "La fecha de hoy no puede ser posterior a la de fin";
+	private static final String MSG_FECHA_INICIO_POSTERIOR = "La fecha de hoy no puede ser posterior a la de inicio";
 
 	private Database db=new Database();
 	
@@ -34,9 +38,12 @@ public class AperturaInscripcionesModel {
 	}
 	
 	private void validateFechasApertura(Date inicio, Date fin) {
-		validateNotNull(inicio,"La fecha de inicio de inscripcion no puede ser nula");
-		validateNotNull(fin,"La fecha de fin de inscripcion no puede ser nula");
-		validateCondition(inicio.compareTo(fin)<=0, "La fecha de inicio no puede ser posterior a la de fin");
+		String[] fechaHoy = LocalDate.now().atStartOfDay().toString().split("T");
+		validateNotNull(inicio,MSG_FECHAS_NULAS);
+		validateNotNull(fin,MSG_FECHAS_NULAS);
+		validateCondition(inicio.compareTo(Util.isoStringToDate(fechaHoy[0]))<0, MSG_FECHA_INICIO_POSTERIOR);
+		validateCondition(fin.compareTo(Util.isoStringToDate(fechaHoy[0]))>0, MSG_FECHA_FIN_POSTERIOR);
+		validateCondition(inicio.compareTo(fin)<=0, MSG_FECHAS_NO_VALIDAS);
 	}
 
 	/* De uso general para validacion de objetos */
