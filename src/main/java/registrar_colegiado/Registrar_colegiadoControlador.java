@@ -5,7 +5,11 @@ import java.sql.Date;
 import java.time.LocalDate;
 
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 
+import com.toedter.calendar.JDateChooser;
+
+import giis.demo.util.ApplicationException;
 import giis.demo.util.Util;
 
 import javax.swing.JButton;
@@ -16,6 +20,7 @@ private Registrar_colegiadoModelo m;
 public Registrar_colegiadoControlador(Registrar_colegiadoVista v, Registrar_colegiadoModelo m) {
 	this.v=v;
 	this.m=m;
+	/**El registro del colegiado y las comprobaciones se realizarán después de pulsar el botón registrar**/
 this.v.getBotonColegiado().addActionListener(new ActionListener(){
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -31,12 +36,29 @@ this.v.getBotonColegiado().addActionListener(new ActionListener(){
 		String direccion=this.v.getDireccion_colegiado();
 		String titulacion=this.v.getTitulación_colegiado();
 		String banco=this.v.getBanco();
-		String fecha=this.v.getFecha();
+		
+		JTextField cuentaText=v.getTextNumeroCuenta();
+		JDateChooser fechaChooser=this.v.getFechaChooser();
+		this.m.CuentaNoNula(cuentaText);
+		try{
 		int cuenta=this.v.getNumeroCuenta();
-		this.m.noNULO(DNI, nombre, apellidos, cuenta, direccion, titulacion,banco);
+		
+		
+		this.m.noNULO(DNI, nombre, apellidos, cuenta, direccion, titulacion,banco, fechaChooser);
+		String fecha=this.v.getFecha();
 		this.m.EstaColegiado(DNI);
 		//String fechaHoy=Util.dateToIsoString(LocalDate.now());
+		
 		this.m.registro(nombre, apellidos, DNI, direccion,fecha, cuenta, banco, false, "aprobado", "a", titulacion);
+		//justificante impreso por pantalla con los datos introducidos
 		System.out.print("Registrado: \n "+"Nombre:"+nombre+ "  "+ "Apellidos: "+apellidos+"\n DNI:"+DNI+ "  "+ "Direccion:"+direccion+ "\n fecha:"+fecha+"  "+ "Cuenta bancaria:"+cuenta+"\n Banco:"+banco+"  "+"Precolegiado?:"+false+"\n Estado solicitud:"+ "  "+"aprobado"+ "\n Fecha de solicitud:"+"a"+ "  "+ "Titulacion:"+titulacion);
-	}	
+	}
+		catch(NumberFormatException  e) {
+			JOptionPane.showMessageDialog(null, "Número de cuenta inválido. Debe ser un número entero.", "Error", JOptionPane.ERROR_MESSAGE);
+			return;
 }
+		catch(ApplicationException e) {
+			return;
+			
+		}
+}}

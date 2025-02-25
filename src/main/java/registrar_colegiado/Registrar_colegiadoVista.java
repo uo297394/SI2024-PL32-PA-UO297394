@@ -202,8 +202,14 @@ public class Registrar_colegiadoVista {
 		return this.banco.getText();
 	}public int getNumeroCuenta() {
 	return Integer.parseInt(this.numero_cuenta.getText());}
+public JTextField getTextNumeroCuenta() {
+	return this.numero_cuenta;
+}
 public String getFecha() {
 	return  Util.dateToIsoString(this.nacimiento_colegiado.getDate());
+}
+public JDateChooser getFechaChooser() {
+	return this.nacimiento_colegiado;
 }
 }
 
