@@ -48,10 +48,11 @@ this.v.getBotonColegiado().addActionListener(new ActionListener(){
 		String fecha=this.v.getFecha();
 		this.m.EstaColegiado(DNI);
 		//String fechaHoy=Util.dateToIsoString(LocalDate.now());
+		String fecha_hoy=Util.getTodayISO();
 		
-		this.m.registro(nombre, apellidos, DNI, direccion,fecha, cuenta, banco, false, "aprobado", "a", titulacion);
+		this.m.registro(nombre, apellidos, DNI, direccion,fecha, cuenta, banco, false, "aprobado", fecha_hoy, titulacion);
 		//justificante impreso por pantalla con los datos introducidos
-		System.out.print("Registrado: \n "+"Nombre:"+nombre+ "  "+ "Apellidos: "+apellidos+"\n DNI:"+DNI+ "  "+ "Direccion:"+direccion+ "\n fecha:"+fecha+"  "+ "Cuenta bancaria:"+cuenta+"\n Banco:"+banco+"  "+"Precolegiado?:"+false+"\n Estado solicitud:"+ "  "+"aprobado"+ "\n Fecha de solicitud:"+"a"+ "  "+ "Titulacion:"+titulacion);
+		System.out.print("Registrado: \n "+"Nombre:"+nombre+ "  "+ "Apellidos: "+apellidos+"\n DNI:"+DNI+ "  "+ "Direccion:"+direccion+ "\n fecha:"+fecha+"  "+ "Cuenta bancaria:"+cuenta+"\n Banco:"+banco+"  "+"Precolegiado?:"+false+"\n Estado solicitud:"+ "  "+"aprobado"+ "\n Fecha de solicitud:"+fecha_hoy+ "  "+ "Titulacion:"+titulacion);
 	}
 		catch(NumberFormatException  e) {
 			JOptionPane.showMessageDialog(null, "Número de cuenta inválido. Debe ser un número entero.", "Error", JOptionPane.ERROR_MESSAGE);
