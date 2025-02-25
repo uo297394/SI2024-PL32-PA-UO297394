@@ -2,6 +2,11 @@ package util;
 
 import java.awt.EventQueue;
 import javax.swing.JFrame;
+
+import aperturaInscripciones.AperturaInscripcionesController;
+import aperturaInscripciones.AperturaInscripcionesModel;
+import aperturaInscripciones.AperturaInscripcionesView;
+
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
@@ -60,6 +65,16 @@ public class SwingMain {
 		});
 		frame.getContentPane().setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS));
 		frame.getContentPane().add(btnEjecutarTkrun);
+		
+		JButton btnEjecutarAIns = new JButton("Ejecutar Apertura de Inscripciones");
+		btnEjecutarAIns.addActionListener(new ActionListener() { //NOSONAR codigo autogenerado
+			public void actionPerformed(ActionEvent e) {
+				AperturaInscripcionesController controller=new AperturaInscripcionesController(new AperturaInscripcionesModel(), new AperturaInscripcionesView());
+				controller.initController();
+			}
+		});
+		frame.getContentPane().setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS));
+		frame.getContentPane().add(btnEjecutarAIns);
 		
 			
 		JButton btnInicializarBaseDeDatos = new JButton("Inicializar Base de Datos en Blanco");
