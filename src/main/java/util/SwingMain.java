@@ -1,14 +1,12 @@
-package giis.demo.util;
+package util;
 
 import java.awt.EventQueue;
 import javax.swing.JFrame;
-
-import giis.aperturaInscripciones.*;
-
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+
 
 /**
  * Punto de entrada principal que incluye botones para la ejecucion de las pantallas 
@@ -56,8 +54,8 @@ public class SwingMain {
 		JButton btnEjecutarTkrun = new JButton("Ejecutar giis.demo.tkrun");
 		btnEjecutarTkrun.addActionListener(new ActionListener() { //NOSONAR codigo autogenerado
 			public void actionPerformed(ActionEvent e) {
-				AperturaInscripcionesController controller=new AperturaInscripcionesController(new AperturaInscripcionesModel(), new AperturaInscripcionesView());
-				controller.initController();
+				//CarrerasController controller=new CarrerasController(new CarrerasModel(), new CarrerasView());
+				//controller.initController();
 			}
 		});
 		frame.getContentPane().setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS));

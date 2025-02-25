@@ -1,4 +1,4 @@
-package giis.aperturaInscripciones;
+package aperturaInscripciones;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -8,9 +8,9 @@ import javax.swing.ComboBoxModel;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
-import giis.demo.util.ApplicationException;
-import giis.demo.util.SwingUtil;
-import giis.demo.util.Util;
+import util.ApplicationException;
+import util.SwingUtil;
+import util.Util;
 
 /**
  * Controlador para la funcionalidad de visualizacion de carreras para la inscripcion.

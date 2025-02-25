@@ -1,4 +1,4 @@
-package giis.aperturaInscripciones;
+package aperturaInscripciones;
 
 import javax.swing.JFrame;
 

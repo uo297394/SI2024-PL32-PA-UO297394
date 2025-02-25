@@ -1,10 +1,9 @@
-package giis.demo.util;
+package util;
 
 import java.lang.reflect.InvocationTargetException;
 import java.text.Format;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -151,7 +150,7 @@ public class Util {
 		try {
 			f = new SimpleDateFormat("yyyy-MM-dd").parse(javaDate);
 		} catch (ParseException e) {
-			
+
 			throw new ApplicationException(e);
 		}
 		return formatter.format(f);
@@ -169,7 +168,7 @@ public class Util {
 		try {
 			f = new SimpleDateFormat("dd-MM-yyyy").parse(javaDate);
 		} catch (ParseException e) {
-			
+
 			throw new ApplicationException(e);
 		}
 		return formatter.format(f);
@@ -182,6 +181,4 @@ public class Util {
 		String fechaHoy = sdf.format(new Date());
 		return fechaHoy;
 	}
-	
-	
 }

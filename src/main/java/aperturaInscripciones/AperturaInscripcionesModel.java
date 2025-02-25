@@ -1,11 +1,11 @@
-package giis.aperturaInscripciones;
+package aperturaInscripciones;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.*;
-import giis.demo.util.Util;
-import giis.demo.util.ApplicationException;
-import giis.demo.util.Database;
+import util.Util;
+import util.ApplicationException;
+import util.Database;
 
 public class AperturaInscripcionesModel {
 	private static final String MSG_FECHAS_NO_VALIDAS = "La fecha de inicio debe ser menor a la fecha de fin";
@@ -59,5 +59,6 @@ public class AperturaInscripcionesModel {
 		if (!condition)
 			throw new ApplicationException(message);
 	}
+	
 	
 }
