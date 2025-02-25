@@ -38,19 +38,31 @@ public class Registrar_colegiadoModelo {
 			JOptionPane.showMessageDialog(null, "Usted ya está colegiado", "Error", JOptionPane.ERROR_MESSAGE);
 			throw new ApplicationException("Ya existe un colegiado con ese DNI");
 		}}
-public void noNULO(String dni, String nombre, String apellidos, int bancario) {
-	if(dni==null) {
+public void noNULO(String dni, String nombre, String apellidos, int bancario, String direccion, String titulacion, String banco) {
+	if(dni.isEmpty()) {
 		JOptionPane.showMessageDialog(null, "El campo DNI no puede ser nulo", "Error", JOptionPane.ERROR_MESSAGE);
 		throw new ApplicationException("El campo DNI no puede ser nulo");
 	}
-	if(nombre==null) {
+	if(nombre.isEmpty()) {
 		JOptionPane.showMessageDialog(null, "El campo nombre no puede ser nulo", "Error", JOptionPane.ERROR_MESSAGE);
 		throw new ApplicationException("El campo nombre no puede ser nulo");
 	
 	}
-	if(apellidos==null) {
+	if(apellidos.isEmpty()) {
 		JOptionPane.showMessageDialog(null, "El campo apellidos no puede ser nulo", "Error", JOptionPane.ERROR_MESSAGE);
 		throw new ApplicationException("El campo apellidos no puede ser nulo");
+	}
+	if(titulacion.isEmpty()) {
+		JOptionPane.showMessageDialog(null, "El campo titulación no puede ser nulo", "Error", JOptionPane.ERROR_MESSAGE);
+		throw new ApplicationException("El campo titulación no puede ser nulo");
+	}
+	if(direccion.isEmpty()) {
+		JOptionPane.showMessageDialog(null, "El campo direccion no puede ser nulo", "Error", JOptionPane.ERROR_MESSAGE);
+		throw new ApplicationException("El campo direccion no puede ser nulo");
+	}
+	if(banco.isEmpty()) {
+		JOptionPane.showMessageDialog(null, "El campo banco no puede ser nulo", "Error", JOptionPane.ERROR_MESSAGE);
+		throw new ApplicationException("El campo banco no puede ser nulo");
 	}
 
 }

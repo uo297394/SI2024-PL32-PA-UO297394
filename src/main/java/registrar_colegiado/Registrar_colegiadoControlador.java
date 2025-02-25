@@ -33,10 +33,10 @@ this.v.getBotonColegiado().addActionListener(new ActionListener(){
 		String banco=this.v.getBanco();
 		String fecha=this.v.getFecha();
 		int cuenta=this.v.getNumeroCuenta();
-		this.m.noNULO(DNI, nombre, apellidos, cuenta);
+		this.m.noNULO(DNI, nombre, apellidos, cuenta, direccion, titulacion,banco);
 		this.m.EstaColegiado(DNI);
 		//String fechaHoy=Util.dateToIsoString(LocalDate.now());
 		this.m.registro(nombre, apellidos, DNI, direccion,fecha, cuenta, banco, false, "aprobado", "a", titulacion);
-		
+		System.out.print("Registrado: \n "+"Nombre:"+nombre+ "  "+ "Apellidos: "+apellidos+"\n DNI:"+DNI+ "  "+ "Direccion:"+direccion+ "\n fecha:"+fecha+"  "+ "Cuenta bancaria:"+cuenta+"\n Banco:"+banco+"  "+"Precolegiado?:"+false+"\n Estado solicitud:"+ "  "+"aprobado"+ "\n Fecha de solicitud:"+"a"+ "  "+ "Titulacion:"+titulacion);
 	}	
 }
