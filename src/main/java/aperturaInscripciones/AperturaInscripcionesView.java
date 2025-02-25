@@ -4,10 +4,13 @@ import javax.swing.JFrame;
 
 import net.miginfocom.swing.MigLayout;
 import javax.swing.JLabel;
-import javax.swing.ComboBoxModel;
-import javax.swing.JComboBox;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+
 import javax.swing.JTextField;
-import java.awt.Color;
+import javax.swing.ListSelectionModel;
+
+
 import javax.swing.JButton;
 
 public class AperturaInscripcionesView {
@@ -15,7 +18,7 @@ public class AperturaInscripcionesView {
 	private JFrame frame;
 	private JTextField tfFechaInicio;
 	private JTextField tfFechaFin;
-	JComboBox<Object> cbSelecionCurso = new JComboBox<>();
+	private JTable tabSelecionCurso;
 	JLabel lblError = new JLabel("\r\n");
 	JButton btnRegPlazo = new JButton("Registrar Plazo");
 
@@ -41,8 +44,13 @@ public class AperturaInscripcionesView {
 		//Label
 		JLabel lblSelecionaCurso = new JLabel("Seleccione el curso:");
 		frame.getContentPane().add(lblSelecionaCurso, "cell 0 0");
-		//Adicion del combo box
-		frame.getContentPane().add(cbSelecionCurso, "cell 0 1,growx");
+		//Adicion de la tabla
+		tabSelecionCurso = new JTable();
+		tabSelecionCurso.setName("tabSelecionCurso");
+		tabSelecionCurso.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		tabSelecionCurso.setDefaultEditor(Object.class, null); //readonly
+		JScrollPane tablePanel = new JScrollPane(tabSelecionCurso);
+		frame.getContentPane().add(tablePanel, "cell 0 1,grow");
 		//Label
 		JLabel lblFechaInicio = new JLabel("Fecha de Inicio");
 		frame.getContentPane().add(lblFechaInicio, "cell 0 3");
@@ -60,9 +68,6 @@ public class AperturaInscripcionesView {
 		frame.getContentPane().add(tfFechaFin, "cell 0 6,growx");
 		tfFechaFin.setColumns(10);
 		
-		//Label de error para mostrar posibles errores NOTA: No utilizada
-		lblError.setForeground(new Color(255, 0, 0));
-		frame.getContentPane().add(lblError, "cell 0 7");
 		//Label
 		JLabel lblNota = new JLabel("Nota: Las fechas deben estar en formato DD-MM-YYYY , ejemplo : 01-01-2000");
 		frame.getContentPane().add(lblNota, "cell 0 9");
@@ -85,10 +90,8 @@ public class AperturaInscripcionesView {
 	public void setError(String error) {
 		this.lblError.setText(error);
 	}
-	public void setCursos(ComboBoxModel<Object> Cursos) {
-		this.cbSelecionCurso.setModel(Cursos);
-	}
+	
 	public JButton getBtnRegPlazo() { return this.btnRegPlazo; }
-	public String getCbSelected() {return (String) this.cbSelecionCurso.getSelectedItem();}
+	public JTable getTablaCursos() {return this.tabSelecionCurso;}
 
 }

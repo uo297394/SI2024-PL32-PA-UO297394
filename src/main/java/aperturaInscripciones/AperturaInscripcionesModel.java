@@ -1,7 +1,6 @@
 package aperturaInscripciones;
 
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
+
 import java.util.*;
 import util.Util;
 import util.ApplicationException;
@@ -17,16 +16,15 @@ public class AperturaInscripcionesModel {
 	
 	//SQL para obtener la lista de titulos de los cursos que no han sido planificados
 	public static final String SQL_LISTA_CURSOS=
-			"SELECT titulo_curso"
-			+" from Cursos  where fecha_inicio_inscripcion IS NULL AND fecha_fin_inscripcion IS NULL";
+			"SELECT id,titulo_curso,descripcion,fecha_inicio_curso,fecha_fin_curso,duracion,max_plazas,cuota,colectivos"
+					+" from Cursos  where fecha_inicio_inscripcion IS NULL AND fecha_fin_inscripcion IS NULL";
 	/**
-	 * Obtiene la lista de titulos de curso que o han sido planificados
+	 * Obtiene la lista de curso que o han sido planificados
 	 * Implementacion usando la utilidad que obtiene una lista de arrays de objetos 
 	 * resultado de la ejecucion de una query sql
 	 */
-	public List<Object[]> getListaCursosArray() {
-		
-		return db.executeQueryArray(SQL_LISTA_CURSOS);
+	public List<AperturaInscripcionesDisplayDTO> getListaCursos() {
+		return db.executeQueryPojo(AperturaInscripcionesDisplayDTO.class, SQL_LISTA_CURSOS);
 	}
 
 	/**
