@@ -84,10 +84,12 @@ public class AperturaInscripcionesController {
 	 * Actualizacion de los plazos de inscripcion del curso selecionado y actualización de la tabla
 	 */
 	public void updatePlazo() {
+		if(this.lastSelectedKey !="") {
 		String inicio = view.getTfFechaInicio();
 		String fin = view.getTfFechaFin();
 		model.updateAperturaCurso(model.getListaCursos().get(view.getTablaCursos().getSelectedRow()).getTitulo_curso(), inicio, fin);
 		getListaCursos();
+		}
 	}
 
 }
