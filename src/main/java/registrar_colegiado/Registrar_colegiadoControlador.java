@@ -1,7 +1,13 @@
 package registrar_colegiado;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Date;
+import java.time.LocalDate;
+
 import javax.swing.JOptionPane;
+
+import giis.demo.util.Util;
+
 import javax.swing.JButton;
 public class Registrar_colegiadoControlador {
 private Registrar_colegiadoVista v;
@@ -25,8 +31,12 @@ this.v.getBotonColegiado().addActionListener(new ActionListener(){
 		String direccion=this.v.getDireccion_colegiado();
 		String titulacion=this.v.getTitulación_colegiado();
 		String banco=this.v.getBanco();
+		String fecha=this.v.getFecha();
 		int cuenta=this.v.getNumeroCuenta();
-		this.m.registro(nombre, apellidos, DNI, direccion,"a", cuenta, banco, false, 1, "a", titulacion);
+		this.m.noNULO(DNI, nombre, apellidos, cuenta);
+		this.m.EstaColegiado(DNI);
+		//String fechaHoy=Util.dateToIsoString(LocalDate.now());
+		this.m.registro(nombre, apellidos, DNI, direccion,fecha, cuenta, banco, false, "aprobado", "a", titulacion);
 		
 	}	
 }

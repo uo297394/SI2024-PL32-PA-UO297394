@@ -4,6 +4,7 @@ import java.util.*;
 import giis.demo.util.Util;
 import giis.demo.util.ApplicationException;
 import giis.demo.util.Database;
+import javax.swing.JOptionPane;
 /**
  * Acceso a los datos de colegiados.
  **/
@@ -14,7 +15,7 @@ public class Registrar_colegiadoModelo {
 
 	public  void registro(String nombre,String apellidos,String DNI, String direccion, 
 			String fecha_nacimiento, int numero_cuenta, String banco, 
-			boolean precolegiados, int estado, String fecha_solicitud, String titulacion) {
+			boolean precolegiados, String estado, String fecha_solicitud, String titulacion) {
 		int pre=0;
 		int id=ultimoID();
 		if(precolegiados==true) {pre=1;}
@@ -29,11 +30,30 @@ public class Registrar_colegiadoModelo {
 		    return numerocoleg+1;}
 	
 	
-	public boolean EstaColegiado() {
-String sql="SELECT COUNT(*) from Colegiados WHERE DNI = ?";	
-	Object[] numerocolegiados=db.executeQueryArray(sql).get(0);
-	int numerocoleg=(int) numerocolegiados[0];
+	public void EstaColegiado(String dni) {
+		String sql="SELECT COUNT(*) from Colegiados WHERE DNI = ?";	
+		Object[] numerocolegiados=db.executeQueryArray(sql,dni).get(0);
+		int numerocoleg=(int) numerocolegiados[0];
+		if(numerocoleg>0) {
+			JOptionPane.showMessageDialog(null, "Usted ya está colegiado", "Error", JOptionPane.ERROR_MESSAGE);
+			throw new ApplicationException("Ya existe un colegiado con ese DNI");
+		}}
+public void noNULO(String dni, String nombre, String apellidos, int bancario) {
+	if(dni==null) {
+		JOptionPane.showMessageDialog(null, "El campo DNI no puede ser nulo", "Error", JOptionPane.ERROR_MESSAGE);
+		throw new ApplicationException("El campo DNI no puede ser nulo");
+	}
+	if(nombre==null) {
+		JOptionPane.showMessageDialog(null, "El campo nombre no puede ser nulo", "Error", JOptionPane.ERROR_MESSAGE);
+		throw new ApplicationException("El campo nombre no puede ser nulo");
+	
+	}
+	if(apellidos==null) {
+		JOptionPane.showMessageDialog(null, "El campo apellidos no puede ser nulo", "Error", JOptionPane.ERROR_MESSAGE);
+		throw new ApplicationException("El campo apellidos no puede ser nulo");
+	}
 
-return numerocoleg>1;
 }
+
+	
 }

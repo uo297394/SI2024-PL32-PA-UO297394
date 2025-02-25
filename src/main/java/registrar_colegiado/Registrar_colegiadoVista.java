@@ -2,6 +2,7 @@ package registrar_colegiado;
 
 import java.awt.EventQueue;
 import java.awt.FlowLayout;
+import java.util.Date;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -10,6 +11,8 @@ import javax.swing.JTextField;
 import javax.swing.JLabel;
 import javax.swing.JButton;
 import com.toedter.calendar.JDateChooser;
+
+import giis.demo.util.Util;
 public class Registrar_colegiadoVista {
 
 	private JFrame frame;
@@ -26,7 +29,7 @@ public class Registrar_colegiadoVista {
 	private JButton registrar_colegiado;
 	private JTextField numero_cuenta;
 	private JTextField banco;
-
+	private JDateChooser nacimiento_colegiado;
 	/**
 	 * Launch the application.
 	 */
@@ -116,7 +119,7 @@ public class Registrar_colegiadoVista {
 		frame.getContentPane().add(registrar_colegiado);
 
 	        // Crear el selector de fecha
-	        JDateChooser nacimiento_colegiado = new JDateChooser();
+	         nacimiento_colegiado = new JDateChooser();
 	        nacimiento_colegiado.setBounds(210, 161, 161, 19);
 	        // Agregarlo a la ventana
 	        frame.getContentPane().add(nacimiento_colegiado);
@@ -199,6 +202,9 @@ public class Registrar_colegiadoVista {
 		return this.banco.getText();
 	}public int getNumeroCuenta() {
 	return Integer.parseInt(this.numero_cuenta.getText());}
+public String getFecha() {
+	return  Util.dateToIsoString(this.nacimiento_colegiado.getDate());
+}
 }
 
 
