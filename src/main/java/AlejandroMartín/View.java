@@ -47,6 +47,7 @@ public class View extends JFrame {
 		setTitle("Historia3");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 600, 343);
+		setResizable(false);
 		contentPane = new JPanel();
 		contentPane.setBorder(null);
 
