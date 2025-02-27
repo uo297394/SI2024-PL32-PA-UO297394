@@ -1,18 +1,19 @@
 package aperturaInscripciones;
 
 import javax.swing.JFrame;
-
 import net.miginfocom.swing.MigLayout;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
-
-
 import javax.swing.JButton;
 
+/**
+ * Clase que proporciona la interfaz gráfica para la apertura de las inscripciones, trata de una tabla donde se muestran los cursos sin planificar,
+ * dos campos de texto para añadir fechas en formato dd-MM-yyyy y un boton para registrar el plazo.
+ * Es utilizada en la clase Controlador.
+ */
 public class AperturaInscripcionesView {
 
 	private JFrame frame;
@@ -74,8 +75,6 @@ public class AperturaInscripcionesView {
 		
 		//Adicion del boton que se utiliza para registrar el plazo del curso seleccionado
 		frame.getContentPane().add(btnRegPlazo, "cell 0 10");
-		
-		
 	}
 	// GETTERS Y SETTERS
 	public JFrame getFrame() {

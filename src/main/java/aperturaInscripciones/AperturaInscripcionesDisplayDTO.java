@@ -1,27 +1,32 @@
 package aperturaInscripciones;
 
+
+/**
+ * Clase utilizada para transformar una fila de la base de datos de la tabla Cursos en un Objeto, siendo las columnas los atributos.
+ * No se incluyen las fechas de inicio y fin de apertura debido a que siempre serán nulas para las filas que se pretenden mostrar.
+ */
 public class AperturaInscripcionesDisplayDTO {
 
 	private String id;
-	private String titulo_curso;
+	private String tituloCurso;
 	private String descripcion;
-	private String fecha_inicio_curso; 
-	private String fecha_fin_curso; 
+	private String fechaInicioCurso; 
+	private String fechaFinCurso; 
 	private String duracion; 
-	private String max_plazas; 
+	private String maxPlazas; 
 	private String cuota; 
 	private String colectivos;
 	public AperturaInscripcionesDisplayDTO() {}
-	public AperturaInscripcionesDisplayDTO(String id, String titulo_curso, String descripcion,
-			String fecha_inicio_curso, String fecha_fin_curso, String duracion, String max_plazas, String cuota,
+	public AperturaInscripcionesDisplayDTO(String id, String tituloCurso, String descripcion,
+			String fechaInicioCurso, String fechaFinCurso, String duracion, String maxPlazas, String cuota,
 			String colectivos) {
 		this.id = id;
-		this.titulo_curso = titulo_curso;
+		this.tituloCurso = tituloCurso;
 		this.descripcion = descripcion;
-		this.fecha_inicio_curso = fecha_inicio_curso;
-		this.fecha_fin_curso = fecha_fin_curso;
+		this.fechaInicioCurso = fechaInicioCurso;
+		this.fechaFinCurso = fechaFinCurso;
 		this.duracion = duracion;
-		this.max_plazas = max_plazas;
+		this.maxPlazas = maxPlazas;
 		this.cuota = cuota;
 		this.colectivos = colectivos;
 	}
@@ -31,29 +36,11 @@ public class AperturaInscripcionesDisplayDTO {
 	public void setId(String id) {
 		this.id = id;
 	}
-	public String getTitulo_curso() {
-		return titulo_curso;
-	}
-	public void setTitulo_curso(String titulo_curso) {
-		this.titulo_curso = titulo_curso;
-	}
 	public String getDescripcion() {
 		return descripcion;
 	}
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
-	}
-	public String getFecha_inicio_curso() {
-		return fecha_inicio_curso;
-	}
-	public void setFecha_inicio_curso(String fecha_inicio_curso) {
-		this.fecha_inicio_curso = fecha_inicio_curso;
-	}
-	public String getFecha_fin_curso() {
-		return fecha_fin_curso;
-	}
-	public void setFecha_fin_curso(String fecha_fin_curso) {
-		this.fecha_fin_curso = fecha_fin_curso;
 	}
 	public String getDuracion() {
 		return duracion;
@@ -61,11 +48,11 @@ public class AperturaInscripcionesDisplayDTO {
 	public void setDuracion(String duracion) {
 		this.duracion = duracion;
 	}
-	public String getMax_plazas() {
-		return max_plazas;
+	public String getMaxPlazas() {
+		return maxPlazas;
 	}
-	public void setMax_plazas(String max_plazas) {
-		this.max_plazas = max_plazas;
+	public void setMaxPlazas(String max_plazas) {
+		this.maxPlazas = max_plazas;
 	}
 	public String getCuota() {
 		return cuota;
@@ -78,6 +65,24 @@ public class AperturaInscripcionesDisplayDTO {
 	}
 	public void setColectivos(String colectivos) {
 		this.colectivos = colectivos;
+	}
+	public String getTituloCurso() {
+		return tituloCurso;
+	}
+	public void setTituloCurso(String tituloCurso) {
+		this.tituloCurso = tituloCurso;
+	}
+	public String getFechaInicioCurso() {
+		return fechaInicioCurso;
+	}
+	public void setFechaInicioCurso(String fechaInicioCurso) {
+		this.fechaInicioCurso = fechaInicioCurso;
+	}
+	public String getFechaFinCurso() {
+		return fechaFinCurso;
+	}
+	public void setFechaFinCurso(String fechaFinCurso) {
+		this.fechaFinCurso = fechaFinCurso;
 	}
 	
 		

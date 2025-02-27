@@ -2,20 +2,14 @@ package aperturaInscripciones;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-
 import java.util.List;
-
 import javax.swing.table.TableModel;
-
-
 import util.SwingUtil;
 
 
 /**
- * Controlador para la funcionalidad de visualizacion de carreras para la inscripcion.
- * Es el punto de entrada de esta pantalla que se invocará:
- * -instanciando el controlador con la vista y el modelo
- * -ejecutando initController que instalara los manejadores de eventos
+ * Clase encargada de unir la interfaz grafica proporcionada por la vista con las utilidades proporcionadas por el modelo.
+ * Se utiliza en el main.
  */
 public class AperturaInscripcionesController {
 	private AperturaInscripcionesModel model;
@@ -56,7 +50,7 @@ public class AperturaInscripcionesController {
 	 */
 	public void getListaCursos() {
 		List<AperturaInscripcionesDisplayDTO> cursos=model.getListaCursos();
-		TableModel tmodel=SwingUtil.getTableModelFromPojos(cursos, new String[] {"id","titulo_curso","descripcion","fecha_inicio_curso","fecha_fin_curso","duracion","max_plazas","cuota","colectivos"});
+		TableModel tmodel=SwingUtil.getTableModelFromPojos(cursos, new String[] {"id","tituloCurso","descripcion","fechaInicioCurso","fechaFinCurso","duracion","maxPlazas","cuota","colectivos"});
 		view.getTablaCursos().setModel(tmodel);
 		SwingUtil.autoAdjustColumns(view.getTablaCursos());
 		
@@ -77,7 +71,6 @@ public class AperturaInscripcionesController {
 	/**
 	 * Actualiza la seleccion de los cursos */
 	public void updateDetail() {
-		
 		this.lastSelectedKey=SwingUtil.getSelectedKey(view.getTablaCursos());
 	}
 	/**
@@ -87,7 +80,7 @@ public class AperturaInscripcionesController {
 		if(this.lastSelectedKey !="") {
 		String inicio = view.getTfFechaInicio();
 		String fin = view.getTfFechaFin();
-		model.updateAperturaCurso(model.getListaCursos().get(view.getTablaCursos().getSelectedRow()).getTitulo_curso(), inicio, fin);
+		model.updateAperturaCurso(model.getListaCursos().get(view.getTablaCursos().getSelectedRow()).getTituloCurso(), inicio, fin);
 		getListaCursos();
 		}
 	}

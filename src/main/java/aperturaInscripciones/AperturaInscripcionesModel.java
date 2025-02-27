@@ -1,6 +1,5 @@
 package aperturaInscripciones;
 
-
 import java.util.*;
 import util.Util;
 import util.ApplicationException;
@@ -16,7 +15,7 @@ public class AperturaInscripcionesModel {
 	
 	//SQL para obtener la lista de titulos de los cursos que no han sido planificados
 	public static final String SQL_LISTA_CURSOS=
-			"SELECT id,titulo_curso,descripcion,fecha_inicio_curso,fecha_fin_curso,duracion,max_plazas,cuota,colectivos"
+			"SELECT id,titulo_curso as tituloCurso,descripcion,fecha_inicio_curso as fechaInicioCurso,fecha_fin_curso as fechaFinCurso,duracion,max_plazas as maxPlazas,cuota,colectivos"
 					+" from Cursos  where fecha_inicio_inscripcion IS NULL AND fecha_fin_inscripcion IS NULL";
 	/**
 	 * Obtiene la lista de curso que o han sido planificados
