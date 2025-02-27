@@ -1,8 +1,8 @@
 package PabloSuarezVega;
 
 import java.util.List;
-import giis.demo.util.ApplicationException;
-import giis.demo.util.Database;
+import util.ApplicationException;
+import util.Database;
 
 public class ModelH2 {
     //instancia Database
