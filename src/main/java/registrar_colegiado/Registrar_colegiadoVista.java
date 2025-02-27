@@ -145,8 +145,12 @@ public class Registrar_colegiadoVista {
 	        nacimiento_colegiado = new JSpinner.DateEditor(dateSpinner, "yyy/MM/dd");
 	        dateSpinner.setEditor(nacimiento_colegiado);
 	        dateSpinner.setBounds(210, 161, 161, 19);
-	        frame.add(new JLabel("Selecciona una fecha:"));
-	        frame.add(dateSpinner);
+	        frame.getContentPane().add(new JLabel("Selecciona una fecha:"));
+	        frame.getContentPane().add(dateSpinner);
+	        
+	        JLabel lblNewLabel_5 = new JLabel("Fecha de nacimiento");
+	        lblNewLabel_5.setBounds(233, 138, 114, 13);
+	        frame.getContentPane().add(lblNewLabel_5);
 
 	}
 	//Getters y setters 
