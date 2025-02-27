@@ -136,5 +136,9 @@ public class Util {
 		Format formatter = new SimpleDateFormat("yyyy-MM-dd");
 		return formatter.format(javaDate);
 	}
-	
+	public static String getTodayISO() {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		String fechaHoy = sdf.format(new Date());
+		return fechaHoy;
+	}
 }
