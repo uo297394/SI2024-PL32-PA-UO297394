@@ -151,6 +151,8 @@ public class Registrar_colegiadoVista {
 	        JLabel lblNewLabel_5 = new JLabel("Fecha de nacimiento");
 	        lblNewLabel_5.setBounds(233, 138, 114, 13);
 	        frame.getContentPane().add(lblNewLabel_5);
+	        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+	      
 
 	}
 	//Getters y setters 

@@ -89,13 +89,13 @@ public class Main extends JFrame {
 		btnHistoria3.setBounds(205, 144, 177, 30);
 		panel_1.add(btnHistoria3);
 		
-		JButton btnSoliColeg = new JButton("Abrir una inscripción");
-		btnSoliColeg.setBounds(205, 64, 177, 30);
-		panel_1.add(btnSoliColeg);
-		
-		JButton btnNewButton_1 = new JButton("Solicitud de colegiación");
-		btnNewButton_1.setBounds(413, 64, 177, 30);
+		JButton btnNewButton_1 = new JButton("Abrir una inscripción");
+		btnNewButton_1.setBounds(205, 64, 177, 30);
 		panel_1.add(btnNewButton_1);
+		
+		JButton btnSoliColeg = new JButton("Solicitud de colegiación");
+		btnSoliColeg.setBounds(413, 64, 177, 30);
+		panel_1.add(btnSoliColeg);
 		
 		JButton btnNewButton_2 = new JButton("Apertura curso");
 		btnNewButton_2.setBounds(205, 104, 177, 30);
@@ -147,9 +147,12 @@ public class Main extends JFrame {
 		});
 		btnSoliColeg.addActionListener(new ActionListener() { //NOSONAR codigo autogenerado
 			public void actionPerformed(ActionEvent e) {
-				Registrar_colegiadoControlador controller=new Registrar_colegiadoControlador(new Registrar_colegiadoVista(),
-						new Registrar_colegiadoModelo());
-				controller.registrarColegiado();
+				 Registrar_colegiadoVista vcolegiado=new Registrar_colegiadoVista();
+				 Registrar_colegiadoModelo mcolegiado=new Registrar_colegiadoModelo();
+				Registrar_colegiadoControlador controller=new Registrar_colegiadoControlador(vcolegiado,
+						mcolegiado);
+				vcolegiado.getFrame().setVisible(true);
+				
 			}
 		});
 	}

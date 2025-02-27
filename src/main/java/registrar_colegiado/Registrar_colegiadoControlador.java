@@ -20,6 +20,7 @@ private Registrar_colegiadoModelo m;
 public Registrar_colegiadoControlador(Registrar_colegiadoVista v, Registrar_colegiadoModelo m) {
 	this.v=v;
 	this.m=m;
+	
 	/**El registro del colegiado y las comprobaciones se realizarán después de pulsar el botón registrar**/
 this.v.getBotonColegiado().addActionListener(new ActionListener(){
     @Override
