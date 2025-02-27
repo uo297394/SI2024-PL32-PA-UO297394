@@ -6,8 +6,11 @@ import java.util.Date;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JSpinner;
+
 import java.awt.BorderLayout;
 import javax.swing.JTextField;
+import javax.swing.SpinnerDateModel;
 import javax.swing.JLabel;
 import javax.swing.JButton;
 import com.toedter.calendar.JDateChooser;
@@ -29,7 +32,7 @@ public class Registrar_colegiadoVista {
 	private JButton registrar_colegiado;
 	private JTextField numero_cuenta;
 	private JTextField banco;
-	private JDateChooser nacimiento_colegiado;
+	private  JSpinner.DateEditor nacimiento_colegiado;
 	/**
 	 * Launch the application.
 	 */
@@ -117,16 +120,6 @@ public class Registrar_colegiadoVista {
 		 registrar_colegiado = new JButton("Registrar");
 		registrar_colegiado.setBounds(320, 232, 106, 21);
 		frame.getContentPane().add(registrar_colegiado);
-
-	        // Crear el selector de fecha
-	         nacimiento_colegiado = new JDateChooser();
-	        nacimiento_colegiado.setBounds(210, 161, 161, 19);
-	        // Agregarlo a la ventana
-	        frame.getContentPane().add(nacimiento_colegiado);
-	        
-	        JLabel lblNewLabel_5 = new JLabel("Fecha de nacimiento");
-	        lblNewLabel_5.setBounds(220, 138, 132, 13);
-	        frame.getContentPane().add(lblNewLabel_5);
 	        
 	        JLabel lblNewLabel_6 = new JLabel("Número de cuenta:");
 	        lblNewLabel_6.setBounds(33, 190, 122, 13);
@@ -145,6 +138,15 @@ public class Registrar_colegiadoVista {
 	        banco.setBounds(210, 210, 96, 19);
 	        frame.getContentPane().add(banco);
 	        banco.setColumns(10);
+	        SpinnerDateModel dateModel = new SpinnerDateModel(new Date(), null, null, java.util.Calendar.DAY_OF_MONTH);
+	        JSpinner dateSpinner = new JSpinner(dateModel);
+
+	        // Formato de fecha en el spinner
+	        nacimiento_colegiado = new JSpinner.DateEditor(dateSpinner, "yyy/MM/dd");
+	        dateSpinner.setEditor(nacimiento_colegiado);
+	        dateSpinner.setBounds(210, 161, 161, 19);
+	        frame.add(new JLabel("Selecciona una fecha:"));
+	        frame.add(dateSpinner);
 
 	}
 	//Getters y setters 
@@ -206,9 +208,10 @@ public JTextField getTextNumeroCuenta() {
 	return this.numero_cuenta;
 }
 public String getFecha() {
-	return  Util.dateToIsoString(this.nacimiento_colegiado.getDate());
+	Date fecha=this.nacimiento_colegiado.getModel().getDate();
+	return  Util.dateToIsoString(fecha);
 }
-public JDateChooser getFechaChooser() {
+public JSpinner.DateEditor getFechaChooser() {
 	return this.nacimiento_colegiado;
 }
 }

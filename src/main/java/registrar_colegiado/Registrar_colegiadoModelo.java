@@ -55,7 +55,7 @@ public class Registrar_colegiadoModelo {
 		
 	}
 	/**Método que comprueba que ningún otro parámetro del formulario haya quedado en blanco**/
-	public void noNULO(String dni, String nombre, String apellidos, int bancario, String direccion, String titulacion, String banco, JDateChooser fecha) {
+	public void noNULO(String dni, String nombre, String apellidos, int bancario, String direccion, String titulacion, String banco) {
 	if(dni.isEmpty()) {
 		JOptionPane.showMessageDialog(null, "El campo DNI no puede ser nulo", "Error", JOptionPane.ERROR_MESSAGE);
 		throw new ApplicationException("El campo DNI no puede ser nulo");
@@ -80,10 +80,6 @@ public class Registrar_colegiadoModelo {
 	if(banco.isEmpty()) {
 		JOptionPane.showMessageDialog(null, "El campo banco no puede ser nulo", "Error", JOptionPane.ERROR_MESSAGE);
 		throw new ApplicationException("El campo banco no puede ser nulo");
-	}
-	if(fecha.getDate()==null) {
-		JOptionPane.showMessageDialog(null, "El campo fecha no puede ser nulo", "Error", JOptionPane.ERROR_MESSAGE);
-		throw new ApplicationException("El campo fecha no puede ser nulo");
 	}
 
 }

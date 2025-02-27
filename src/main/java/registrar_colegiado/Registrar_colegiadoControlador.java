@@ -38,13 +38,13 @@ this.v.getBotonColegiado().addActionListener(new ActionListener(){
 		String banco=this.v.getBanco();
 		
 		JTextField cuentaText=v.getTextNumeroCuenta();
-		JDateChooser fechaChooser=this.v.getFechaChooser();
+		//JDateChooser fechaChooser=this.v.getFechaChooser();
 		this.m.CuentaNoNula(cuentaText);
 		try{
 		int cuenta=this.v.getNumeroCuenta();
 		
 		
-		this.m.noNULO(DNI, nombre, apellidos, cuenta, direccion, titulacion,banco, fechaChooser);
+		this.m.noNULO(DNI, nombre, apellidos, cuenta, direccion, titulacion,banco);
 		String fecha=this.v.getFecha();
 		this.m.EstaColegiado(DNI);
 		//String fechaHoy=Util.dateToIsoString(LocalDate.now());
