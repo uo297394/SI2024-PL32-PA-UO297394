@@ -3,7 +3,7 @@ package registrar_colegiado;
 import java.util.Arrays;
 import java.util.List;
 
-import giis.demo.util.Database;
+import util.Database;
 
 public class Main {
 	private static Database db=new Database();

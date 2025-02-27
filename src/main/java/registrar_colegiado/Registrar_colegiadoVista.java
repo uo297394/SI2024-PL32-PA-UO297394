@@ -12,7 +12,7 @@ import javax.swing.JLabel;
 import javax.swing.JButton;
 import com.toedter.calendar.JDateChooser;
 
-import giis.demo.util.Util;
+import util.Util;
 public class Registrar_colegiadoVista {
 
 	private JFrame frame;

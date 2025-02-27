@@ -1,9 +1,9 @@
 package registrar_colegiado;
 
 import java.util.*;
-import giis.demo.util.Util;
-import giis.demo.util.ApplicationException;
-import giis.demo.util.Database;
+import util.Util;
+import util.ApplicationException;
+import util.Database;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 

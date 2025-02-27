@@ -9,8 +9,8 @@ import javax.swing.JTextField;
 
 import com.toedter.calendar.JDateChooser;
 
-import giis.demo.util.ApplicationException;
-import giis.demo.util.Util;
+import util.ApplicationException;
+import util.Util;
 
 import javax.swing.JButton;
 public class Registrar_colegiadoControlador {

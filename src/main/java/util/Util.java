@@ -1,4 +1,4 @@
-package giis.demo.util;
+package util;
 
 import java.lang.reflect.InvocationTargetException;
 import java.text.Format;
@@ -136,50 +136,9 @@ public class Util {
 		Format formatter = new SimpleDateFormat("yyyy-MM-dd");
 		return formatter.format(javaDate);
 	}
-	/** 
-	 * Reformatea una fecha yyyy-MM-dd a dd-MM-yyyy
-	 */
-	public static String dateReformatFromISO(Date javaDate) {
-		Format formatter = new SimpleDateFormat("dd-MM-yyyy");
-		return formatter.format(javaDate);
-	}
-	public static String dateReformatFromISO(String javaDate) {
-		Format formatter = new SimpleDateFormat("dd-MM-yyyy");
-		Date f = null;
-		try {
-			f = new SimpleDateFormat("yyyy-MM-dd").parse(javaDate);
-		} catch (ParseException e) {
-
-			throw new ApplicationException(e);
-		}
-		return formatter.format(f);
-	}
-	/** 
-	 * Reformatea una fecha dd-MM-yyyy a yyyy-MM-dd
-	 */
-	public static String dateReformatToISO(Date javaDate) {
-		Format formatter = new SimpleDateFormat("yyyy-MM-dd");
-		return formatter.format(javaDate);
-	}
-	public static String dateReformatToISO(String javaDate) {
-		Format formatter = new SimpleDateFormat("yyyy-MM-dd");
-		Date f = null;
-		try {
-			f = new SimpleDateFormat("dd-MM-yyyy").parse(javaDate);
-		} catch (ParseException e) {
-
-			throw new ApplicationException(e);
-		}
-		return formatter.format(f);
-	}
-	/** 
-	 * Devuelve la fecha de hoy en formato ISO
-	 */
 	public static String getTodayISO() {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		String fechaHoy = sdf.format(new Date());
 		return fechaHoy;
 	}
-
-
 }
