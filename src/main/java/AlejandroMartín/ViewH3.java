@@ -45,7 +45,7 @@ public class ViewH3 extends JFrame {
 	 */
 	public ViewH3() {
 		setTitle("Historia3");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 600, 343);
 		setResizable(false);
 		contentPane = new JPanel();
@@ -83,6 +83,7 @@ public class ViewH3 extends JFrame {
 		JLabel lblNewLabel = new JLabel("Cursos ofertados para el colectivo solicitado");
 		lblNewLabel.setBounds(0, 77, 260, 40);
 		panel2.add(lblNewLabel);
+		
 	}
 	
 	public JTable getTablaCursos() { return table1;}
