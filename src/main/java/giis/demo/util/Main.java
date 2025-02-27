@@ -8,6 +8,7 @@ import javax.swing.border.EmptyBorder;
 import java.awt.BorderLayout;
 import javax.swing.JButton;
 import AlejandroMartín.*;
+import registrar_colegiado.*;
 import util.Database;
 
 import javax.swing.BoxLayout;
@@ -84,13 +85,13 @@ public class Main extends JFrame {
 		panel_1.setBounds(5, 112, 652, 228);
 		contentPane.add(panel_1);
 		panel_1.setLayout(null);
-		JButton btnHistoria2 = new JButton("Visualizar cursos");
-		btnHistoria2.setBounds(205, 144, 177, 30);
-		panel_1.add(btnHistoria2);
+		JButton btnHistoria3 = new JButton("Visualizar cursos");
+		btnHistoria3.setBounds(205, 144, 177, 30);
+		panel_1.add(btnHistoria3);
 		
-		JButton btnNewButton = new JButton("Abrir una inscripción");
-		btnNewButton.setBounds(205, 64, 177, 30);
-		panel_1.add(btnNewButton);
+		JButton btnSoliColeg = new JButton("Abrir una inscripción");
+		btnSoliColeg.setBounds(205, 64, 177, 30);
+		panel_1.add(btnSoliColeg);
 		
 		JButton btnNewButton_1 = new JButton("Solicitud de colegiación");
 		btnNewButton_1.setBounds(413, 64, 177, 30);
@@ -138,10 +139,17 @@ public class Main extends JFrame {
 		JLabel lblNewLabel_1 = new JLabel("FUNCIONES DISPONIBLES");
 		lblNewLabel_1.setBounds(5, 81, 246, 31);
 		contentPane.add(lblNewLabel_1);
-		btnHistoria2.addActionListener(new ActionListener() { //NOSONAR codigo autogenerado
+		btnHistoria3.addActionListener(new ActionListener() { //NOSONAR codigo autogenerado
 			public void actionPerformed(ActionEvent e) {
 				ControllerH3 controller=new ControllerH3(new ModelH3(), new ViewH3());
 				controller.initController();
+			}
+		});
+		btnSoliColeg.addActionListener(new ActionListener() { //NOSONAR codigo autogenerado
+			public void actionPerformed(ActionEvent e) {
+				Registrar_colegiadoControlador controller=new Registrar_colegiadoControlador(new Registrar_colegiadoVista(),
+						new Registrar_colegiadoModelo());
+				controller.registrarColegiado();
 			}
 		});
 	}

@@ -29,7 +29,7 @@ this.v.getBotonColegiado().addActionListener(new ActionListener(){
     }
 
 	
-	private void registrarColegiado() {
+	public void registrarColegiado() {
 		String nombre=this.v.getNombre_colegiado();
 		String apellidos=this.v.getApellidos_colegiado();
 		String DNI=this.v.getDNI_colegiado();
