@@ -1,9 +1,10 @@
 package AlejandroMartín;
 
 import java.util.*;
-import giis.demo.util.Util;
-import giis.demo.util.ApplicationException;
-import giis.demo.util.Database;
+import util.Util;
+import util.Database;
+import util.ApplicationException;
+
 
 public class Model {
 	private Database db= new Database();

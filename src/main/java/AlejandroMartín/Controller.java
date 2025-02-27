@@ -12,10 +12,10 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
-import giis.demo.tkrun.CarreraDisplayDTO;
-import giis.demo.util.ApplicationException;
-import giis.demo.util.SwingUtil;
-import giis.demo.util.Util;
+
+import util.ApplicationException;
+import util.SwingUtil;
+import util.Util;
 
 public class Controller {
 	private Model model;
