@@ -140,7 +140,7 @@ public class Main extends JFrame {
 		contentPane.add(lblNewLabel_1);
 		btnHistoria2.addActionListener(new ActionListener() { //NOSONAR codigo autogenerado
 			public void actionPerformed(ActionEvent e) {
-				Controller controller=new Controller(new Model(), new View());
+				ControllerH3 controller=new ControllerH3(new ModelH3(), new ViewH3());
 				controller.initController();
 			}
 		});

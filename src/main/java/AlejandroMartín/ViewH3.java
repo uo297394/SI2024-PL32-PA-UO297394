@@ -14,7 +14,7 @@ import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import javax.swing.border.BevelBorder;
 
-public class View extends JFrame {
+public class ViewH3 extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -31,7 +31,7 @@ public class View extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					View frame = new View();
+					ViewH3 frame = new ViewH3();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -43,7 +43,7 @@ public class View extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public View() {
+	public ViewH3() {
 		setTitle("Historia3");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 600, 343);

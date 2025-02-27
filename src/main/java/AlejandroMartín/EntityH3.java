@@ -1,6 +1,6 @@
 package AlejandroMartín;
 
-public class Entity {
+public class EntityH3 {
 	private String tituloCurso;
     private String fechaInicioCurso;
     private String fechaFinCurso;

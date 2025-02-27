@@ -6,7 +6,7 @@ import util.Database;
 import util.ApplicationException;
 
 
-public class Model {
+public class ModelH3 {
 	private Database db= new Database();
 	
 	public List<CursoDisplayDTO> getListaCursos(String colec) { 

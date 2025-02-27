@@ -17,12 +17,12 @@ import util.ApplicationException;
 import util.SwingUtil;
 import util.Util;
 
-public class Controller {
-	private Model model;
-	private View view;
+public class ControllerH3 {
+	private ModelH3 model;
+	private ViewH3 view;
 	private String lastSelectedKey="";
 	
-	public Controller(Model m, View v) {
+	public ControllerH3(ModelH3 m, ViewH3 v) {
 		this.model=m;
 		this.view=v;
 		this.initView();
