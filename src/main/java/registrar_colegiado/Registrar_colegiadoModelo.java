@@ -7,7 +7,6 @@ import util.Database;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
-import com.toedter.calendar.JDateChooser;
 /**
  * Acceso a los datos de colegiados.
  **/

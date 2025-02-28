@@ -7,8 +7,6 @@ import java.time.LocalDate;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
-import com.toedter.calendar.JDateChooser;
-
 import util.ApplicationException;
 import util.Util;
 

@@ -13,7 +13,6 @@ import javax.swing.JTextField;
 import javax.swing.SpinnerDateModel;
 import javax.swing.JLabel;
 import javax.swing.JButton;
-import com.toedter.calendar.JDateChooser;
 
 import util.Util;
 public class Registrar_colegiadoVista {
