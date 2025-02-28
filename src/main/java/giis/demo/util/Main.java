@@ -10,6 +10,8 @@ import registrarCursos.ControllerH2;
 import registrarCursos.ModelH2;
 import registrarCursos.ViewH2;
 
+import inscritos_cursos_formacion.*;
+
 import java.awt.BorderLayout;
 import javax.swing.JButton;
 
@@ -107,9 +109,9 @@ public class Main extends JFrame {
 		btnHistoria2.setBounds(205, 104, 177, 30);
 		panel_1.add(btnHistoria2);
 		
-		JButton btnNewButton_3 = new JButton("Inscribirse a un curso");
-		btnNewButton_3.setBounds(36, 144, 161, 30);
-		panel_1.add(btnNewButton_3);
+		JButton btnHistoriaInscritos = new JButton("Inscritos Cursos Formación");
+		btnHistoriaInscritos.setBounds(36, 144, 161, 30);
+		panel_1.add(btnHistoriaInscritos);
 		
 		JButton btnNewButton_4 = new JButton("Visualizar inscritos curso");
 		btnNewButton_4.setBounds(205, 184, 177, 30);
@@ -152,10 +154,17 @@ public class Main extends JFrame {
 			}
 		});
 		
-		btnHistoria2.addActionListener(new ActionListener() { //NOSONAR codigo autogenerado
+		btnHistoria2.addActionListener(new ActionListener() { 
 			public void actionPerformed(ActionEvent e) {
 				ControllerH2 controllerH2=new ControllerH2(new ModelH2(), new ViewH2());
 				controllerH2.initController();
+			}
+		});
+		
+		btnHistoriaInscritos.addActionListener(new ActionListener() { 
+			public void actionPerformed(ActionEvent e) {
+				ControllerInscripciones controllerIns=
+						new ControllerInscripciones(new ModelInscripciones(),new ModelCursos(), new ViewInscripciones());
 			}
 		});
 		
