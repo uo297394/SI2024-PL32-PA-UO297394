@@ -1,4 +1,4 @@
-package AlejandroMartín;
+package visualizar_cursos;
 
 import java.awt.EventQueue;
 

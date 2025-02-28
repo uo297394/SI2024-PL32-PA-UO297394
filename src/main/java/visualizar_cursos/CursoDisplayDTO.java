@@ -1,4 +1,4 @@
-package AlejandroMartín;
+package visualizar_cursos;
 
 public class CursoDisplayDTO {
     private String titulo_curso;

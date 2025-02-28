@@ -7,9 +7,10 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import java.awt.BorderLayout;
 import javax.swing.JButton;
-import AlejandroMartín.*;
+
 import registrar_colegiado.*;
 import util.Database;
+import visualizar_cursos.*;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
