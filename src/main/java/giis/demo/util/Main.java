@@ -103,7 +103,7 @@ public class Main extends JFrame {
 		btnSoliColeg.setBounds(413, 64, 177, 30);
 		panel_1.add(btnSoliColeg);
 		
-		JButton btnHistoria2 = new JButton("Apertura curso");
+		JButton btnHistoria2 = new JButton("Registrar Curso (Historia 2)");
 		btnHistoria2.setBounds(205, 104, 177, 30);
 		panel_1.add(btnHistoria2);
 		
