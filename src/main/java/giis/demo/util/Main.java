@@ -5,6 +5,11 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import registrarCursos.ControllerH2;
+import registrarCursos.ModelH2;
+import registrarCursos.ViewH2;
+
 import java.awt.BorderLayout;
 import javax.swing.JButton;
 
@@ -98,9 +103,9 @@ public class Main extends JFrame {
 		btnSoliColeg.setBounds(413, 64, 177, 30);
 		panel_1.add(btnSoliColeg);
 		
-		JButton btnNewButton_2 = new JButton("Apertura curso");
-		btnNewButton_2.setBounds(205, 104, 177, 30);
-		panel_1.add(btnNewButton_2);
+		JButton btnHistoria2 = new JButton("Apertura curso");
+		btnHistoria2.setBounds(205, 104, 177, 30);
+		panel_1.add(btnHistoria2);
 		
 		JButton btnNewButton_3 = new JButton("Inscribirse a un curso");
 		btnNewButton_3.setBounds(36, 144, 161, 30);
@@ -146,6 +151,14 @@ public class Main extends JFrame {
 				controller.initController();
 			}
 		});
+		
+		btnHistoria2.addActionListener(new ActionListener() { //NOSONAR codigo autogenerado
+			public void actionPerformed(ActionEvent e) {
+				ControllerH2 controllerH2=new ControllerH2(new ModelH2(), new ViewH2());
+				controllerH2.initController();
+			}
+		});
+		
 		btnSoliColeg.addActionListener(new ActionListener() { //NOSONAR codigo autogenerado
 			public void actionPerformed(ActionEvent e) {
 				 Registrar_colegiadoVista vcolegiado=new Registrar_colegiadoVista();
