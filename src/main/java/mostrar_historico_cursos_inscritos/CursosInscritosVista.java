@@ -5,6 +5,7 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+import javax.swing.table.TableModel;
 import javax.swing.JTable;
 import javax.swing.JButton;
 import java.awt.Color;
@@ -75,4 +76,9 @@ public class CursosInscritosVista {
 	public String getIdColegiado() {
 		return this.numero_colegiado.getText();
 	}
-}
+	public void setTablaCursos(TableModel t) {
+		this.tablaCursos.setModel(t);
+	}
+
+	}
+

@@ -4,11 +4,12 @@ public class CursosInscritosDTO {
 private String titulo, fechaInicio,fechaFin, estado;
 private int horas;
 public CursosInscritosDTO() {}
-public CursosInscritosDTO(String titulo, String fechaInicio, String fechaFin, String estado) {
+public CursosInscritosDTO(String titulo, String fechaInicio, String fechaFin, String estado, int horas) {
 	this.titulo=titulo;
 	this.fechaInicio=fechaInicio;
 	this.fechaFin=fechaFin;
 	this.estado=estado;	
+	this.horas=horas;
 }
 public String getTitulo() {
 	return titulo;
