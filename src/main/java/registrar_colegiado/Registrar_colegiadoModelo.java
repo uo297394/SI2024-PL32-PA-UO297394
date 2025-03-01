@@ -13,15 +13,15 @@ import javax.swing.JTextField;
 public class Registrar_colegiadoModelo {
 	//Creamos una base de datos y realizamos un insert en ella con los valores de la tabla de Colegiados que el controlador nos pasará
 	private Database db=new Database();
-	public static final String registrar_colegiado="INSERT INTO Colegiados (id, nombre, apellido, DNI, direccion, fecha_nacimiento, numero_cuenta, banco, precolegiados, estado_solicitud, fecha_solicitud, titulacion)\r\n"
-			+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) ";
+	public static final String registrar_colegiado="INSERT INTO Colegiados (id, nombre, apellido, DNI, direccion, fecha_nacimiento, numero_cuenta, banco, precolegiados, estado_solicitud, fecha_solicitud, titulacion, telefono, correo)\r\n"
+			+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) ";
 	public  void registro(String nombre,String apellidos,String DNI, String direccion, 
 			String fecha_nacimiento, int numero_cuenta, String banco, 
-			boolean precolegiados, String estado, String fecha_solicitud, String titulacion) {
+			boolean precolegiados, String estado, String fecha_solicitud, String titulacion, String telefono, String correo) {
 		int pre=0;
 		int id=ultimoID();
 		if(precolegiados==true) {pre=1;}
-			db.executeUpdate(registrar_colegiado,id, nombre,apellidos, DNI, direccion, fecha_nacimiento, numero_cuenta, banco, pre,estado,fecha_solicitud, titulacion);
+			db.executeUpdate(registrar_colegiado,id, nombre,apellidos, DNI, direccion, fecha_nacimiento, numero_cuenta, banco, pre,estado,fecha_solicitud, titulacion, telefono, correo);
 	}
 //Esta función se encarga de asignar un id al próximo coelgiado, el cual es asigna de manera secuencial e incremental
 	public int ultimoID() {
