@@ -11,6 +11,7 @@ import javax.swing.JButton;
 import registrar_colegiado.*;
 import util.Database;
 import visualizar_cursos.*;
+import inscribirse_peritos.*;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -114,9 +115,9 @@ public class Main extends JFrame {
 		btnNewButton_5.setBounds(36, 64, 159, 30);
 		panel_1.add(btnNewButton_5);
 		
-		JButton btnNewButton_6 = new JButton("Inscribirse en peritos");
-		btnNewButton_6.setBounds(36, 104, 159, 30);
-		panel_1.add(btnNewButton_6);
+		JButton btnInscribirserPeritos = new JButton("Inscribirse en peritos");
+		btnInscribirserPeritos.setBounds(36, 104, 159, 30);
+		panel_1.add(btnInscribirserPeritos);
 		
 		JLabel lblNewLabel_2 = new JLabel("COLEGIADO");
 		lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
@@ -153,6 +154,14 @@ public class Main extends JFrame {
 				Registrar_colegiadoControlador controller=new Registrar_colegiadoControlador(vcolegiado,
 						mcolegiado);
 				vcolegiado.getFrame().setVisible(true);
+				
+			}
+		});
+		btnInscribirserPeritos.addActionListener(new ActionListener() { //NOSONAR codigo autogenerado
+			public void actionPerformed(ActionEvent e) {
+				Controller_inscribirse_peritos controller=new Controller_inscribirse_peritos(new Model_inscribirse_peritos(), 
+						new View_inscribirse_peritos());
+				controller.initController();
 				
 			}
 		});
