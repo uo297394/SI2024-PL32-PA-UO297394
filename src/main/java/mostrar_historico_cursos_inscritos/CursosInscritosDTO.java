@@ -3,13 +3,20 @@ package mostrar_historico_cursos_inscritos;
 public class CursosInscritosDTO {
 private String titulo_curso, fecha_inicio_curso,fecha_fin_curso;
 private int duracion;
+private String estado;
 public CursosInscritosDTO() {}
-public CursosInscritosDTO(String titulo, String fechaInicio, String fechaFin,  int horas) {
+public CursosInscritosDTO(String titulo, String fechaInicio, String fechaFin,  int horas, String estado) {
 	this.titulo_curso=titulo;
 	this.fecha_inicio_curso=fechaInicio;
 	this.fecha_fin_curso=fechaFin;
-	//this.estado=estado;	
+	this.estado=estado;	
 	this.duracion=horas;
+}
+public String getEstado() {
+	return estado;
+}
+public void setEstado(String estado) {
+	this.estado = estado;
 }
 public String getTitulo_curso() {
 	return titulo_curso;

@@ -9,9 +9,7 @@ import util.Database;
 public class CursosInscritosModelo {
 	private Database db=new Database();
 	 public List<CursosInscritosDTO> getListaTodosCursos(int numeroColegiado) { 
-		 String sql = "SELECT i.idColegiado, c.titulo_curso, c.fecha_inicio_curso, c.fecha_fin_curso, c.duracion\r\n"
-	        		+ "FROM Inscripciones i\r\n"
-	        		+ "JOIN Cursos c ON i.idCurso = c.id WHERE i.idColegiado=?"; 
+		 String sql = "SELECT i.idColegiado, c.titulo_curso, c.fecha_inicio_curso, c.fecha_fin_curso, c.duracion, CASE WHEN c.fecha_inicio_curso IS NOT NULL AND c.fecha_fin_curso IS NOT NULL THEN 'Abierto' ELSE 'Cerrado' END AS estado FROM Inscripciones i JOIN Cursos c ON i.idCurso = c.id WHERE i.idColegiado = ? ";
 		 //String sql = "SELECT titulo_curso, fecha_inicio_curso, fecha_fin_curso, duracion FROM Cursos c JOIN Inscripciones i ON i.idColegiado=?";
 	        List<CursosInscritosDTO> listaCursos=db.executeQueryPojo(CursosInscritosDTO.class, sql, numeroColegiado);
 	        return listaCursos;
@@ -34,4 +32,6 @@ public void EstaColegiado(int id) {
 	if(numerocoleg==0) {
 		throw new ApplicationException("Número de colegiado incorrecto:");
 	}}
+
+
 }

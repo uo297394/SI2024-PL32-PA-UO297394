@@ -77,19 +77,14 @@ public class CursosInscritosVista {
 		tablaCursos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		
 		tablaCursos.setBounds(10, 133, 345, 128);
-		//String[] columnNames = {"Título", "Fecha de Inicio", "Fecha de Fin", "Duración (horas)"};
-		//DefaultTableModel model = new DefaultTableModel(columnNames, 0);
-		//tablaCursos.setModel(model);
 		tablaCursos.setDefaultEditor(Object.class, null); 
-		//frame.getContentPane().add(tablaCursos);
-		
 		 mostrarCursos = new JButton("Mostrar cursos");
 		mostrarCursos.setBackground(Color.CYAN);
 		mostrarCursos.setBounds(140, 73, 127, 21);
 		frame.getContentPane().add(mostrarCursos);
 		
 		 totalCursos = new JTextArea();
-		totalCursos.setBounds(365, 145, 162, 91);
+		totalCursos.setBounds(20, 184, 162, 91);
 		frame.getContentPane().add(totalCursos);
 	}
 	public JTable getTablaCursos() {

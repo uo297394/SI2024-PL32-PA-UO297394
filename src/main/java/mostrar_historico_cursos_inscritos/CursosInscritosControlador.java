@@ -25,8 +25,8 @@ public CursosInscritosControlador(CursosInscritosVista v, CursosInscritosModelo 
 public void RellenaTabla(int numeroColegiado) {
 	
 	List<CursosInscritosDTO> listaCursos=this.m.getListaTodosCursos(numeroColegiado);
-	String[] columnas= {"titulo_curso", "fecha_inicio_curso", "fecha_fin_curso", "duracion"};
-	String [] ticolumnas= {"titulo", "fechaInicio", "fechaFin","duracion"};
+	String[] columnas= {"titulo_curso", "fecha_inicio_curso", "fecha_fin_curso", "duracion", "estado"};
+	String [] ticolumnas= {"titulo", "fechaInicio", "fechaFin","duracion", "estado"};
 	TableModel tablaCursos = SwingUtil.getTableModelFromPojos(listaCursos, columnas);
 	
 	v.setTablaCursos(tablaCursos);
