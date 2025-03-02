@@ -3,8 +3,6 @@ package mostrar_historico_cursos_inscritos;
 import java.util.List;
 
 import javax.swing.JOptionPane;
-
-import registrarCursos.CursoDisplayDTO;
 import util.ApplicationException;
 import util.Database;
 
