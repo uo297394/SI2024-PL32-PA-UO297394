@@ -25,8 +25,10 @@ public class View_inscribirse_peritos extends JFrame {
 	private JTextField textField;
 	private JTable tableDatosPersonales;
 	private JButton btnMostrarDatos;
+	private JTextArea textArea;
 	private  JSpinner.DateEditor añoColegiacion;
-
+	private JSpinner spinner;
+	private JButton btnEnviarSoli;
 	/**
 	 * Launch the application.
 	 */
@@ -68,7 +70,7 @@ public class View_inscribirse_peritos extends JFrame {
 		panel.add(label);
 		
 		JLabel lblNewLabel_1 = new JLabel("Número de colegiado");
-		lblNewLabel_1.setBounds(10, 2, 117, 17);
+		lblNewLabel_1.setBounds(10, 2, 182, 17);
 		panel.add(lblNewLabel_1);
 		
 		textField = new JTextField();
@@ -84,7 +86,7 @@ public class View_inscribirse_peritos extends JFrame {
 		
 		
 		btnMostrarDatos = new JButton("Mostrar datos personales");
-		btnMostrarDatos.setBounds(10, 57, 149, 21);
+		btnMostrarDatos.setBounds(10, 57, 182, 21);
 		panel.add(btnMostrarDatos);
 		
 		JScrollPane scrollPane = new JScrollPane();
@@ -99,9 +101,9 @@ public class View_inscribirse_peritos extends JFrame {
 		lblNewLabel.setBounds(10, 184, 621, 17);
 		panel.add(lblNewLabel);
 		
-		SpinnerDateModel dateModel = new SpinnerDateModel(new Date(), null, null, java.util.Calendar.DAY_OF_MONTH);
-		JSpinner spinner = new JSpinner(dateModel);
-		añoColegiacion = new JSpinner.DateEditor(spinner, "yyy");
+		SpinnerDateModel dateModel = new SpinnerDateModel(new Date(), null, null, java.util.Calendar.YEAR);
+	    spinner = new JSpinner(dateModel);
+		añoColegiacion = new JSpinner.DateEditor(spinner, "yyyy");
         spinner.setEditor(añoColegiacion);
 		spinner.setBounds(10, 212, 149, 20);
 		panel.add(spinner);
@@ -110,13 +112,13 @@ public class View_inscribirse_peritos extends JFrame {
 		lblNewLabel_3.setBounds(10, 242, 631, 17);
 		panel.add(lblNewLabel_3);
 		
-		JTextArea textArea = new JTextArea();
+		textArea = new JTextArea();
 		textArea.setBounds(10, 268, 621, 56);
 		panel.add(textArea);
 		
-		JButton btnNewButton = new JButton("Enviar la solicitud");
-		btnNewButton.setBounds(222, 334, 159, 34);
-		panel.add(btnNewButton);
+		btnEnviarSoli = new JButton("Enviar la solicitud");
+		btnEnviarSoli.setBounds(222, 334, 159, 34);
+		panel.add(btnEnviarSoli);
 		
 		
 	}
@@ -124,4 +126,7 @@ public class View_inscribirse_peritos extends JFrame {
 	public JTable getTableDatosPersonales() { return tableDatosPersonales;}
 	public JTextField getId() { return textField;}
 	public JButton getBotonMostrarDatos() { return btnMostrarDatos;}
+	public JTextArea getAreaTexto() {return textArea;}
+	public JSpinner getSpinner() {return spinner;}
+	public JButton getBotonSoli() { return btnEnviarSoli;}
 }
