@@ -41,8 +41,8 @@ public class ControllerInscripciones {
     public void loadInscripciones(int idCurso) {
         List<InscripcionDisplayDTO> inscripciones = modelInscripciones.getInscripcionesPorCurso(idCurso);
         TableModel tmodel = SwingUtil.getTableModelFromPojos(inscripciones, new String[] {
-            "nombre", "apellido", "DNI", "estado"
-        });
+            "nombre", "apellido", "DNI", "telefono", "correo", "estado"});
+        
         view.getTable().setModel(tmodel);
         SwingUtil.autoAdjustColumns(view.getTable());
         view.getLblTotal().setText("Total inscritos: " + inscripciones.size());

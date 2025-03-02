@@ -5,6 +5,8 @@ public class InscripcionDisplayDTO {
     private String apellido;
     private String DNI;
     private String estado;
+    private String telefono;
+    private String correo;
 
     // Getters y setters
     public String getNombre() {
@@ -31,4 +33,16 @@ public class InscripcionDisplayDTO {
     public void setEstado(String estado) {
         this.estado = estado;
     }
+	public String getTelefono() {
+		return telefono;
+	}
+	public void setTelefono(String telefono) {
+		this.telefono = telefono;
+	}
+	public String getCorreo() {
+		return correo;
+	}
+	public void setCorreo(String correo) {
+		this.correo = correo;
+	}
 }

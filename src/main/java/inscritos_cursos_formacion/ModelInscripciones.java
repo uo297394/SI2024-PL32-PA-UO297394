@@ -11,7 +11,7 @@ public class ModelInscripciones {
      * Se unen Colegiados e Inscripciones para obtener el nombre, apellido, DNI y estado_solicitud.
      */
     public List<InscripcionDisplayDTO> getInscripcionesPorCurso(int idCurso) {
-        String sql = "SELECT c.nombre, c.apellido, c.DNI, c.estado_solicitud AS estado " +
+        String sql = "SELECT c.nombre, c.apellido, c.DNI, c.telefono, c.correo, c.estado_solicitud AS estado " +
                      "FROM Colegiados c " +
                      "JOIN Inscripciones i ON c.id = i.idColegiado " +
                      "WHERE i.idCurso = ?";

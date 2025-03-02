@@ -21,6 +21,10 @@ import javax.swing.border.BevelBorder;
 import javax.swing.SwingConstants;
 import aperturaInscripciones.*;
 import inscribirColegiado.*;
+import inscritos_cursos_formacion.ControllerInscripciones;
+import inscritos_cursos_formacion.ModelCursos;
+import inscritos_cursos_formacion.ModelInscripciones;
+import inscritos_cursos_formacion.ViewInscripciones;
 
 public class SwingMain extends JFrame {
 
@@ -100,7 +104,7 @@ public class SwingMain extends JFrame {
 		btnSoliColeg.setBounds(413, 64, 177, 30);
 		panel_1.add(btnSoliColeg);
 		
-		JButton btnHistoria2 = new JButton("Registrar Curso (Historia 2)");
+		JButton btnHistoria2 = new JButton("Registrar Curso");
 		btnHistoria2.setBounds(205, 104, 177, 30);
 		panel_1.add(btnHistoria2);
 		
@@ -108,9 +112,9 @@ public class SwingMain extends JFrame {
 		btnInscColeg.setBounds(36, 144, 161, 30);
 		panel_1.add(btnInscColeg);
 		
-		JButton btnNewButton_4 = new JButton("Visualizar inscritos curso");
-		btnNewButton_4.setBounds(205, 184, 177, 30);
-		panel_1.add(btnNewButton_4);
+		JButton btnInscritosCursos = new JButton("Visualizar Inscritos");
+		btnInscritosCursos.setBounds(205, 184, 177, 30);
+		panel_1.add(btnInscritosCursos);
 		
 		JButton btnNewButton_5 = new JButton("Mostrar mis cursos");
 		btnNewButton_5.setBounds(36, 64, 159, 30);
@@ -146,6 +150,13 @@ public class SwingMain extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				ControllerH3 controller=new ControllerH3(new ModelH3(), new ViewH3());
 				controller.initController();
+			}
+		});
+		
+		btnInscritosCursos.addActionListener(new ActionListener() { //NOSONAR codigo autogenerado
+			public void actionPerformed(ActionEvent e) {
+				ControllerInscripciones controller=new ControllerInscripciones
+						(new ModelInscripciones(), new ModelCursos(), new ViewInscripciones());
 			}
 		});
 		

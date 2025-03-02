@@ -23,13 +23,28 @@ public class ControllerH2 {
     }
 
     private void registrarCurso() {
-        //try {
             String titulo = view.getTxtTitulo().getText();
             String descripcion = view.getTxtDescripcion().getText();
             String fechaInicio = view.getTxtFechaInicio().getText();
             String fechaFin = view.getTxtFechaFin().getText();
-            int duracion = Integer.parseInt(view.getTxtDuracion().getText());
-            int maxPlazas = Integer.parseInt(view.getTxtMaxPlazas().getText());
+            int duracion;
+            
+            try {
+                duracion = Integer.parseInt(view.getTxtDuracion().getText());
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(view, "El campo 'Duración' debe ser un número entero.", "Error de entrada", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            
+            int maxPlazas;
+            
+            try {
+                maxPlazas = Integer.parseInt(view.getTxtMaxPlazas().getText());
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(view, "El campo 'Máximo de Plazas' debe ser un número entero.", "Error de entrada", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            
             double cuota = Double.parseDouble(view.getTxtCuota().getText());
             String colectivo = (String) view.getComboColectivos().getSelectedItem();
 
@@ -49,8 +64,5 @@ public class ControllerH2 {
                              "Estado: planificado";
             JOptionPane.showMessageDialog(view, mensaje, "Confirmación", JOptionPane.INFORMATION_MESSAGE);
             view.dispose();
-        //} //catch (Exception ex) {
-            //JOptionPane.showMessageDialog(view, "Error al registrar el curso: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-        //}
     }
 }

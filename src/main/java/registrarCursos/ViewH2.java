@@ -1,19 +1,19 @@
 package registrarCursos;
 
 import javax.swing.*;
+import javax.swing.JSpinner.DateEditor;
+import javax.swing.text.MaskFormatter;
+
 import java.awt.*;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.text.NumberFormat;
-import javax.swing.text.DateFormatter;
-import javax.swing.text.NumberFormatter;
+import java.text.ParseException;
 
 public class ViewH2 extends JFrame {
     private JTextField txtTitulo;
     private JTextArea txtDescripcion;
     private JTextField txtFechaInicio;
+    private DateEditor date;
     private JTextField txtFechaFin;
     private JTextField txtDuracion;
     private JTextField txtMaxPlazas;
@@ -40,12 +40,26 @@ public class ViewH2 extends JFrame {
         txtDescripcion = new JTextArea(3, 20);
         panel.add(new JScrollPane(txtDescripcion));
         
+        //FechaInicio
         panel.add(new JLabel("Fecha de Inicio (Año-Mes-Día):"));
-        txtFechaInicio = new JTextField();
+        try {
+            MaskFormatter dateMask = new MaskFormatter("####-##-##");
+            txtFechaInicio = new JFormattedTextField(dateMask);
+            txtFechaInicio.setColumns(8);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         panel.add(txtFechaInicio);
-
+        
+        //FechaFin
         panel.add(new JLabel("Fecha de Fin (Año-Mes-Día):"));
-        txtFechaFin = new JTextField();
+        try {
+            MaskFormatter dateMask = new MaskFormatter("####-##-##");
+            txtFechaFin = new JFormattedTextField(dateMask);
+            txtFechaFin.setColumns(8);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         panel.add(txtFechaFin);
 
         panel.add(new JLabel("Duración (horas):"));
