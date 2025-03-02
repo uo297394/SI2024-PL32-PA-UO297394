@@ -21,6 +21,9 @@ import javax.swing.border.BevelBorder;
 import javax.swing.SwingConstants;
 import aperturaInscripciones.*;
 import inscribirColegiado.*;
+import inscribirse_peritos.Controller_inscribirse_peritos;
+import inscribirse_peritos.Model_inscribirse_peritos;
+import inscribirse_peritos.View_inscribirse_peritos;
 import inscritos_cursos_formacion.ControllerInscripciones;
 import inscritos_cursos_formacion.ModelCursos;
 import inscritos_cursos_formacion.ModelInscripciones;
@@ -120,9 +123,9 @@ public class SwingMain extends JFrame {
 		btnNewButton_5.setBounds(36, 64, 159, 30);
 		panel_1.add(btnNewButton_5);
 		
-		JButton btnNewButton_6 = new JButton("Inscribirse en peritos");
-		btnNewButton_6.setBounds(36, 104, 159, 30);
-		panel_1.add(btnNewButton_6);
+		JButton btnInscribirsePeritos = new JButton("Inscribirse en peritos");
+		btnInscribirsePeritos.setBounds(36, 104, 159, 30);
+		panel_1.add(btnInscribirsePeritos);
 		
 		JLabel lblNewLabel_2 = new JLabel("COLEGIADO");
 		lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
@@ -188,6 +191,14 @@ public class SwingMain extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				InscribirColegiadoController controladorInscColeg=new InscribirColegiadoController(new InscribirColegiadoModel(), new InscribirColegiadoView());
 				controladorInscColeg.initController();
+			}
+		});
+		btnInscribirsePeritos.addActionListener(new ActionListener() { //NOSONAR codigo autogenerado
+			public void actionPerformed(ActionEvent e) {
+				Controller_inscribirse_peritos controller=new Controller_inscribirse_peritos(new Model_inscribirse_peritos(), 
+						new View_inscribirse_peritos());
+				controller.initController();
+				
 			}
 		});
 	}
