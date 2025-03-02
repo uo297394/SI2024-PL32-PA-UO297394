@@ -32,6 +32,8 @@ public class Registrar_colegiadoVista {
 	private JTextField numero_cuenta;
 	private JTextField banco;
 	private  JSpinner.DateEditor nacimiento_colegiado;
+	private JTextField telefono;
+	private JTextField correo;
 	/**
 	 * Launch the application.
 	 */
@@ -68,51 +70,51 @@ public class Registrar_colegiadoVista {
 		frame.getContentPane().add(panel, BorderLayout.CENTER);
 		
 		nombre_colegiado = new JTextField();
-		nombre_colegiado.setBounds(23, 57, 96, 19);
+		nombre_colegiado.setBounds(25, 35, 96, 19);
 		frame.getContentPane().add(nombre_colegiado);
 		nombre_colegiado.setColumns(10);
 		
 		JLabel la = new JLabel("Nombre:");
-		la.setBounds(23, 34, 80, 13);
+		la.setBounds(25, 23, 80, 13);
 		frame.getContentPane().add(la);
 		
 		lblNewLabel = new JLabel("Apellidos:");
-		lblNewLabel.setBounds(244, 34, 86, 13);
+		lblNewLabel.setBounds(210, 23, 86, 13);
 		frame.getContentPane().add(lblNewLabel);
 		
 		apellidos_colegiado = new JTextField();
-		apellidos_colegiado.setBounds(210, 57, 174, 19);
+		apellidos_colegiado.setBounds(208, 35, 174, 19);
 		frame.getContentPane().add(apellidos_colegiado);
 		apellidos_colegiado.setColumns(10);
 		
 		lblNewLabel_1 = new JLabel("DNI:");
-		lblNewLabel_1.setBounds(33, 86, 45, 13);
+		lblNewLabel_1.setBounds(21, 64, 45, 13);
 		frame.getContentPane().add(lblNewLabel_1);
 		
 		DNI_colegiado = new JTextField();
-		DNI_colegiado.setBounds(23, 109, 132, 19);
+		DNI_colegiado.setBounds(25, 76, 132, 19);
 		frame.getContentPane().add(DNI_colegiado);
 		DNI_colegiado.setColumns(10);
 		
 		lblNewLabel_2 = new JLabel("Dirección");
-		lblNewLabel_2.setBounds(244, 86, 86, 13);
+		lblNewLabel_2.setBounds(210, 64, 86, 13);
 		frame.getContentPane().add(lblNewLabel_2);
 		
 		direccion_colegiado = new JTextField();
-		direccion_colegiado.setBounds(210, 109, 161, 19);
+		direccion_colegiado.setBounds(210, 76, 161, 19);
 		frame.getContentPane().add(direccion_colegiado);
 		direccion_colegiado.setColumns(10);
 		
 		lblNewLabel_3 = new JLabel("Registrar colegiado");
-		lblNewLabel_3.setBounds(146, 10, 225, 13);
+		lblNewLabel_3.setBounds(146, 0, 225, 13);
 		frame.getContentPane().add(lblNewLabel_3);
 		
 		lblNewLabel_4 = new JLabel("Titulación");
-		lblNewLabel_4.setBounds(33, 138, 96, 13);
+		lblNewLabel_4.setBounds(25, 105, 96, 13);
 		frame.getContentPane().add(lblNewLabel_4);
 		
 		titulación_colegiado = new JTextField();
-		titulación_colegiado.setBounds(25, 161, 161, 19);
+		titulación_colegiado.setBounds(25, 120, 161, 19);
 		frame.getContentPane().add(titulación_colegiado);
 		titulación_colegiado.setColumns(10);
 		
@@ -121,20 +123,20 @@ public class Registrar_colegiadoVista {
 		frame.getContentPane().add(registrar_colegiado);
 	        
 	        JLabel lblNewLabel_6 = new JLabel("Número de cuenta:");
-	        lblNewLabel_6.setBounds(33, 190, 122, 13);
+	        lblNewLabel_6.setBounds(25, 149, 122, 13);
 	        frame.getContentPane().add(lblNewLabel_6);
 	        
 	        numero_cuenta = new JTextField();
-	        numero_cuenta.setBounds(23, 210, 96, 19);
+	        numero_cuenta.setBounds(25, 172, 96, 19);
 	        frame.getContentPane().add(numero_cuenta);
 	        numero_cuenta.setColumns(10);
 	        
 	        JLabel lblNewLabel_7 = new JLabel("Banco:");
-	        lblNewLabel_7.setBounds(220, 190, 70, 13);
+	        lblNewLabel_7.setBounds(220, 149, 70, 13);
 	        frame.getContentPane().add(lblNewLabel_7);
 	        
 	        banco = new JTextField();
-	        banco.setBounds(210, 210, 96, 19);
+	        banco.setBounds(210, 172, 96, 19);
 	        frame.getContentPane().add(banco);
 	        banco.setColumns(10);
 	        SpinnerDateModel dateModel = new SpinnerDateModel(new Date(), null, null, java.util.Calendar.DAY_OF_MONTH);
@@ -143,13 +145,31 @@ public class Registrar_colegiadoVista {
 	        // Formato de fecha en el spinner
 	        nacimiento_colegiado = new JSpinner.DateEditor(dateSpinner, "yyy/MM/dd");
 	        dateSpinner.setEditor(nacimiento_colegiado);
-	        dateSpinner.setBounds(210, 161, 161, 19);
+	        dateSpinner.setBounds(210, 120, 161, 19);
 	        frame.getContentPane().add(new JLabel("Selecciona una fecha:"));
 	        frame.getContentPane().add(dateSpinner);
 	        
 	        JLabel lblNewLabel_5 = new JLabel("Fecha de nacimiento");
-	        lblNewLabel_5.setBounds(233, 138, 114, 13);
+	        lblNewLabel_5.setBounds(210, 105, 172, 13);
 	        frame.getContentPane().add(lblNewLabel_5);
+	        
+	        JLabel lblNewLabel_8 = new JLabel("Numero de telefono:");
+	        lblNewLabel_8.setBounds(25, 201, 130, 13);
+	        frame.getContentPane().add(lblNewLabel_8);
+	        
+	        telefono = new JTextField();
+	        telefono.setBounds(25, 213, 114, 19);
+	        frame.getContentPane().add(telefono);
+	        telefono.setColumns(10);
+	        
+	        JLabel lblNewLabel_9 = new JLabel("Correo electrónico:");
+	        lblNewLabel_9.setBounds(210, 201, 114, 13);
+	        frame.getContentPane().add(lblNewLabel_9);
+	        
+	        correo = new JTextField();
+	        correo.setBounds(210, 213, 96, 19);
+	        frame.getContentPane().add(correo);
+	        correo.setColumns(10);
 	        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 	      
 
@@ -218,6 +238,12 @@ public String getFecha() {
 }
 public JSpinner.DateEditor getFechaChooser() {
 	return this.nacimiento_colegiado;
+}
+public String getCorreo() {
+	return this.correo.getText();
+}
+public String getTelefono() {
+	return this.telefono.getText();
 }
 }
 
