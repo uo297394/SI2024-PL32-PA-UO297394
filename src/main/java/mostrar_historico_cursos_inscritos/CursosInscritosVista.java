@@ -15,6 +15,7 @@ public class CursosInscritosVista {
 	private JFrame frame;
 	private JTextField numero_colegiado;
 	private JTable tablaCursos;
+	private JButton mostrarCursos;
 
 	/**
 	 * Launch the application.
@@ -65,10 +66,10 @@ public class CursosInscritosVista {
 		tablaCursos.setBounds(10, 133, 289, 87);
 		frame.getContentPane().add(tablaCursos);
 		
-		JButton Mostrar_cursos = new JButton("Mostrar cursos");
-		Mostrar_cursos.setBackground(Color.CYAN);
-		Mostrar_cursos.setBounds(142, 46, 127, 21);
-		frame.getContentPane().add(Mostrar_cursos);
+		 mostrarCursos = new JButton("Mostrar cursos");
+		mostrarCursos.setBackground(Color.CYAN);
+		mostrarCursos.setBounds(142, 46, 127, 21);
+		frame.getContentPane().add(mostrarCursos);
 	}
 	public JTable getTablaCursos() {
 		return this.tablaCursos;
@@ -78,6 +79,9 @@ public class CursosInscritosVista {
 	}
 	public void setTablaCursos(TableModel t) {
 		this.tablaCursos.setModel(t);
+	}
+	public JButton getBoton() {
+		return this.mostrarCursos;
 	}
 
 	}
