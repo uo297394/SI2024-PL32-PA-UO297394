@@ -26,9 +26,17 @@ public void RellenaTabla(int numeroColegiado) {
 	
 	List<CursosInscritosDTO> listaCursos=this.m.getListaTodosCursos(numeroColegiado);
 	String[] columnas= {"titulo_curso", "fecha_inicio_curso", "fecha_fin_curso", "duracion"};
+	String [] ticolumnas= {"titulo", "fechaInicio", "fechaFin","duracion"};
 	TableModel tablaCursos = SwingUtil.getTableModelFromPojos(listaCursos, columnas);
-	this.v.setTablaCursos(tablaCursos);
+	
+	v.setTablaCursos(tablaCursos);
+	for(int i=0;i<ticolumnas.length;i++) {
+	this.v.getTablaCursos().getColumnModel().getColumn(i).setHeaderValue(ticolumnas[i]);
+}
+
 	SwingUtil.autoAdjustColumns(v.getTablaCursos());
+	 this.v.getTablaCursos().getTableHeader().repaint();
+
 	
 }
 public void metodos() {

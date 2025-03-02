@@ -4,11 +4,14 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.JTable;
 import javax.swing.JButton;
+
+import java.awt.BorderLayout;
 import java.awt.Color;
 import javax.swing.JTextArea;
 import javax.swing.ListSelectionModel;
@@ -65,22 +68,20 @@ public class CursosInscritosVista {
 		JLabel lblNewLabel_1 = new JLabel("Histórico de cursos inscritos");
 		lblNewLabel_1.setBounds(179, 10, 184, 13);
 		frame.getContentPane().add(lblNewLabel_1);
-		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(10, 118, 621, 56);
+		frame.getContentPane().add(scrollPane);
 		tablaCursos = new JTable();
+		//frame.getContentPane().add(tablaCursos);
+		scrollPane.setViewportView(tablaCursos);
 		tablaCursos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		tablaCursos.setModel(new DefaultTableModel(
-			new Object[][] {
-			},
-			new String[] {
-				"New column", "New column", "New column", "New column"
-			}
-		));
+		
 		tablaCursos.setBounds(10, 133, 345, 128);
 		//String[] columnNames = {"Título", "Fecha de Inicio", "Fecha de Fin", "Duración (horas)"};
 		//DefaultTableModel model = new DefaultTableModel(columnNames, 0);
 		//tablaCursos.setModel(model);
 		tablaCursos.setDefaultEditor(Object.class, null); 
-		frame.getContentPane().add(tablaCursos);
+		//frame.getContentPane().add(tablaCursos);
 		
 		 mostrarCursos = new JButton("Mostrar cursos");
 		mostrarCursos.setBackground(Color.CYAN);
