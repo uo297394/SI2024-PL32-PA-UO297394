@@ -21,6 +21,13 @@ import javax.swing.border.BevelBorder;
 import javax.swing.SwingConstants;
 import aperturaInscripciones.*;
 import inscribirColegiado.*;
+import inscribirse_peritos.Controller_inscribirse_peritos;
+import inscribirse_peritos.Model_inscribirse_peritos;
+import inscribirse_peritos.View_inscribirse_peritos;
+import inscritos_cursos_formacion.ControllerInscripciones;
+import inscritos_cursos_formacion.ModelCursos;
+import inscritos_cursos_formacion.ModelInscripciones;
+import inscritos_cursos_formacion.ViewInscripciones;
 
 public class SwingMain extends JFrame {
 
@@ -100,7 +107,7 @@ public class SwingMain extends JFrame {
 		btnSoliColeg.setBounds(413, 64, 177, 30);
 		panel_1.add(btnSoliColeg);
 		
-		JButton btnHistoria2 = new JButton("Registrar Curso (Historia 2)");
+		JButton btnHistoria2 = new JButton("Registrar Curso");
 		btnHistoria2.setBounds(205, 104, 177, 30);
 		panel_1.add(btnHistoria2);
 		
@@ -108,17 +115,17 @@ public class SwingMain extends JFrame {
 		btnInscColeg.setBounds(36, 144, 161, 30);
 		panel_1.add(btnInscColeg);
 		
-		JButton btnNewButton_4 = new JButton("Visualizar inscritos curso");
-		btnNewButton_4.setBounds(205, 184, 177, 30);
-		panel_1.add(btnNewButton_4);
+		JButton btnInscritosCursos = new JButton("Visualizar Inscritos");
+		btnInscritosCursos.setBounds(205, 184, 177, 30);
+		panel_1.add(btnInscritosCursos);
 		
 		JButton btnNewButton_5 = new JButton("Mostrar mis cursos");
 		btnNewButton_5.setBounds(36, 64, 159, 30);
 		panel_1.add(btnNewButton_5);
 		
-		JButton btnNewButton_6 = new JButton("Inscribirse en peritos");
-		btnNewButton_6.setBounds(36, 104, 159, 30);
-		panel_1.add(btnNewButton_6);
+		JButton btnInscribirsePeritos = new JButton("Inscribirse en peritos");
+		btnInscribirsePeritos.setBounds(36, 104, 159, 30);
+		panel_1.add(btnInscribirsePeritos);
 		
 		JLabel lblNewLabel_2 = new JLabel("COLEGIADO");
 		lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
@@ -146,6 +153,13 @@ public class SwingMain extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				ControllerH3 controller=new ControllerH3(new ModelH3(), new ViewH3());
 				controller.initController();
+			}
+		});
+		
+		btnInscritosCursos.addActionListener(new ActionListener() { //NOSONAR codigo autogenerado
+			public void actionPerformed(ActionEvent e) {
+				ControllerInscripciones controller=new ControllerInscripciones
+						(new ModelInscripciones(), new ModelCursos(), new ViewInscripciones());
 			}
 		});
 		
@@ -177,6 +191,14 @@ public class SwingMain extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				InscribirColegiadoController controladorInscColeg=new InscribirColegiadoController(new InscribirColegiadoModel(), new InscribirColegiadoView());
 				controladorInscColeg.initController();
+			}
+		});
+		btnInscribirsePeritos.addActionListener(new ActionListener() { //NOSONAR codigo autogenerado
+			public void actionPerformed(ActionEvent e) {
+				Controller_inscribirse_peritos controller=new Controller_inscribirse_peritos(new Model_inscribirse_peritos(), 
+						new View_inscribirse_peritos());
+				controller.initController();
+				
 			}
 		});
 	}
