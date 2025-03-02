@@ -11,6 +11,7 @@ import javax.swing.JTable;
 import javax.swing.JButton;
 import java.awt.Color;
 import javax.swing.JTextArea;
+import javax.swing.ListSelectionModel;
 
 public class CursosInscritosVista {
 
@@ -18,6 +19,7 @@ public class CursosInscritosVista {
 	private JTextField numero_colegiado;
 	private JTable tablaCursos;
 	private JButton mostrarCursos;
+	private JTextArea totalCursos;
 
 	/**
 	 * Launch the application.
@@ -52,11 +54,11 @@ public class CursosInscritosVista {
 		frame.getContentPane().setLayout(null);
 		
 		JLabel lblNewLabel = new JLabel("Nº colegiado:");
-		lblNewLabel.setBounds(10, 24, 93, 13);
+		lblNewLabel.setBounds(10, 51, 93, 13);
 		frame.getContentPane().add(lblNewLabel);
 		
 		numero_colegiado = new JTextField();
-		numero_colegiado.setBounds(7, 47, 96, 19);
+		numero_colegiado.setBounds(7, 74, 96, 19);
 		frame.getContentPane().add(numero_colegiado);
 		numero_colegiado.setColumns(10);
 		
@@ -65,19 +67,28 @@ public class CursosInscritosVista {
 		frame.getContentPane().add(lblNewLabel_1);
 		
 		tablaCursos = new JTable();
-		tablaCursos.setBounds(10, 133, 367, 128);
-		String[] columnNames = {"Título", "Fecha de Inicio", "Fecha de Fin", "Duración (horas)"};
-		DefaultTableModel model = new DefaultTableModel(columnNames, 0);
-		tablaCursos.setModel(model);
+		tablaCursos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		tablaCursos.setModel(new DefaultTableModel(
+			new Object[][] {
+			},
+			new String[] {
+				"New column", "New column", "New column", "New column"
+			}
+		));
+		tablaCursos.setBounds(10, 133, 327, 128);
+		//String[] columnNames = {"Título", "Fecha de Inicio", "Fecha de Fin", "Duración (horas)"};
+		//DefaultTableModel model = new DefaultTableModel(columnNames, 0);
+		//tablaCursos.setModel(model);
+		tablaCursos.setDefaultEditor(Object.class, null); 
 		frame.getContentPane().add(tablaCursos);
 		
 		 mostrarCursos = new JButton("Mostrar cursos");
 		mostrarCursos.setBackground(Color.CYAN);
-		mostrarCursos.setBounds(142, 46, 127, 21);
+		mostrarCursos.setBounds(140, 73, 127, 21);
 		frame.getContentPane().add(mostrarCursos);
 		
-		JTextArea totalCursos = new JTextArea();
-		totalCursos.setBounds(414, 150, 113, 91);
+		 totalCursos = new JTextArea();
+		totalCursos.setBounds(356, 145, 171, 91);
 		frame.getContentPane().add(totalCursos);
 	}
 	public JTable getTablaCursos() {
@@ -94,6 +105,9 @@ public class CursosInscritosVista {
 	}
 	public JFrame getFrame() {
 		return this.frame;
+	}
+	public void setTotalCursos(String c) {
+	this.totalCursos.setText(c);
 	}
 }
 
