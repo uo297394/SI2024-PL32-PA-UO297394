@@ -1,45 +1,39 @@
 package mostrar_historico_cursos_inscritos;
 
 public class CursosInscritosDTO {
-private String titulo, fechaInicio,fechaFin, estado;
-private int horas;
+private String titulo_curso, fecha_inicio_curso,fecha_fin_curso;
+private int duracion;
 public CursosInscritosDTO() {}
-public CursosInscritosDTO(String titulo, String fechaInicio, String fechaFin, String estado, int horas) {
-	this.titulo=titulo;
-	this.fechaInicio=fechaInicio;
-	this.fechaFin=fechaFin;
-	this.estado=estado;	
-	this.horas=horas;
+public CursosInscritosDTO(String titulo, String fechaInicio, String fechaFin,  int horas) {
+	this.titulo_curso=titulo;
+	this.fecha_inicio_curso=fechaInicio;
+	this.fecha_fin_curso=fechaFin;
+	//this.estado=estado;	
+	this.duracion=horas;
 }
-public String getTitulo() {
-	return titulo;
+public String getTitulo_curso() {
+	return titulo_curso;
 }
-public void setTitulo(String titulo) {
-	this.titulo = titulo;
+public void setTitulo_curso(String titulo_curso) {
+	this.titulo_curso = titulo_curso;
 }
-public String getFechaInicio() {
-	return fechaInicio;
+public String getFecha_inicio_curso() {
+	return fecha_inicio_curso;
 }
-public void setFechaInicio(String fechaInicio) {
-	this.fechaInicio = fechaInicio;
+public void setFecha_inicio_curso(String fecha_inicio_curso) {
+	this.fecha_inicio_curso = fecha_inicio_curso;
 }
-public String getFechaFin() {
-	return fechaFin;
+public String getFecha_fin_curso() {
+	return fecha_fin_curso;
 }
-public void setFechaFin(String fechaFin) {
-	this.fechaFin = fechaFin;
+public void setFecha_fin_curso(String fecha_fin_curso) {
+	this.fecha_fin_curso = fecha_fin_curso;
 }
-public String getEstado() {
-	return estado;
+public int getDuracion() {
+	return duracion;
 }
-public void setEstado(String estado) {
-	this.estado = estado;
-}
-public int getHoras() {
-	return horas;
-}
-public void setHoras(int horas) {
-	this.horas = horas;
+public void setDuracion(int duracion) {
+	this.duracion = duracion;
 }
 
 }

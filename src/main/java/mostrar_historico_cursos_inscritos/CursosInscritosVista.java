@@ -5,10 +5,12 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.JTable;
 import javax.swing.JButton;
 import java.awt.Color;
+import javax.swing.JTextArea;
 
 public class CursosInscritosVista {
 
@@ -63,13 +65,20 @@ public class CursosInscritosVista {
 		frame.getContentPane().add(lblNewLabel_1);
 		
 		tablaCursos = new JTable();
-		tablaCursos.setBounds(10, 133, 289, 87);
+		tablaCursos.setBounds(10, 133, 367, 128);
+		String[] columnNames = {"Título", "Fecha de Inicio", "Fecha de Fin", "Duración (horas)"};
+		DefaultTableModel model = new DefaultTableModel(columnNames, 0);
+		tablaCursos.setModel(model);
 		frame.getContentPane().add(tablaCursos);
 		
 		 mostrarCursos = new JButton("Mostrar cursos");
 		mostrarCursos.setBackground(Color.CYAN);
 		mostrarCursos.setBounds(142, 46, 127, 21);
 		frame.getContentPane().add(mostrarCursos);
+		
+		JTextArea totalCursos = new JTextArea();
+		totalCursos.setBounds(414, 150, 113, 91);
+		frame.getContentPane().add(totalCursos);
 	}
 	public JTable getTablaCursos() {
 		return this.tablaCursos;
@@ -83,6 +92,8 @@ public class CursosInscritosVista {
 	public JButton getBoton() {
 		return this.mostrarCursos;
 	}
-
+	public JFrame getFrame() {
+		return this.frame;
 	}
+}
 
