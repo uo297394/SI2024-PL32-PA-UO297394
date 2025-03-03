@@ -170,7 +170,6 @@ public class Main extends JFrame {
 		});
 		btnNewButton_5.addActionListener(new ActionListener() { //NOSONAR codigo autogenerado
 			public void actionPerformed(ActionEvent e) {
-				System.out.print("Pulsando");
 				CursosInscritosVista v=new CursosInscritosVista();
 				CursosInscritosModelo m=new CursosInscritosModelo();
 				CursosInscritosControlador controller=new CursosInscritosControlador(v, 
