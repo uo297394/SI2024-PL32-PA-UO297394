@@ -43,6 +43,7 @@ public void metodos() {
 	try {
 	int numeroColegiado=Integer.parseInt(this.v.getIdColegiado());
 	this.m.EstaColegiado(numeroColegiado);
+	this.m.TieneCursos(numeroColegiado);
 	RellenaTabla(numeroColegiado);
 	RellenaTextArea(numeroColegiado);}
 	catch(NumberFormatException e){
@@ -50,7 +51,7 @@ public void metodos() {
 		return;
 	}
 	catch(ApplicationException e) {
-		JOptionPane.showMessageDialog(null, "Número de colegiado incorrecto", "Error", JOptionPane.ERROR_MESSAGE);
+		
 		return;	
 	}
 	

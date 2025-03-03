@@ -30,8 +30,16 @@ public void EstaColegiado(int id) {
 	Object[] numerocolegiados=db.executeQueryArray(sql,id).get(0);
 	int numerocoleg=(int) numerocolegiados[0];
 	if(numerocoleg==0) {
+		JOptionPane.showMessageDialog(null, "Número de colegiado incorrecto", "Error", JOptionPane.ERROR_MESSAGE);
 		throw new ApplicationException("Número de colegiado incorrecto:");
 	}}
-
+public void TieneCursos(int id) {
+	String sql="SELECT COUNT(*) from Cursos c INNER JOIN Inscripciones i ON i.idCurso=c.id WHERE i.idColegiado=?";
+	int numeroCursos=(int)db.executeQueryArray(sql,id).get(0)[0];
+	if(numeroCursos==0) {
+		JOptionPane.showMessageDialog(null, "No está inscrito a ningún cursos", "Error", JOptionPane.ERROR_MESSAGE);
+		throw new ApplicationException("Número de colegiado incorrecto:");
+	}
+}
 
 }
