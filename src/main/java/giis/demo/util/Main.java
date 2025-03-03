@@ -12,6 +12,9 @@ import registrar_colegiado.*;
 import util.Database;
 import visualizar_cursos.*;
 import inscribirse_peritos.*;
+import mostrar_historico_cursos_inscritos.CursosInscritosControlador;
+import mostrar_historico_cursos_inscritos.CursosInscritosModelo;
+import mostrar_historico_cursos_inscritos.CursosInscritosVista;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -162,6 +165,17 @@ public class Main extends JFrame {
 				Controller_inscribirse_peritos controller=new Controller_inscribirse_peritos(new Model_inscribirse_peritos(), 
 						new View_inscribirse_peritos());
 				controller.initController();
+				
+			}
+		});
+		btnNewButton_5.addActionListener(new ActionListener() { //NOSONAR codigo autogenerado
+			public void actionPerformed(ActionEvent e) {
+				System.out.print("Pulsando");
+				CursosInscritosVista v=new CursosInscritosVista();
+				CursosInscritosModelo m=new CursosInscritosModelo();
+				CursosInscritosControlador controller=new CursosInscritosControlador(v, 
+						m);
+				v.getFrame().setVisible(true);
 				
 			}
 		});

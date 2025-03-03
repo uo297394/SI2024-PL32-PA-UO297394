@@ -86,6 +86,7 @@ public class CursosInscritosVista {
 		 totalCursos = new JTextArea();
 		totalCursos.setBounds(20, 184, 162, 91);
 		frame.getContentPane().add(totalCursos);
+		 frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 	}
 	public JTable getTablaCursos() {
 		return this.tablaCursos;
