@@ -95,7 +95,7 @@ public class Controller_inscribirse_peritos {
         ColegiadoDisplayDTO colegiado = lista.get(0);
 
         // Construir el mensaje con los datos extraídos de la base de datos
-        String mensaje = "Datos personales obtenidos de la base de datos:\n" +
+        String mensaje = "La solicitud de inscripción a listas de peritos ha sido enviada:\n" +
                 "Nombre: " + colegiado.getNombre() + "\n" +
                 "Apellido: " + colegiado.getApellido() + "\n" +
                 "Dirección: " + colegiado.getDireccion() + "\n" +
@@ -107,7 +107,7 @@ public class Controller_inscribirse_peritos {
                 "Información adicional: " + view.getAreaTexto().getText();
 
         // Mostrar el mensaje en un cuadro de diálogo
-        JOptionPane.showMessageDialog(view, mensaje, "Datos Personales", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(view, mensaje, "Justificante solicitud", JOptionPane.INFORMATION_MESSAGE);
     }
 }
 
