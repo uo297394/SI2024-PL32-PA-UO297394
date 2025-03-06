@@ -12,8 +12,7 @@ DNI varchar(9), direccion varchar(60),correo varchar(50), telefono varchar(20), 
  
 create table Cursos (id int primary key not null, titulo_curso varchar(20), descripcion varchar(60),
 fecha_inicio_curso date, fecha_fin_curso date, duracion int ,max_plazas int,cuota float,
- colectivos varchar(20), fecha_inicio_inscripcion date, fecha_fin_inscripcion date, 
- check(fecha_inicio_curso>fecha_fin_inscripcion));
+ colectivos varchar(20), fecha_inicio_inscripcion date, fecha_fin_inscripcion date);
 
 create table Inscripciones (id int primary key not null, idColegiado int,
  idCurso int,fechaInscripcion date,FOREIGN KEY (idColegiado) REFERENCES Colegiados(id),

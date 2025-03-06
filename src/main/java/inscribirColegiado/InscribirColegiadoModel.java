@@ -55,7 +55,8 @@ public class InscribirColegiadoModel {
 					" (?, ?, ?, ?);";
 		int id=lastID();
 		db.executeUpdate(sql, id ,idColeg, idCurso, Util.getTodayISO());
-		}else throw new ApplicationException(MSG_COLEG_INSCR);
+		}else if(hayPlazas(idCurso))throw new ApplicationException(MSG_COLEG_INSCR);
+		else throw new ApplicationException("No hay plazas disponibles para este curso");
 	}
 	private int lastID() {
 		String ide = "SELECT COUNT(id) FROM Inscripciones";
