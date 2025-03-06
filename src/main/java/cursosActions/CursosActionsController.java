@@ -8,6 +8,7 @@ import aperturaInscripciones.AperturaInscripcionesDisplayDTO;
 import inscritos_cursos_formacion.InscripcionDisplayDTO;
 import util.ApplicationException;
 import util.SwingUtil;
+import util.Util;
 
 public class CursosActionsController {
 	private CursosActionsModel model;
@@ -15,6 +16,7 @@ public class CursosActionsController {
 	private String lastSelectedKey="";
 	private static final String MSG_CURSO_NO_ABIERTO = "Este curso no está abierto";
 	private static final String MSG_COLEG_INSCRITO = "La inscripción se ha realizado con exito";
+	private static final String MSG_CUENTA = "La cuota se debe abonar al numero de cuenta: XXXXXXXXX";
 	private static final String MSG_FECHA_INSC = "La fecha de plazo para inscribirse al curso ha cambiado con exito";
 
 	public CursosActionsController(CursosActionsModel m, CursosActionsView v) {
@@ -95,7 +97,8 @@ public class CursosActionsController {
 			else {
 				model.insertInscColegiado(numColeg,disp.getId());
 				getListaCursos();
-				throw new ApplicationException(MSG_COLEG_INSCRITO);
+				ColegiadoDisplayDTO col = model.aiModel.getColegiado(numColeg);
+				throw new ApplicationException(MSG_COLEG_INSCRITO+"\n"+col.toString()+"\n"+"Fecha de solicitud realizada el: "+Util.getTodayISO()+"\nCuota: "+disp.getCuota()+"\n"+MSG_CUENTA);
 			}
 		}
 	}

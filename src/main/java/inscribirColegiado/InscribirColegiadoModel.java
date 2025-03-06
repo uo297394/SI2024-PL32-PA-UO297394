@@ -7,8 +7,6 @@ import util.Database;
 
 public class InscribirColegiadoModel {
 	private static final String MSG_COLEG_INSCR = "El colegiado ya está inscrito";
-
-
 	private Database db=new Database();
 	
 	//SQL para obtener la lista de titulos de los cursos que no han sido planificados
@@ -39,7 +37,7 @@ public class InscribirColegiadoModel {
 	}
 	private boolean hayPlazas(String idCurso) {
 		String sql="SELECT COUNT(id) FROM Inscripciones WHERE idCurso = ?";
-		String sql2="SELECT max_plazas FROM Cursos WHERE idCurso = ?";
+		String sql2="SELECT max_plazas FROM Cursos WHERE id = ?";
 		Object[] inscr =db.executeQueryArray(sql,idCurso).get(0);
 		Object[] maxPlazas = db.executeQueryArray(sql2,idCurso).get(0);
 		int nInsc = (int)inscr[0];
@@ -51,7 +49,7 @@ public class InscribirColegiadoModel {
 	 * Inserta la inscripcion del colegiado al curso si no está inscrito
 	 */
 	public void insertInscColegiado(String idColeg, String idCurso) {
-		if(!estaInscrito(idColeg,idCurso) || hayPlazas(idCurso)) {
+		if(!estaInscrito(idColeg,idCurso) && hayPlazas(idCurso)) {
 		String sql="INSERT INTO Inscripciones (id, idColegiado, idCurso, fechaInscripcion)"+
 					" VALUES"+
 					" (?, ?, ?, ?);";

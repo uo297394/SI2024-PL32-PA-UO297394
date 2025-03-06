@@ -22,7 +22,7 @@ public class CursosActionsModel {
 		 icModel = new InscribirColegiadoModel();
 		 iModel = new ModelInscripciones();
 	}
-
+	
 	public List<InscripcionDisplayDTO> getInscripcionesPorCurso(int idCurso) {
 		return iModel.getInscripcionesPorCurso(idCurso);
 	}

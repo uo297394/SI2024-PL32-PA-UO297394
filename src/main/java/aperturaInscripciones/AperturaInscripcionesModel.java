@@ -1,6 +1,8 @@
 package aperturaInscripciones;
 
 import java.util.*;
+
+import cursosActions.ColegiadoDisplayDTO;
 import util.Util;
 import util.ApplicationException;
 import util.Database;
@@ -24,7 +26,11 @@ public class AperturaInscripcionesModel {
 	public List<AperturaInscripcionesDisplayDTO> getListaCursos() {
 		return db.executeQueryPojo(AperturaInscripcionesDisplayDTO.class, SQL_LISTA_CURSOS);
 	}
-
+	public ColegiadoDisplayDTO getColegiado(String idColeg) {
+		ColegiadoDisplayDTO col = db.executeQueryPojo(ColegiadoDisplayDTO.class, "SELECT id, nombre, apellido, DNI, direccion, correo, telefono, fecha_nacimiento as fechaNacimiento, numero_cuenta as numeroCuenta, banco, precolegiados, estado_solicitud as estadoSolicitud, fecha_solicitud as fechaSolicitud, titulacion FROM Colegiados WHERE id = ?", idColeg).get(0);
+		return col;
+		
+	}
 	/**
 	 * Actualiza las fechas de apertura de un curso
 	 */
