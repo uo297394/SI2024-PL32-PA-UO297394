@@ -6,10 +6,8 @@ import util.ApplicationException;
 import util.Database;
 
 public class InscribirColegiadoModel {
-	private static final String MSG_FECHAS_NO_VALIDAS = "La fecha de inicio debe ser menor a la fecha de fin";
-	private static final String MSG_FECHAS_NULAS = "La fecha de inscripcion no puede ser nula";
-	private static final String MSG_FECHA_FIN_POSTERIOR = "La fecha de hoy no puede ser posterior a la de fin";
-	private static final String MSG_FECHA_INICIO_POSTERIOR = "La fecha de hoy no puede ser posterior a la de inicio";
+	private static final String MSG_COLEG_INSCR = "El colegiado ya está inscrito";
+
 
 	private Database db=new Database();
 	
@@ -27,16 +25,39 @@ public class InscribirColegiadoModel {
 	public List<InscribirColegiadoDisplayDTO> getListaCursos() {
 		return db.executeQueryPojo(InscribirColegiadoDisplayDTO.class, SQL_LISTA_CURSOS, Util.getTodayISO(),Util.getTodayISO());
 	}
-
 	/**
-	 * Actualiza las fechas de apertura de un curso
+	 * Comprueba si el colegiado está inscrito al curso
+	 * @param idColegiado
+	 * @param idCurso
+	 * @return
+	 */
+	private boolean estaInscrito(String idColegiado, String idCurso) {
+		String sql="SELECT COUNT(id) FROM Inscripciones WHERE idColegiado = ? AND idCurso = ?";
+		Object[] inscr =db.executeQueryArray(sql,idColegiado,idCurso).get(0);
+		int estaInscrito = (int)inscr[0];
+		return estaInscrito>0;
+	}
+	private boolean hayPlazas(String idCurso) {
+		String sql="SELECT COUNT(id) FROM Inscripciones WHERE idCurso = ?";
+		String sql2="SELECT max_plazas FROM Cursos WHERE idCurso = ?";
+		Object[] inscr =db.executeQueryArray(sql,idCurso).get(0);
+		Object[] maxPlazas = db.executeQueryArray(sql2,idCurso).get(0);
+		int nInsc = (int)inscr[0];
+		int nPlazas = (int)maxPlazas[0];
+		return nPlazas>nInsc;
+		
+	}
+	/**
+	 * Inserta la inscripcion del colegiado al curso si no está inscrito
 	 */
 	public void insertInscColegiado(String idColeg, String idCurso) {
+		if(!estaInscrito(idColeg,idCurso) || hayPlazas(idCurso)) {
 		String sql="INSERT INTO Inscripciones (id, idColegiado, idCurso, fechaInscripcion)"+
 					" VALUES"+
 					" (?, ?, ?, ?);";
 		int id=lastID();
 		db.executeUpdate(sql, id ,idColeg, idCurso, Util.getTodayISO());
+		}else throw new ApplicationException(MSG_COLEG_INSCR);
 	}
 	private int lastID() {
 		String ide = "SELECT COUNT(id) FROM Inscripciones";

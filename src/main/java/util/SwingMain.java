@@ -31,6 +31,7 @@ import inscritos_cursos_formacion.ViewInscripciones;
 import mostrar_historico_cursos_inscritos.CursosInscritosControlador;
 import mostrar_historico_cursos_inscritos.CursosInscritosModelo;
 import mostrar_historico_cursos_inscritos.CursosInscritosVista;
+import cursosActions.*;
 
 public class SwingMain extends JFrame {
 
@@ -102,10 +103,6 @@ public class SwingMain extends JFrame {
 		btnHistoria3.setBounds(205, 144, 177, 30);
 		panel_1.add(btnHistoria3);
 		
-		JButton btnApInscr = new JButton("Abrir una inscripción");
-		btnApInscr.setBounds(205, 64, 177, 30);
-		panel_1.add(btnApInscr);
-		
 		JButton btnSoliColeg = new JButton("Solicitud de colegiación");
 		btnSoliColeg.setBounds(413, 64, 177, 30);
 		panel_1.add(btnSoliColeg);
@@ -114,13 +111,9 @@ public class SwingMain extends JFrame {
 		btnHistoria2.setBounds(205, 104, 177, 30);
 		panel_1.add(btnHistoria2);
 		
-		JButton btnInscColeg = new JButton("Inscribirse a un curso");
-		btnInscColeg.setBounds(36, 144, 161, 30);
-		panel_1.add(btnInscColeg);
-		
-		JButton btnInscritosCursos = new JButton("Visualizar Inscritos");
-		btnInscritosCursos.setBounds(205, 184, 177, 30);
-		panel_1.add(btnInscritosCursos);
+		JButton btnCursosActions = new JButton("Acciones con Cursos");
+		btnCursosActions.setBounds(205, 64, 177, 30);
+		panel_1.add(btnCursosActions);
 		
 		JButton btnNewButton_5 = new JButton("Mostrar mis cursos");
 		btnNewButton_5.setBounds(36, 64, 159, 30);
@@ -158,13 +151,14 @@ public class SwingMain extends JFrame {
 				controller.initController();
 			}
 		});
-		
+		/*
 		btnInscritosCursos.addActionListener(new ActionListener() { //NOSONAR codigo autogenerado
 			public void actionPerformed(ActionEvent e) {
 				ControllerInscripciones controller=new ControllerInscripciones
 						(new ModelInscripciones(), new ModelCursos(), new ViewInscripciones());
 			}
 		});
+		*/
 		
 		btnHistoria2.addActionListener(new ActionListener() { //NOSONAR codigo autogenerado
 			public void actionPerformed(ActionEvent e) {
@@ -183,7 +177,7 @@ public class SwingMain extends JFrame {
 				
 			}
 		});
-		
+		/*
 		btnApInscr.addActionListener(new ActionListener() { //NOSONAR codigo autogenerado
 			public void actionPerformed(ActionEvent e) {
 				AperturaInscripcionesController controladorApInscr=new AperturaInscripcionesController(new AperturaInscripcionesModel(), new AperturaInscripcionesView());
@@ -194,6 +188,13 @@ public class SwingMain extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				InscribirColegiadoController controladorInscColeg=new InscribirColegiadoController(new InscribirColegiadoModel(), new InscribirColegiadoView());
 				controladorInscColeg.initController();
+			}
+		});
+		*/
+		btnCursosActions.addActionListener(new ActionListener() { //NOSONAR codigo autogenerado
+			public void actionPerformed(ActionEvent e) {
+				CursosActionsController controladorCursosActions=new CursosActionsController(new CursosActionsModel(), new CursosActionsView());
+				controladorCursosActions.initController();
 			}
 		});
 		btnInscribirsePeritos.addActionListener(new ActionListener() { //NOSONAR codigo autogenerado

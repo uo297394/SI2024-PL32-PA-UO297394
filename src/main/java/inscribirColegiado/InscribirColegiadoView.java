@@ -20,6 +20,7 @@ public class InscribirColegiadoView {
 	private JTextField tfNumColeg;
 	private JTable tabSelecionCurso;
 	JButton btnInscColeg = new JButton("Inscribir Colegiado");
+	InscribirColegiadoViewPanel vpInscrColeg = new InscribirColegiadoViewPanel();
 
 	/**
 	 * Create the application.
@@ -35,9 +36,9 @@ public class InscribirColegiadoView {
 		//Inicializado del frame
 		frame = new JFrame();
 		frame.setBounds(0, 0, 492, 422);
-		frame.setTitle("Apertura de Inscripciones");
-		frame.setName("Apertura de Inscripciones");
-		frame.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+		frame.setTitle("Inscribir Colegiado a un Curso");
+		frame.setName("Inscribir Colegiado a un Curso");
+		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.getContentPane().setLayout(new MigLayout("", "[grow]", "[][][grow][][][][][][][][]"));
 		
 		//Label
@@ -50,16 +51,8 @@ public class InscribirColegiadoView {
 		tabSelecionCurso.setDefaultEditor(Object.class, null); //readonly
 		JScrollPane tablePanel = new JScrollPane(tabSelecionCurso);
 		frame.getContentPane().add(tablePanel, "cell 0 1,grow");
-		//Label
-		JLabel lblNumColeg = new JLabel("Numero de colegiado");
-		frame.getContentPane().add(lblNumColeg, "cell 0 3");
-		//Adicion del textfield para introducir el numero de colegiado
-		tfNumColeg = new JTextField();
-		frame.getContentPane().add(tfNumColeg, "cell 0 4,growx");
-		tfNumColeg.setColumns(10);
+		frame.getContentPane().add(vpInscrColeg, "cell 0 2,grow");
 		
-		//Adicion del boton que se utiliza para registrar el plazo del curso seleccionado
-		frame.getContentPane().add(btnInscColeg, "cell 0 10");
 	}
 	// GETTERS Y SETTERS
 	public JFrame getFrame() {

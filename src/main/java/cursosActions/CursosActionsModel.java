@@ -1,0 +1,38 @@
+package cursosActions;
+
+import java.util.List;
+
+import aperturaInscripciones.AperturaInscripcionesDisplayDTO;
+import aperturaInscripciones.AperturaInscripcionesModel;
+import inscribirColegiado.InscribirColegiadoDisplayDTO;
+import inscribirColegiado.InscribirColegiadoModel;
+import inscritos_cursos_formacion.InscripcionDisplayDTO;
+import inscritos_cursos_formacion.ModelInscripciones;
+import util.Util;
+
+public class CursosActionsModel {
+	AperturaInscripcionesModel aiModel;
+	InscribirColegiadoModel icModel;
+	ModelInscripciones iModel;
+	
+	
+	
+	public CursosActionsModel() {
+		 aiModel = new AperturaInscripcionesModel();
+		 icModel = new InscribirColegiadoModel();
+		 iModel = new ModelInscripciones();
+	}
+
+	public List<InscripcionDisplayDTO> getInscripcionesPorCurso(int idCurso) {
+		return iModel.getInscripcionesPorCurso(idCurso);
+	}
+	public List<AperturaInscripcionesDisplayDTO> getListaCursos() {
+		return aiModel.getListaCursos();
+	}
+	public void insertInscColegiado(String idColeg, String idCurso) {
+		icModel.insertInscColegiado(idColeg, idCurso);
+	}
+	public void updateAperturaCurso(String titulo, String inicio, String fin) {
+		aiModel.updateAperturaCurso(titulo, inicio, fin);
+	}
+}

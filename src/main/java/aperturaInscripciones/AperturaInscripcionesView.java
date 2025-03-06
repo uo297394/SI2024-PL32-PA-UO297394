@@ -39,7 +39,7 @@ public class AperturaInscripcionesView {
 		frame.setBounds(0, 0, 492, 422);
 		frame.setTitle("Apertura de Inscripciones");
 		frame.setName("Apertura de Inscripciones");
-		frame.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.getContentPane().setLayout(new MigLayout("", "[grow]", "[][][grow][][][][][][][][]"));
 		
 		//Label
