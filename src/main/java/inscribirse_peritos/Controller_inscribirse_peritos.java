@@ -52,7 +52,7 @@ public class Controller_inscribirse_peritos {
         view.getBotonSoli().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                mostrarDatosPersonales();
+            	enviarSolicitud();
             }
         });
     }
@@ -77,6 +77,14 @@ public class Controller_inscribirse_peritos {
         SwingUtil.autoAdjustColumns(view.getTableDatosPersonales());
     }
 
+    private void enviarSolicitud() {
+    	
+    	if(model.registrarSolicitudPerito(id)) {
+    		mostrarDatosPersonales();
+    	}else {
+    		JOptionPane.showMessageDialog(view, "No es posible enviar la solicitud para el id: " + id, "Error", JOptionPane.ERROR_MESSAGE);
+    	}
+    }
     private void mostrarDatosPersonales() {
         // Obtener el año de realización del curso pericial a partir del spinner
         Date fecha = (Date) view.getSpinner().getValue();
