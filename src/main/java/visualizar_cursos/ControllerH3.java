@@ -61,6 +61,12 @@ public class ControllerH3 {
 	            new String[] {"titulo_curso", "fecha_inicio_curso", "fecha_fin_curso", 
 	            		"estado", "max_plazas", "colectivos", "cuota"});
 		view.getTablaCursos().setModel(tmodel);
+		
+		String[] cabeceras = {"Título", "Fecha de Inicio", "Fecha de Fin", "Estado", "Máx. Plazas", "Colectivos", "Cuota"};
+	    for (int i = 0; i < cabeceras.length; i++) {
+	        view.getTablaCursos().getColumnModel().getColumn(i).setHeaderValue(cabeceras[i]);
+	    }
+	    
 		SwingUtil.autoAdjustColumns(view.getTablaCursos());
 	}
 	public void getListaCursos(String colec) {

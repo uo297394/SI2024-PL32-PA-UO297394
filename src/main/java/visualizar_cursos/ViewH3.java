@@ -13,6 +13,7 @@ import javax.swing.SwingConstants;
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import javax.swing.border.BevelBorder;
+import javax.swing.JScrollPane;
 
 public class ViewH3 extends JFrame {
 
@@ -64,25 +65,26 @@ public class ViewH3 extends JFrame {
 		panel2 = new JPanel();
 		contentPane.add(panel2, BorderLayout.CENTER);
 		
-	
-		
-		table1 = new JTable();
-		table1.setBounds(0, 114, 586, 168);
-		table1.setRowSelectionAllowed(false);
-		table1.setDefaultEditor(Object.class, null);
-		
 		lstColectivos = new JComboBox<Object>();
 		lstColectivos.setLocation(0, 0);
 		lstColectivos.setSize(173, 78);;
 		panel2.setLayout(null);
 		panel2.add(lstColectivos);
 		
-		table1.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
-		panel2.add(table1);
-		
 		JLabel lblNewLabel = new JLabel("Cursos ofertados para el colectivo solicitado");
 		lblNewLabel.setBounds(0, 77, 260, 40);
 		panel2.add(lblNewLabel);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(10, 127, 566, 143);
+		panel2.add(scrollPane);
+		
+	
+		
+		table1 = new JTable();
+		scrollPane.setViewportView(table1);
+		
+		table1.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		
 	}
 	
