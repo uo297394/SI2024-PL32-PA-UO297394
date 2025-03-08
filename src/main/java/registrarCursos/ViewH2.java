@@ -2,6 +2,9 @@ package registrarCursos;
 
 import javax.swing.*;
 import javax.swing.text.MaskFormatter;
+import registrar_Sesiones.ControllerSesiones;
+import registrar_Sesiones.ModelSesiones;
+import registrar_Sesiones.SesionManagerView;
 import java.awt.*;
 import java.awt.event.*;
 import java.text.ParseException;
@@ -21,11 +24,13 @@ public class ViewH2 extends JFrame {
     private JButton btnRegistrar;
     private JPanel panel;
     
+    private JButton btnAsignarSesiones;
+    
     // Mapa para almacenar las posiciones y tamaños originales de cada componente (excepto el de descripción)
     private Map<Component, Rectangle> originalBounds = new HashMap<>();
-    // Nuevo tamaño base reducido para que la ventana se ajuste a los componentes
+    // Nuevo tamaño base (aumentamos la altura para que se vea el botón de "Asignar Sesiones")
     private final int baseWidth = 250;
-    private final int baseHeight = 520;
+    private final int baseHeight = 600; // antes era 520
     
     public ViewH2() {
         setTitle("Planificación de Nuevo Curso");
@@ -123,7 +128,7 @@ public class ViewH2 extends JFrame {
         
         txtCuota = new JTextField();
         txtCuota.setBounds(10, 370, 96, 19);
-        txtCuota.setEnabled(false);
+        txtCuota.setEnabled(true);
         txtCuota.setEditable(false);
         txtCuota.setText("2.0");
         panel.add(txtCuota);
@@ -158,6 +163,17 @@ public class ViewH2 extends JFrame {
         btnRegistrar.setBounds(10, 450, 150, 30);
         panel.add(btnRegistrar);
         originalBounds.put(btnRegistrar, btnRegistrar.getBounds());
+        
+        // --- BOTÓN ASIGNAR SESIONES ---
+        btnAsignarSesiones = new JButton("Asignar Sesiones");
+        btnAsignarSesiones.setBounds(10, 490, 150, 30);  // Ahora queda visible por el aumento en la altura
+        panel.add(btnAsignarSesiones);
+        // Puedes agregar el listener para llamar a la historia de sesiones:
+        btnAsignarSesiones.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                new ControllerSesiones(new ModelSesiones(), new SesionManagerView());
+            }
+        });
         
         // Listener para redimensionar proporcionalmente (se excluye el área de descripción)
         addComponentListener(new ComponentAdapter() {

@@ -1,6 +1,7 @@
 package registrarCursos;
 
 public class CursoDisplayDTO {
+	private int id;
     private String titulo_curso;
     private String fecha_inicio_curso;
     private String fecha_fin_curso;
@@ -8,13 +9,15 @@ public class CursoDisplayDTO {
     private int max_plazas;
     private String colectivos;
     private double cuota;
+    private int duracion;
 
     // Constructor por defecto
     public CursoDisplayDTO() {}
 
     // Constructor con todos los campos
-    public CursoDisplayDTO(String titulo_curso, String fecha_inicio_curso, String fecha_fin_curso,
-                             String estado, int max_plazas, String colectivos, double cuota) {
+    public CursoDisplayDTO(int id, String titulo_curso, String fecha_inicio_curso, String fecha_fin_curso,
+                             String estado, int max_plazas, String colectivos, double cuota, int duracion) {
+    	this.id = id;
         this.titulo_curso = titulo_curso;
         this.fecha_inicio_curso = fecha_inicio_curso;
         this.fecha_fin_curso = fecha_fin_curso;
@@ -22,6 +25,7 @@ public class CursoDisplayDTO {
         this.max_plazas = max_plazas;
         this.colectivos = colectivos;
         this.cuota = cuota;
+        this.duracion= duracion;
     }
 
 public String getTitulo_curso() {
@@ -78,6 +82,22 @@ return cuota;
 
 public void setCuota(double cuota) {
 this.cuota = cuota;
+}
+
+public int getDuracion() {
+	return duracion;
+}
+
+public void setDuracion(int duracion) {
+	this.duracion = duracion;
+}
+
+public int getId() {
+	return id;
+}
+
+public void setId(int id) {
+	this.id = id;
 }
  
     
