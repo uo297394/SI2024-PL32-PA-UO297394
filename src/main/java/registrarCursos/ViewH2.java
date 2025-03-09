@@ -1,19 +1,18 @@
 package registrarCursos;
 
 import javax.swing.*;
-import javax.swing.JSpinner.DateEditor;
 import javax.swing.text.MaskFormatter;
-
 import java.awt.*;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
+import java.awt.event.*;
 import java.text.ParseException;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ViewH2 extends JFrame {
     private JTextField txtTitulo;
     private JTextArea txtDescripcion;
+    private JScrollPane scrollDesc;
     private JTextField txtFechaInicio;
-    private DateEditor date;
     private JTextField txtFechaFin;
     private JTextField txtDuracion;
     private JTextField txtMaxPlazas;
@@ -21,91 +20,171 @@ public class ViewH2 extends JFrame {
     private JComboBox<String> comboColectivos;
     private JButton btnRegistrar;
     private JPanel panel;
-
+    
+    // Mapa para almacenar las posiciones y tamaños originales de cada componente (excepto el de descripción)
+    private Map<Component, Rectangle> originalBounds = new HashMap<>();
+    // Nuevo tamaño base reducido para que la ventana se ajuste a los componentes
+    private final int baseWidth = 250;
+    private final int baseHeight = 520;
+    
     public ViewH2() {
         setTitle("Planificación de Nuevo Curso");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setSize(490, 677);
+        setSize(baseWidth, baseHeight);
         setLocationRelativeTo(null);
-        getContentPane().setLayout(new BorderLayout());
-
-        panel = new JPanel(new GridLayout(0, 2, 10, 10));
-        panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-
-        panel.add(new JLabel("Título del Curso:"));
-        txtTitulo = new JTextField();
-        panel.add(txtTitulo);
-
-        panel.add(new JLabel("Descripción:"));
-        txtDescripcion = new JTextArea(3, 20);
-        panel.add(new JScrollPane(txtDescripcion));
+        getContentPane().setLayout(null);
         
-        //FechaInicio
-        panel.add(new JLabel("Fecha de Inicio (Año-Mes-Día):"));
+        panel = new JPanel(null);
+        panel.setBounds(0, 0, baseWidth, baseHeight);
+        getContentPane().add(panel);
+        
+        // --- TÍTULO ---
+        JLabel lblTitulo = new JLabel("Título del Curso:");
+        lblTitulo.setBounds(10, 10, 120, 19);
+        panel.add(lblTitulo);
+        originalBounds.put(lblTitulo, lblTitulo.getBounds());
+        
+        txtTitulo = new JTextField();
+        txtTitulo.setBounds(10, 29, 96, 19);
+        panel.add(txtTitulo);
+        originalBounds.put(txtTitulo, txtTitulo.getBounds());
+        
+        // --- DESCRIPCIÓN (no se redimensiona) ---
+        JLabel lblDescripcion = new JLabel("Descripción:");
+        lblDescripcion.setBounds(10, 60, 120, 19);
+        panel.add(lblDescripcion);
+        originalBounds.put(lblDescripcion, lblDescripcion.getBounds());
+        
+        txtDescripcion = new JTextArea();
+        scrollDesc = new JScrollPane(txtDescripcion);
+        scrollDesc.setBounds(10, 80, 200, 60);  // Tamaño fijo para descripción
+        panel.add(scrollDesc);
+        originalBounds.put(scrollDesc, scrollDesc.getBounds());
+        
+        // --- FECHA DE INICIO ---
+        JLabel lblFechaInicio = new JLabel("Fecha de Inicio (Año-Mes-Día):");
+        lblFechaInicio.setBounds(10, 150, 200, 19);
+        panel.add(lblFechaInicio);
+        originalBounds.put(lblFechaInicio, lblFechaInicio.getBounds());
+        
         try {
             MaskFormatter dateMask = new MaskFormatter("####-##-##");
             txtFechaInicio = new JFormattedTextField(dateMask);
-            txtFechaInicio.setColumns(8);
+            txtFechaInicio.setBounds(10, 170, 96, 19);
+            panel.add(txtFechaInicio);
+            originalBounds.put(txtFechaInicio, txtFechaInicio.getBounds());
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        panel.add(txtFechaInicio);
         
-        //FechaFin
-        panel.add(new JLabel("Fecha de Fin (Año-Mes-Día):"));
+        // --- FECHA DE FIN ---
+        JLabel lblFechaFin = new JLabel("Fecha de Fin (Año-Mes-Día):");
+        lblFechaFin.setBounds(10, 200, 200, 19);
+        panel.add(lblFechaFin);
+        originalBounds.put(lblFechaFin, lblFechaFin.getBounds());
+        
         try {
             MaskFormatter dateMask = new MaskFormatter("####-##-##");
             txtFechaFin = new JFormattedTextField(dateMask);
-            txtFechaFin.setColumns(8);
+            txtFechaFin.setBounds(10, 220, 96, 19);
+            panel.add(txtFechaFin);
+            originalBounds.put(txtFechaFin, txtFechaFin.getBounds());
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        panel.add(txtFechaFin);
-
-        panel.add(new JLabel("Duración (horas):"));
+        
+        // --- DURACIÓN ---
+        JLabel lblDuracion = new JLabel("Duración (horas):");
+        lblDuracion.setBounds(10, 250, 120, 19);
+        panel.add(lblDuracion);
+        originalBounds.put(lblDuracion, lblDuracion.getBounds());
+        
         txtDuracion = new JTextField();
+        txtDuracion.setBounds(10, 270, 96, 19);
         panel.add(txtDuracion);
-
-        panel.add(new JLabel("Máximo de Plazas:"));
+        originalBounds.put(txtDuracion, txtDuracion.getBounds());
+        
+        // --- MÁXIMO DE PLAZAS ---
+        JLabel lblMaxPlazas = new JLabel("Máximo de Plazas:");
+        lblMaxPlazas.setBounds(10, 300, 120, 19);
+        panel.add(lblMaxPlazas);
+        originalBounds.put(lblMaxPlazas, lblMaxPlazas.getBounds());
+        
         txtMaxPlazas = new JTextField();
+        txtMaxPlazas.setBounds(10, 320, 96, 19);
         panel.add(txtMaxPlazas);
-
-        panel.add(new JLabel("Cuota:"));
+        originalBounds.put(txtMaxPlazas, txtMaxPlazas.getBounds());
+        
+        // --- CUOTA ---
+        JLabel lblCuota = new JLabel("Cuota:");
+        lblCuota.setBounds(10, 350, 120, 19);
+        panel.add(lblCuota);
+        originalBounds.put(lblCuota, lblCuota.getBounds());
+        
         txtCuota = new JTextField();
+        txtCuota.setBounds(10, 370, 96, 19);
         txtCuota.setEnabled(false);
         txtCuota.setEditable(false);
         txtCuota.setText("2.0");
         panel.add(txtCuota);
-
-        panel.add(new JLabel("Colectivo:"));
-        // Solo se incluyen "colegiados" y "precolegiados"
-        comboColectivos = new JComboBox<>(new String[] {"colegiados", "precolegiados"});
-        panel.add(comboColectivos);
+        originalBounds.put(txtCuota, txtCuota.getBounds());
         
+        // --- COLECTIVO ---
+        JLabel lblColectivo = new JLabel("Colectivo:");
+        lblColectivo.setBounds(10, 400, 120, 19);
+        panel.add(lblColectivo);
+        originalBounds.put(lblColectivo, lblColectivo.getBounds());
+        
+        comboColectivos = new JComboBox<>(new String[] {"Colegiados", "Precolegiados"});
+        comboColectivos.setBounds(10, 420, 96, 19);
+        panel.add(comboColectivos);
+        originalBounds.put(comboColectivos, comboColectivos.getBounds());
         comboColectivos.addItemListener(new ItemListener(){
             @Override
             public void itemStateChanged(ItemEvent e) {
-                // Solo se procesa el evento cuando se selecciona el item
                 if (e.getStateChange() == ItemEvent.SELECTED) {
                     String seleccionado = (String) comboColectivos.getSelectedItem();
-                    if ("colegiados".equals(seleccionado)) {
+                    if ("Colegiados".equals(seleccionado)) {
                         txtCuota.setText("2.0");
-                    } else if ("precolegiados".equals(seleccionado)) {
+                    } else if ("Precolegiados".equals(seleccionado)) {
                         txtCuota.setText("3.0");
                     }
                 }
             }
         });
         
+        // --- BOTÓN REGISTRAR ---
         btnRegistrar = new JButton("Registrar Curso");
-        // Para ocupar dos columnas
-        panel.add(new JLabel());
+        btnRegistrar.setBounds(10, 450, 150, 30);
         panel.add(btnRegistrar);
-
-        getContentPane().add(panel, BorderLayout.CENTER);
+        originalBounds.put(btnRegistrar, btnRegistrar.getBounds());
+        
+        // Listener para redimensionar proporcionalmente (se excluye el área de descripción)
+        addComponentListener(new ComponentAdapter() {
+            @Override
+            public void componentResized(ComponentEvent e) {
+                double xScale = (double) getWidth() / baseWidth;
+                double yScale = (double) getHeight() / baseHeight;
+                
+                for (Component comp : panel.getComponents()) {
+                    // Se excluye el área de descripción
+                    if (comp == scrollDesc) {
+                        continue;
+                    }
+                    Rectangle orig = originalBounds.get(comp);
+                    if (orig != null) {
+                        int newX = (int) (orig.x * xScale);
+                        int newY = (int) (orig.y * yScale);
+                        int newW = (int) (orig.width * xScale);
+                        int newH = (int) (orig.height * yScale);
+                        comp.setBounds(newX, newY, newW, newH);
+                    }
+                }
+            }
+        });
     }
-
-    // Getters para que el controlador pueda acceder a los datos
+    
+    // Getters para acceder a los componentes desde el controlador
     public JTextField getTxtTitulo() { return txtTitulo; }
     public JTextArea getTxtDescripcion() { return txtDescripcion; }
     public JTextField getTxtFechaInicio() { return txtFechaInicio; }
@@ -115,5 +194,10 @@ public class ViewH2 extends JFrame {
     public JTextField getTxtCuota() { return txtCuota; }
     public JComboBox<String> getComboColectivos() { return comboColectivos; }
     public JButton getBtnRegistrar() { return btnRegistrar; }
-
+    
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> {
+            new ViewH2().setVisible(true);
+        });
+    }
 }
