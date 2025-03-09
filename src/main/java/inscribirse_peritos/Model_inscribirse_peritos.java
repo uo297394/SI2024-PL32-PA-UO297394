@@ -22,7 +22,7 @@ public class Model_inscribirse_peritos {
 	        // Convertimos el valor obtenido a número
 	        count = ((Number)resultados.get(0)[0]).intValue();
 	    }
-	    System.out.println("DEBUG: Count = " + count);  // Línea de depuración
+	    
 	    
 	    // Si no es elegible (count == 0), se retorna false para que el controlador muestre un mensaje de error.
 	    if (count == 0) {
