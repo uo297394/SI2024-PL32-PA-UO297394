@@ -50,7 +50,7 @@ public class EnviarSolicitudVista {
 		frame.getContentPane().setLayout(null);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 50, 263, 175);
+		scrollPane.setBounds(10, 50, 183, 175);
 		frame.getContentPane().add(scrollPane);
 		
 		table = new JTable();
