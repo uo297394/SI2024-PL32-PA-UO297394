@@ -21,5 +21,5 @@ create table Inscripciones (id int primary key not null, idColegiado int,
  	FOREIGN KEY (idCurso) REFERENCES Cursos(id));
 
 create table Sesiones (id int primary key not null, idCurso int, 
-	nombre_sesion varchar(50), fecha_sesion date, hora_inicio time,
+	nombre_sesion varchar(50), fecha_sesion  date, hora_inicio time,
     duracion int, FOREIGN KEY (idCurso) REFERENCES Cursos(id));

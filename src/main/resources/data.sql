@@ -41,4 +41,4 @@ VALUES
 (3, 2, 'Conceptos Avanzados de Python', '2027-07-10', '09:30', 3),
 (4, 3, 'Fundamentos de Machine Learning', '2027-09-01', '14:00', 3),
 (5, 4, 'HTML y CSS', '2024-10-15', '16:00', 2),
-(6, 5, 'Introducción a la Ciberseguridad', '2024-11-20', '11:00', 2);
+(6, 5, 'Introducción a la Ciberseguridad', '2024-11-20', '11:00', 3);
