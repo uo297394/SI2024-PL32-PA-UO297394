@@ -14,13 +14,12 @@ public class AperturaInscripcionesDisplayDTO {
 	private String fechaFinCurso; 
 	private String duracion; 
 	private String maxPlazas; 
-	private String cuota; 
 	private String colectivos;
 	private String fechaInicioInscripcion; 
 	private String fechaFinInscripcion; 
 	public AperturaInscripcionesDisplayDTO() {}
 	public AperturaInscripcionesDisplayDTO(String id, String tituloCurso, String descripcion,
-			String fechaInicioCurso, String fechaFinCurso, String duracion, String maxPlazas, String cuota,
+			String fechaInicioCurso, String fechaFinCurso, String duracion, String maxPlazas,
 			String colectivos, String fechaInicioInscripcion, String fechaFinInscripcion) {
 		this.id = id;
 		this.tituloCurso = tituloCurso;
@@ -29,7 +28,6 @@ public class AperturaInscripcionesDisplayDTO {
 		this.fechaFinCurso = fechaFinCurso;
 		this.duracion = duracion;
 		this.maxPlazas = maxPlazas;
-		this.cuota = cuota;
 		this.colectivos = colectivos;
 		this.fechaInicioInscripcion = fechaInicioInscripcion; 
 		this.fechaFinInscripcion = fechaFinInscripcion;
@@ -57,12 +55,6 @@ public class AperturaInscripcionesDisplayDTO {
 	}
 	public void setMaxPlazas(String max_plazas) {
 		this.maxPlazas = max_plazas;
-	}
-	public String getCuota() {
-		return cuota;
-	}
-	public void setCuota(String cuota) {
-		this.cuota = cuota;
 	}
 	public String getColectivos() {
 		return colectivos;

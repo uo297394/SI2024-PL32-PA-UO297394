@@ -6,6 +6,7 @@ import java.util.List;
 import javax.swing.table.TableModel;
 import aperturaInscripciones.AperturaInscripcionesDisplayDTO;
 import inscritos_cursos_formacion.InscripcionDisplayDTO;
+import pagoInscripcion.PagoInscripcionView;
 import util.ApplicationException;
 import util.SwingUtil;
 import util.Util;
@@ -53,7 +54,7 @@ public class CursosActionsController {
 	 */
 	public void getListaCursos() {
 		List<AperturaInscripcionesDisplayDTO> cursos=model.getListaCursos();
-		TableModel tmodel=SwingUtil.getTableModelFromPojos(cursos, new String[] {"id","tituloCurso","descripcion","fechaInicioCurso","fechaFinCurso","duracion","maxPlazas","cuota","colectivos","fechaInicioInscripcion","fechaFinInscripcion"});
+		TableModel tmodel=SwingUtil.getTableModelFromPojos(cursos, new String[] {"id","tituloCurso","descripcion","fechaInicioCurso","fechaFinCurso","duracion","maxPlazas","colectivos","fechaInicioInscripcion","fechaFinInscripcion"});
 		view.getTablaCursos().setModel(tmodel);
 		SwingUtil.autoAdjustColumns(view.getTablaCursos());
 		
@@ -95,12 +96,20 @@ public class CursosActionsController {
 			AperturaInscripcionesDisplayDTO disp = model.getListaCursos().get(view.getTablaCursos().getSelectedRow());
 			if(disp.getFechaInicioInscripcion() == null || disp.getFechaFinInscripcion() == null) throw new ApplicationException(MSG_CURSO_NO_ABIERTO);
 			else {
-				model.insertInscColegiado(numColeg,disp.getId());
-				getListaCursos();
-				ColegiadoDisplayDTO col = model.aiModel.getColegiado(numColeg);
-				throw new ApplicationException(MSG_COLEG_INSCRITO+"\n"+col.toString()+"\n"+"Fecha de solicitud realizada el: "+Util.getTodayISO()+"\nCuota: "+disp.getCuota()+"\n"+MSG_CUENTA);
+				// Ventana pagos
+				PagoInscripcionView piv = new PagoInscripcionView(this);
+				piv.setVisible(true);
+				//FIN ventana pagos
 			}
 		}
+	}
+	public void guardarInscripcion(int estado) {
+		String numColeg = view.getTfNumColeg().getText();
+		AperturaInscripcionesDisplayDTO disp = model.getListaCursos().get(view.getTablaCursos().getSelectedRow());
+		model.insertInscColegiado(numColeg,disp.getId(),estado);
+		getListaCursos();
+		ColegiadoDisplayDTO col = model.aiModel.getColegiado(numColeg);
+		throw new ApplicationException(MSG_COLEG_INSCRITO+"\n"+col.toString()+"\n"+"Fecha de solicitud realizada el: "+Util.getTodayISO()+"\nCuota: NO DISPONIBLE"+"\n"+MSG_CUENTA);
 	}
 	
 	public void loadInscripciones(int idCurso) {

@@ -16,7 +16,7 @@ public class AperturaInscripcionesModel {
 	
 	//SQL para obtener la lista de titulos de los cursos que no han sido planificados
 	public static final String SQL_LISTA_CURSOS=
-			"SELECT id,titulo_curso as tituloCurso,descripcion,fecha_inicio_curso as fechaInicioCurso,fecha_fin_curso as fechaFinCurso,duracion,max_plazas as maxPlazas,cuota,colectivos,fecha_inicio_inscripcion as fechaInicioInscripcion, fecha_fin_inscripcion as fechaFinInscripcion"
+			"SELECT id,titulo_curso as tituloCurso,descripcion,fecha_inicio_curso as fechaInicioCurso,fecha_fin_curso as fechaFinCurso,duracion,max_plazas as maxPlazas,colectivos,fecha_inicio_inscripcion as fechaInicioInscripcion, fecha_fin_inscripcion as fechaFinInscripcion"
 					+" from Cursos";
 	/**
 	 * Obtiene la lista de curso que o han sido planificados
