@@ -7,7 +7,7 @@ import util.Database;
 
 public class InscribirColegiadoModel {
 	enum states{ACEPTADO,PENDIENTE, RECHAZADO}
-	private static final String MSG_COLEG_INSCR = "El colegiado ya está inscrito";
+	private static final String MSG_COLEG_INSCR = "El colegiado ya está inscrito, operación de pago cancelada";
 	private Database db=new Database();
 	
 	//SQL para obtener la lista de titulos de los cursos que no han sido planificados

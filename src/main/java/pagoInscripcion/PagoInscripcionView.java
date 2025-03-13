@@ -1,17 +1,14 @@
 package pagoInscripcion;
 
-import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-
 import cursosActions.CursosActionsController;
-import cursosActions.CursosActionsModel;
 import util.ApplicationException;
-
 import javax.swing.JRadioButton;
 import javax.swing.ButtonGroup;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import java.awt.Font;
 import javax.swing.JButton;
@@ -132,6 +129,7 @@ public class PagoInscripcionView extends JFrame {
 		JButton btnAceptarPago = new JButton("Finalizar Pago");
 		btnAceptarPago.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				try {
 				if(esPagoPorTarjeta() && camposCorrectos()) {
 					disposeFrame();
 					key.guardarInscripcion(0);
@@ -139,6 +137,9 @@ public class PagoInscripcionView extends JFrame {
 				else {
 					disposeFrame();
 					key.guardarInscripcion(1);
+				}
+				}catch(Exception e){
+					JOptionPane.showMessageDialog(null, e.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		});
@@ -153,7 +154,7 @@ public class PagoInscripcionView extends JFrame {
 		return buttonGroup.isSelected(rdbtnTarjeta.getModel());
 	}
 	public boolean camposCorrectos() {
-		return false;
+		return this.tfCVC.getText().length() == 3 && this.tfFechaCad.getText().length() == 5 && this.tfTarjeta.getText().length() > 0;
 	}
 	private void disposeFrame() {
 		this.setVisible(false);
@@ -165,7 +166,7 @@ public class PagoInscripcionView extends JFrame {
 		private static final long serialVersionUID = 1L;
 		public SwingAction() {
 			putValue(NAME, "Tarjeta");
-			putValue(SHORT_DESCRIPTION, "Some short description");
+			putValue(SHORT_DESCRIPTION, "Muestra el formulario a rellenar");
 		}
 		public void actionPerformed(ActionEvent e) {
 			pTarjeta.setVisible(true);
@@ -179,7 +180,7 @@ public class PagoInscripcionView extends JFrame {
 		private static final long serialVersionUID = 1L;
 		public SwingAction_1() {
 			putValue(NAME, "Transferencia Bancaria");
-			putValue(SHORT_DESCRIPTION, "Some short description");
+			putValue(SHORT_DESCRIPTION, "Muestra el formulario a rellenar");
 		}
 		public void actionPerformed(ActionEvent e) {
 			pTarjeta.setVisible(false);
