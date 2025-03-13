@@ -32,7 +32,7 @@ public class InscribirColegiadoController {
 	 * emergentes cuando ocurra algun problema o excepcion controlada.
 	 */
 	public void initController() {
-		view.getBtnInscColeg().addActionListener(e -> SwingUtil.exceptionWrapper(() -> updatePlazo()));
+		view.getBtnInscColeg().addActionListener(e -> SwingUtil.exceptionWrapper(() -> updatePlazo(0)));
 		
 		view.getTablaCursos().addMouseListener(new MouseAdapter() {
 			@Override
@@ -80,10 +80,10 @@ public class InscribirColegiadoController {
 	/**
 	 * Actualizacion de los plazos de inscripcion del curso selecionado y actualización de la tabla
 	 */
-	public void updatePlazo() {
+	public void updatePlazo(int estado) {
 		String numColeg = view.getTfNumColeg().getText();
 		if(this.lastSelectedKey !="" && numColeg != "") {
-		model.insertInscColegiado(numColeg,model.getListaCursos().get(view.getTablaCursos().getSelectedRow()).getId());
+		model.insertInscColegiado(numColeg,model.getListaCursos().get(view.getTablaCursos().getSelectedRow()).getId(),estado);
 		getListaCursos();
 		}
 	}
