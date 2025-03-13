@@ -17,7 +17,7 @@ create table Colegiados (id int primary key not null, nombre varchar(20) not nul
  	solicitud_perito boolean, es_perito boolean, orden_TAP int);
  
 create table Cursos (id int primary key not null, titulo_curso varchar(20), descripcion varchar(60),
-	fecha_inicio_curso date, fecha_fin_curso date, duracion int ,max_plazas int,cuota float,
+	fecha_inicio_curso date, fecha_fin_curso date, duracion int ,max_plazas int,
  	colectivos varchar(20), fecha_inicio_inscripcion date, fecha_fin_inscripcion date);
 
 create table Inscripciones (id int primary key not null, idColegiado int, idOtros int,
