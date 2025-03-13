@@ -21,7 +21,7 @@ create table Cursos (id int primary key not null, titulo_curso varchar(20), desc
  	colectivos varchar(20), fecha_inicio_inscripcion date, fecha_fin_inscripcion date);
 
 create table Inscripciones (id int primary key not null, idColegiado int, idOtros int,
- 	idCurso int,fechaInscripcion date,FOREIGN KEY (idColegiado) REFERENCES Colegiados(id),
+ 	idCurso int,fechaInscripcion date, estado enum,FOREIGN KEY (idColegiado) REFERENCES Colegiados(id),
  	FOREIGN KEY (idCurso) REFERENCES Cursos(id),FOREIGN KEY (idOtros) REFERENCES Otros(id));
 
 create table Sesiones (id int primary key not null, idCurso int, 
