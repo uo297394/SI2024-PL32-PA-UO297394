@@ -56,7 +56,7 @@ public class ControllerSesiones {
             view.showError("Formato de fecha inválido.");
             return;
         }
-        
+         
         // Validar que la suma de las duraciones no exceda la duración total del curso
         List<SesionDTO> sesionesRegistradas = model.getSesionesByCurso(cursoId);
         int sumaRegistrada = sesionesRegistradas.stream().mapToInt(SesionDTO::getDuracion).sum();
