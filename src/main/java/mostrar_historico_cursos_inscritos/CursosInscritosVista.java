@@ -69,7 +69,7 @@ public class CursosInscritosVista {
 		lblNewLabel_1.setBounds(179, 10, 184, 13);
 		frame.getContentPane().add(lblNewLabel_1);
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 118, 621, 56);
+		scrollPane.setBounds(10, 101, 621, 91);
 		frame.getContentPane().add(scrollPane);
 		tablaCursos = new JTable();
 		//frame.getContentPane().add(tablaCursos);
@@ -84,7 +84,7 @@ public class CursosInscritosVista {
 		frame.getContentPane().add(mostrarCursos);
 		
 		 totalCursos = new JTextArea();
-		totalCursos.setBounds(20, 184, 162, 91);
+		totalCursos.setBounds(10, 202, 162, 91);
 		frame.getContentPane().add(totalCursos);
 		 frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 	}

@@ -12,6 +12,7 @@ import javax.swing.text.DocumentFilter;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
+import java.util.Calendar;
 import java.util.Date;
 
 import javax.swing.JLabel;
@@ -122,7 +123,14 @@ public class View_inscribirse_peritos extends JFrame {
 		lblNewLabel.setBounds(10, 184, 621, 17);
 		panel.add(lblNewLabel);
 		
-		SpinnerDateModel dateModel = new SpinnerDateModel(new Date(), null, null, java.util.Calendar.YEAR);
+		Calendar cal = Calendar.getInstance();
+		Date currentDate = cal.getTime();
+
+		cal.set(Calendar.MONTH, Calendar.DECEMBER);
+		cal.set(Calendar.DAY_OF_MONTH, 31);
+		Date maxDate = cal.getTime();
+		
+		SpinnerDateModel dateModel = new SpinnerDateModel(new Date(), null, maxDate, java.util.Calendar.YEAR);
 	    spinner = new JSpinner(dateModel);
 		añoColegiacion = new JSpinner.DateEditor(spinner, "yyyy");
         spinner.setEditor(añoColegiacion);

@@ -2,9 +2,6 @@ package registrarCursos;
 
 import javax.swing.*;
 import javax.swing.text.MaskFormatter;
-import registrar_Sesiones.ControllerSesiones;
-import registrar_Sesiones.ModelSesiones;
-import registrar_Sesiones.SesionManagerView;
 import java.awt.*;
 import java.awt.event.*;
 import java.text.ParseException;
@@ -163,17 +160,6 @@ public class ViewH2 extends JFrame {
         btnRegistrar.setBounds(10, 450, 150, 30);
         panel.add(btnRegistrar);
         originalBounds.put(btnRegistrar, btnRegistrar.getBounds());
-        
-        // --- BOTÓN ASIGNAR SESIONES ---
-        btnAsignarSesiones = new JButton("Asignar Sesiones");
-        btnAsignarSesiones.setBounds(10, 490, 150, 30);  // Ahora queda visible por el aumento en la altura
-        panel.add(btnAsignarSesiones);
-        // Puedes agregar el listener para llamar a la historia de sesiones:
-        btnAsignarSesiones.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                new ControllerSesiones(new ModelSesiones(), new SesionManagerView());
-            }
-        });
         
         // Listener para redimensionar proporcionalmente (se excluye el área de descripción)
         addComponentListener(new ComponentAdapter() {

@@ -1,12 +1,12 @@
 -- Inserciones para la tabla Colegiados
 delete from Colegiados;
-INSERT INTO Colegiados (id, nombre, apellido, DNI, direccion, correo, telefono, fecha_nacimiento, numero_cuenta, banco, precolegiados, estado_solicitud, fecha_solicitud, titulacion)
+INSERT INTO Colegiados (id, nombre, apellido, DNI, direccion, correo, telefono, fecha_nacimiento, numero_cuenta, banco, precolegiados, estado_solicitud, fecha_solicitud, titulacion,solicitud_perito,es_perito)
 VALUES 
-(1, 'Juan', 'Pérez', '12345678A', 'Calle Falsa 123', 'juan.perez@example.com', '600111222', '1985-04-23', 987654321, 'Banco1', FALSE, 'aprobado', '2024-01-10', 'ingenieria mecanica'),
-(2, 'María', 'Gómez', '87654321B', 'Avenida Siempre Viva', 'maria.gomez@example.com', '600333444', '1990-07-15', 123456789, 'Banco2', TRUE, 'pendiente', '2024-02-05', 'ingenieria en telecomunicaciones'),
-(3, 'Carlos', 'López', '11223344C', 'Plaza Mayor 5', 'carlos.lopez@example.com', '600555666', '1982-12-01', 111222333, 'Banco3', FALSE, 'rechazado', '2024-03-12', 'ingenieria informatica'),
-(4, 'Ana', 'Fernández', '44332211D', 'Calle Luna 8', 'ana.fernandez@example.com', '600777888', '1995-09-30', 444555666, 'Banco1', TRUE, 'aprobado', '2024-04-20', 'ingenieria industrial'),
-(5, 'Luis', 'Martínez', '66778899E', 'Camino del Sol 21', 'luis.martinez@example.com', '600999000', '1988-06-14', 777888999, 'Banco2', FALSE, 'pendiente', '2024-05-25', 'ingenieria agricola');
+(1, 'Juan', 'Pérez', '12345678A', 'Calle Falsa 123', 'juan.perez@example.com', '600111222', '1985-04-23', 987654321, 'Banco1', FALSE, 'aprobado', '2024-01-10', 'ingenieria mecanica',FALSE,TRUE),
+(2, 'María', 'Gómez', '87654321B', 'Avenida Siempre Viva', 'maria.gomez@example.com', '600333444', '1990-07-15', 123456789, 'Banco2', TRUE, 'pendiente', '2024-02-05', 'ingenieria en telecomunicaciones',FALSE,FALSE),
+(3, 'Carlos', 'López', '11223344C', 'Plaza Mayor 5', 'carlos.lopez@example.com', '600555666', '1982-12-01', 111222333, 'Banco3', FALSE, 'rechazado', '2024-03-12', 'ingenieria informatica',TRUE,FALSE),
+(4, 'Ana', 'Fernández', '44332211D', 'Calle Luna 8', 'ana.fernandez@example.com', '600777888', '1995-09-30', 444555666, 'Banco1', TRUE, 'aprobado', '2024-04-20', 'ingenieria industrial',TRUE,FALSE),
+(5, 'Luis', 'Martínez', '66778899E', 'Camino del Sol 21', 'luis.martinez@example.com', '600999000', '1988-06-14', 777888999, 'Banco2', FALSE, 'pendiente', '2024-05-25', 'ingenieria agricola',FALSE,FALSE);
 
 -- Inserciones para la tabla Cursos
 delete from Cursos;
@@ -41,4 +41,4 @@ VALUES
 (3, 2, 'Conceptos Avanzados de Python', '2027-07-10', '09:30', 3),
 (4, 3, 'Fundamentos de Machine Learning', '2027-09-01', '14:00', 3),
 (5, 4, 'HTML y CSS', '2024-10-15', '16:00', 2),
-(6, 5, 'Introducción a la Ciberseguridad', '2024-11-20', '11:00', 2);
+(6, 5, 'Introducción a la Ciberseguridad', '2024-11-20', '11:00', 3);
