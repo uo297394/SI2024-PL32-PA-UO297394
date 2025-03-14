@@ -32,3 +32,13 @@ VALUES
 (3, 3, 3, '2024-08-15'),
 (4, 4, 4, '2024-09-20'),
 (5, 5, 5, '2024-10-25');
+
+delete from Sesiones;
+INSERT INTO Sesiones (id, idCurso, nombre_sesion, fecha_sesion, hora_inicio, duracion)
+VALUES 
+(1, 1, 'Introducción a SQL', '2027-06-01', '10:00', 2),
+(2, 1, 'Consultas Básicas', '2027-06-08', '10:00', 2),
+(3, 2, 'Conceptos Avanzados de Python', '2027-07-10', '09:30', 3),
+(4, 3, 'Fundamentos de Machine Learning', '2027-09-01', '14:00', 3),
+(5, 4, 'HTML y CSS', '2024-10-15', '16:00', 2),
+(6, 5, 'Introducción a la Ciberseguridad', '2024-11-20', '11:00', 3);
