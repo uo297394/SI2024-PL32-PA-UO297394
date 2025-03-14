@@ -57,7 +57,7 @@ public class EnviarSolicitudVista {
 		table.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 		scrollPane.setViewportView(table);
 		table.setBounds(10, 133, 345, 128);	
-		 BotonEnviar = new JButton("Enviar");
+		BotonEnviar = new JButton("Enviar");
 		BotonEnviar.setBounds(341, 232, 85, 21);
 		frame.getContentPane().add(BotonEnviar);
 		
@@ -72,9 +72,9 @@ public class EnviarSolicitudVista {
 	public void setTabla(TableModel t) {
 		 this.table.setModel(t);
 	}
-	public  JTable getTabla() {
+	public  JTable getTablaColegiados() {
 		return this.table;
 	}
 	public JFrame getFrame() {return this.frame;}
-	public JButton getBoton() {return this.BotonEnviar;}
+	public JButton getBotonEnviar() {return this.BotonEnviar;}
 }
