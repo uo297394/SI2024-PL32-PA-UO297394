@@ -29,7 +29,7 @@ public EnviarSolicitudControlador(EnviarSolicitudVista v, EnviarSolicitudModelo 
 
 public void RellenaTabla() {
 	List<ColegiadoDTO> listaColegiados=this.m.getListaColegiados();
-	String[] columnas= {"DNI", "nombre", "apellido"};
+	String[] columnas= {"DNI", "nombre", "apellido" };
 	String [] ticolumnas= {"DNI", "nombre", "apellido"};
 	TableModel tablaCursos = SwingUtil.getTableModelFromPojos(listaColegiados, columnas);
 	this.v.setTabla(tablaCursos);

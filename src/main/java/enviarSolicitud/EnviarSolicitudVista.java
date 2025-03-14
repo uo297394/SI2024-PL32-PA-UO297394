@@ -44,13 +44,13 @@ public class EnviarSolicitudVista {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frame = new JFrame();
+		frame =  new JFrame();
 		frame.setBounds(100, 100, 450, 300);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 50, 263, 175);
+		scrollPane.setBounds(10, 50, 183, 175);
 		frame.getContentPane().add(scrollPane);
 		
 		table = new JTable();
