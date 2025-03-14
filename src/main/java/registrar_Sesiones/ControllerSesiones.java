@@ -51,7 +51,7 @@ public class ControllerSesiones {
                 return;
             }
         } catch (DateTimeParseException e) {
-            view.showError("Formato de fecha inválido.");
+            view.showError("Formato de fecha inválido");
             return;
         }
          
