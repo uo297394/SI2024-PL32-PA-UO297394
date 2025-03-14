@@ -19,7 +19,7 @@ public class ModelSesiones {
   //* Registrar una sesión para un curso*/
     public void registrarSesion(int idCurso, SesionDTO sesion) throws ApplicationException { 
         String sql = "INSERT INTO Sesiones (id, idCurso, nombre_sesion, fecha_sesion, hora_inicio, duracion) " +
-                     "VALUES (?, ?, ?, ?, ?, ?)";
+                     "VALUES (?, ?, ?, ?, ?, ?)" ;
         int nextId = getNextSesionId();
         db.executeUpdate(sql, nextId, idCurso, sesion.getNombre(), sesion.getFecha(), sesion.getHoraInicio(), sesion.getDuracion());
     }
