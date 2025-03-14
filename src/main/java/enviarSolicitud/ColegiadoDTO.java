@@ -12,7 +12,7 @@ public String getDNI() {
 	return DNI;
 }
 public void setDNI(String dNI) {
-	DNI = dNI;
+	DNI =  dNI;
 }
 public String getNombre() {
 	return nombre;
