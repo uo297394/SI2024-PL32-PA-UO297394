@@ -1,6 +1,6 @@
-
 package registrar_Sesiones;
 
+//Clase para obtener todo tipo de datos de la clase Sesiones
 public class SesionDTO {
     private String nombre;
     private String fecha;
