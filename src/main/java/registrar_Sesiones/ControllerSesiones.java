@@ -8,13 +8,11 @@ import java.util.List;
 public class ControllerSesiones {
     private ModelSesiones model;
     private SesionManagerView view;
-
     public ControllerSesiones(ModelSesiones model, SesionManagerView view) {
         this.model = model;
         this.view = view;
         initController();
     }
-
     private void initController() {
         view.setVisible(true);
         // Listener para guardar la sesión de forma inmediata
