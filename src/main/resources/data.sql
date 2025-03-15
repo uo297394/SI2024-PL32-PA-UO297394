@@ -10,18 +10,18 @@ VALUES
 
 -- Inserciones para la tabla Cursos
 delete from Cursos;
-INSERT INTO Cursos (id, titulo_curso, descripcion, fecha_inicio_curso, fecha_fin_curso, duracion, max_plazas, cuota, colectivos, fecha_inicio_inscripcion, fecha_fin_inscripcion)
+INSERT INTO Cursos (id, titulo_curso, descripcion, fecha_inicio_curso, fecha_fin_curso, duracion, max_plazas, colectivos, fecha_inicio_inscripcion, fecha_fin_inscripcion)
 VALUES 
-(1, 'SQL Básico', 'Introducción a SQL', '2027-06-01', '2027-06-30', 30, 20, 50.0, 'Estudiantes', '2024-02-01', '2026-05-31'), 
-(2, 'Python Avanzado', 'Programación avanzada en Python', '2027-07-10', '2027-08-10', 30, 25, 100.0, 'Profesionales', '2024-06-01', '2026-07-05'), 
-(3, 'Machine Learning', 'Fundamentos de ML', '2027-09-01', '2027-10-01', 30, 15, 150.0, 'Investigadores', '2026-08-01', '2026-08-31'), 
-(4, 'Desarrollo Web', 'Creación de aplicaciones web', '2024-10-15', '2024-11-15', 30, 30, 80.0, 'Estudiantes', '2024-09-01', '2024-10-10'),
-(5, 'Ciberseguridad', 'Seguridad en sistemas', '2024-11-20', '2024-12-20', 30, 20, 120.0, 'Empresas', '2024-10-01', '2024-11-15'), 
-(6, 'SQL Básico II', 'Introducción a SQL', '2024-06-01', '2024-06-30', 30, 20, 50.0, 'Estudiantes', NULL, NULL),
-(7, 'Python Avanzado II', 'Programación avanzada en Python', '2024-07-10', '2024-08-10', 30, 25, 100.0, 'Profesionales', NULL, NULL),
-(8, 'Machine Learning II', 'Fundamentos de ML', '2024-09-01', '2024-10-01', 30, 15, 150.0, 'Investigadores', NULL, NULL),
-(9, 'Desarrollo Web II', 'Creación de aplicaciones web', '2024-10-15', '2024-11-15', 30, 30, 80.0, 'Estudiantes', NULL, NULL),
-(10, 'Ciberseguridad II', 'Seguridad en sistemas', '2024-11-20', '2024-12-20', 30, 20, 120.0, 'Empresas', NULL, NULL);
+(1, 'SQL Básico', 'Introducción a SQL', '2027-06-01', '2027-06-30', 30, 50.0, 'Estudiantes', '2024-02-01', '2026-05-31'), 
+(2, 'Python Avanzado', 'Programación avanzada en Python', '2027-07-10', '2027-08-10', 30, 100.0, 'Profesionales', '2024-06-01', '2026-07-05'), 
+(3, 'Machine Learning', 'Fundamentos de ML', '2027-09-01', '2027-10-01', 30,150.0, 'Investigadores', '2026-08-01', '2026-08-31'), 
+(4, 'Desarrollo Web', 'Creación de aplicaciones web', '2024-10-15', '2024-11-15', 30,80.0, 'Estudiantes', '2024-09-01', '2024-10-10'),
+(5, 'Ciberseguridad', 'Seguridad en sistemas', '2024-11-20', '2024-12-20', 30,120.0, 'Empresas', '2024-10-01', '2024-11-15'), 
+(6, 'SQL Básico II', 'Introducción a SQL', '2024-06-01', '2024-06-30', 30,50.0, 'Estudiantes', NULL, NULL),
+(7, 'Python Avanzado II', 'Programación avanzada en Python', '2024-07-10', '2024-08-10', 30,100.0, 'Profesionales', NULL, NULL),
+(8, 'Machine Learning II', 'Fundamentos de ML', '2024-09-01', '2024-10-01', 30,150.0, 'Investigadores', NULL, NULL),
+(9, 'Desarrollo Web II', 'Creación de aplicaciones web', '2024-10-15', '2024-11-15', 30,80.0, 'Estudiantes', NULL, NULL),
+(10, 'Ciberseguridad II', 'Seguridad en sistemas', '2024-11-20', '2024-12-20', 30,120.0, 'Empresas', NULL, NULL);
 
 -- Inserciones para la tabla Inscripciones
 delete from Inscripciones;
@@ -42,3 +42,11 @@ VALUES
 (4, 3, 'Fundamentos de Machine Learning', '2027-09-01', '14:00', 3),
 (5, 4, 'HTML y CSS', '2024-10-15', '16:00', 2),
 (6, 5, 'Introducción a la Ciberseguridad', '2024-11-20', '11:00', 3);
+
+
+delete from Solicitante;
+INSERT INTO Solicitante(id,nombre, apellidos, DNI,direccion,correo, telefono, fecha_nacimiento)
+VALUES
+(1, 'Manolo', 'Preciado', '46723479Z','Calle Falsa 33','manolitopreci@gmail.com','600111222','1957-08-28'),
+(2, 'Pedro', 'Picapiedra', '46723579Y','Calle de los amores 54','pedritoGOAT@gmail.com','74151622','1989-9-18'),
+(3, 'Bulma', 'Kakarot', '76423479II','Peña del cristo 43','vegetrunks@gmail.com','330111256','1957-08-28');

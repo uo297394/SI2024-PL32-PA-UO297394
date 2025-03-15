@@ -32,6 +32,7 @@ import mostrar_historico_cursos_inscritos.CursosInscritosControlador;
 import mostrar_historico_cursos_inscritos.CursosInscritosModelo;
 import mostrar_historico_cursos_inscritos.CursosInscritosVista;
 import cursosActions.*;
+import solicitarPericiales.*;
 
 public class SwingMain extends JFrame {
 
@@ -138,6 +139,10 @@ public class SwingMain extends JFrame {
 		lblNewLabel_4.setBounds(386, 27, 159, 22);
 		panel_1.add(lblNewLabel_4);
 		
+		JButton btnSolicitarPericiales = new JButton("Solicitar Periciales");
+		btnSolicitarPericiales.setBounds(413, 149, 177, 25);
+		panel_1.add(btnSolicitarPericiales);
+		
 		JLabel lblNewLabel = new JLabel("INICIO Y CARGA DE LA BASE DE  DATOS ");
 		lblNewLabel.setBounds(5, 0, 246, 31);
 		contentPane.add(lblNewLabel);
@@ -212,6 +217,14 @@ public class SwingMain extends JFrame {
 				CursosInscritosControlador controller=new CursosInscritosControlador(v, 
 						m);
 				v.getFrame().setVisible(true);
+				
+			}
+		});
+		btnSolicitarPericiales.addActionListener(new ActionListener() { //NOSONAR codigo autogenerado
+			public void actionPerformed(ActionEvent e) {
+				Controller_solicitar_periciales controller=new Controller_solicitar_periciales(new Model_solicitar_periciales(), 
+						new View_solicitar_periciales());
+				controller.initController();
 				
 			}
 		});
