@@ -222,8 +222,8 @@ public class SwingMain extends JFrame {
 		});
 		btnSolicitarPericiales.addActionListener(new ActionListener() { //NOSONAR codigo autogenerado
 			public void actionPerformed(ActionEvent e) {
-				Controller_solicitar_periciales controller=new Controller_solicitar_periciales(new Model_solicitar_periciales(), 
-						new View_solicitar_periciales());
+				ControllerSolicitarPericiales controller=new ControllerSolicitarPericiales(new ModelSolicitarPericiales(), 
+						new ViewSolicitarPericiales());
 				controller.initController();
 				
 			}

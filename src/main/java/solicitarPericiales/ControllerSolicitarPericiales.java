@@ -4,23 +4,21 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
 import javax.swing.JOptionPane;
 
 
-public class Controller_solicitar_periciales {
+public class ControllerSolicitarPericiales {
 	
-	private Model_solicitar_periciales model;
-	private View_solicitar_periciales view;
+	private ModelSolicitarPericiales model;
+	private ViewSolicitarPericiales view;
 	String nombre,apellido,DNI,direccion,correo,telefono,detalles,caracter;
 	Date fechaNacimiento;
 	
 	private String fechaNacimientoStr; // Cadena con la fecha formateada
 	
-	public Controller_solicitar_periciales(Model_solicitar_periciales m, View_solicitar_periciales v) {
+	public ControllerSolicitarPericiales(ModelSolicitarPericiales m, ViewSolicitarPericiales v) {
 		this.model=m;
 		this.view=v;
-		
 	}
 	
 	public void initController() {
@@ -40,7 +38,6 @@ public class Controller_solicitar_periciales {
 				fechaNacimientoStr = sdf.format(fechaNacimiento);
 				detalles=view.getDetalles().getText();
 				caracter=view.getCaracter().getSelectedItem().toString();
-				
 				// Validaciones básicas
 				if(nombre.isEmpty() || apellido.isEmpty() || DNI.isEmpty() || direccion.isEmpty() ||
 				           correo.isEmpty() || telefono.isEmpty()) {
@@ -53,7 +50,7 @@ public class Controller_solicitar_periciales {
 			            return;
 			        }
 				 
-				// Validar teléfono: por ejemplo, 9 dígitos
+				// Validar teléfono: 9 dígitos
 				 if(telefono.length() != 9 || !telefono.matches("\\d+")) {
 			            JOptionPane.showMessageDialog(view, "El teléfono debe contener 9 dígitos.", "Error", JOptionPane.ERROR_MESSAGE);
 			            return;
@@ -108,7 +105,6 @@ private void limpiarFormulario() {
     view.getDetalles().setText("");
     // Reiniciar el spinner a la fecha actual, por ejemplo:
     view.getFechaNacimiento().setValue(new Date());
-    // Si tienes otros componentes, reinícialos también
 }
 
 }

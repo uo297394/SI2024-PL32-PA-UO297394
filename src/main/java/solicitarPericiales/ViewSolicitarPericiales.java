@@ -21,7 +21,7 @@ import javax.swing.JComboBox;
 import javax.swing.JButton;
 
 
-public class View_solicitar_periciales extends JFrame {
+public class ViewSolicitarPericiales extends JFrame {
 
 	private  JSpinner.DateEditor añoNacimiento;
 	private static final long serialVersionUID = 1L;
@@ -43,7 +43,7 @@ public class View_solicitar_periciales extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					View_solicitar_periciales frame = new View_solicitar_periciales();
+					ViewSolicitarPericiales frame = new ViewSolicitarPericiales();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -55,7 +55,7 @@ public class View_solicitar_periciales extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public View_solicitar_periciales() {
+	public ViewSolicitarPericiales() {
 		setTitle("Solicitar periciales");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 631, 379);
