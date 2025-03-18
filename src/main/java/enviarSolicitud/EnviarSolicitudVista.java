@@ -50,7 +50,7 @@ public class EnviarSolicitudVista {
 		frame.getContentPane().setLayout(null);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 50, 183, 175);
+		scrollPane.setBounds(10, 50, 271, 175);
 		frame.getContentPane().add(scrollPane);
 		
 		table = new JTable();
@@ -68,6 +68,10 @@ public class EnviarSolicitudVista {
 		JLabel lblNewLabel_1 = new JLabel("Solicitudes pendientes");
 		lblNewLabel_1.setBounds(10, 33, 178, 13);
 		frame.getContentPane().add(lblNewLabel_1);
+		
+		JButton ComprobarTitulos = new JButton("Comprobar Titulos");
+		ComprobarTitulos.setBounds(180, 231, 151, 23);
+		frame.getContentPane().add(ComprobarTitulos);
 	}
 	public void setTabla(TableModel t) {
 		 this.table.setModel(t);

@@ -25,6 +25,7 @@ public EnviarSolicitudControlador(EnviarSolicitudVista v, EnviarSolicitudModelo 
 	    @Override
 	    public void actionPerformed(ActionEvent e) {
 	    	generaFichero();
+	    	RellenaTabla();
 	        }});
 }
 //Rellenamos la tabla con los colegiados en estado pendiente
@@ -50,6 +51,7 @@ public void generaFichero() {
       PrintWriter writer = new PrintWriter(new FileWriter(file, false)); 
 	for(int f:filas) {
 		String DNI=tabla.getValueAt(f, 0).toString();
+		this.m.cambiarEnviado(DNI);
 		System.out.print(DNI);
 		writer.print(DNI);
 		writer.print(';');
@@ -62,4 +64,5 @@ public void generaFichero() {
         e.printStackTrace();
     }
 }
+
 }
