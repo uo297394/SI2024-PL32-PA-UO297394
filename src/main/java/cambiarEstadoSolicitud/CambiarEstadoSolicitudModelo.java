@@ -19,4 +19,14 @@ public class CambiarEstadoSolicitudModelo {
 		return estado=="Pendiente";
 		
 	}
+	public void cambiarAprobado(String dni) {
+		String sql="UPDATE colegiados SET estado_solicitud = 'Aprobado' WHERE dni = ?";
+		db.executeUpdate(sql, dni);
+		
+	}
+	public void cambiarDenegado(String dni) {
+		String sql="UPDATE colegiados SET estado_solicitud = 'Denegado' WHERE dni = ?";
+		db.executeUpdate(sql, dni);
+		
+	}
 }
