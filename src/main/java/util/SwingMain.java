@@ -23,6 +23,11 @@ import mostrar_historico_cursos_inscritos.CursosInscritosModelo;
 import mostrar_historico_cursos_inscritos.CursosInscritosVista;
 import cursosActions.*;
 
+import solicitarPericiales.*;
+import enviarSolicitud.*;
+
+
+
 public class SwingMain extends JFrame {
 
 	private static final long serialVersionUID = 1L;
@@ -44,13 +49,14 @@ public class SwingMain extends JFrame {
 		});
 	}
 
+
 	/**
 	 * Create the frame.
 	 */
 	public SwingMain() {
 		setTitle("Pantalla inicial");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 681, 445);
+		setBounds(100, 100, 844, 445);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -59,7 +65,7 @@ public class SwingMain extends JFrame {
 		
 		JPanel panel = new JPanel();
 		panel.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
-		panel.setBounds(5, 29, 652, 42);
+		panel.setBounds(5, 29, 815, 42);
 		contentPane.add(panel);
 		panel.setLayout(null);
 		
@@ -86,7 +92,7 @@ public class SwingMain extends JFrame {
 		
 		JPanel panel_1 = new JPanel();
 		panel_1.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
-		panel_1.setBounds(5, 112, 652, 228);
+		panel_1.setBounds(5, 112, 815, 228);
 		contentPane.add(panel_1);
 		panel_1.setLayout(null);
 		JButton btnHistoria3 = new JButton("Visualizar cursos");
@@ -127,6 +133,21 @@ public class SwingMain extends JFrame {
 		lblNewLabel_4.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_4.setBounds(386, 27, 159, 22);
 		panel_1.add(lblNewLabel_4);
+		
+
+		JButton btnSolicitarPericiales = new JButton("Solicitar Periciales");
+		btnSolicitarPericiales.setBounds(613, 67, 177, 25);
+		panel_1.add(btnSolicitarPericiales);
+
+		JButton enviarSolicitud = new JButton("Comprobar titulacion");
+		enviarSolicitud.setBounds(413, 109, 177, 25);
+		panel_1.add(enviarSolicitud);
+		
+		JLabel lblNewLabel_5 = new JLabel("Otros");
+		lblNewLabel_5.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_5.setBounds(622, 27, 125, 22);
+		panel_1.add(lblNewLabel_5);
+
 		
 		JLabel lblNewLabel = new JLabel("INICIO Y CARGA DE LA BASE DE  DATOS ");
 		lblNewLabel.setBounds(5, 0, 246, 31);
@@ -181,6 +202,25 @@ public class SwingMain extends JFrame {
 				CursosInscritosControlador controller=new CursosInscritosControlador(v, 
 						m);
 				v.getFrame().setVisible(true);
+				
+			}
+		});
+
+		btnSolicitarPericiales.addActionListener(new ActionListener() { //NOSONAR codigo autogenerado
+			public void actionPerformed(ActionEvent e) {
+				ControllerSolicitarPericiales controller=new ControllerSolicitarPericiales(new ModelSolicitarPericiales(), 
+						new ViewSolicitarPericiales());
+				controller.initController();
+			}
+		});
+		enviarSolicitud.addActionListener(new ActionListener() { //NOSONAR codigo autogenerado
+			public void actionPerformed(ActionEvent e) {
+				EnviarSolicitudVista v=new EnviarSolicitudVista();
+				EnviarSolicitudModelo m=new EnviarSolicitudModelo();
+				EnviarSolicitudControlador controller=new EnviarSolicitudControlador(v, 
+						m);
+				v.getFrame().setVisible(true);
+
 				
 			}
 		});
