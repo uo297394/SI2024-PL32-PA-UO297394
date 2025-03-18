@@ -1,9 +1,9 @@
 12345678A;Licenciado en Ingeniería Informática  
 23456789B;Máster en Ingeniería Informática  
 34567890C;Ingeniero en Informática  
-45678901D;Licenciado en Ingeniería Informática, Licenciado en Administración de Empresas  
+45678901D;Licenciado en Ingeniería Informática; Licenciado en Administración de Empresas  
 56789012E;Máster en Ingeniería Informática, Máster en Finanzas  
-67890123F;Ingeniero en Informática, Licenciado en Ciencias Económicas  
+67890123F;Ingeniero en Informática; Licenciado en Ciencias Económicas  
 78901234G;Licenciado en Ingeniería Informática  
 89012345H;Máster en Ingeniería Informática  
 90123456I;Ingeniero en Informática  
