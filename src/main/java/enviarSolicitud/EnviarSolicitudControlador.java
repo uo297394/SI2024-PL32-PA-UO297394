@@ -31,8 +31,8 @@ public EnviarSolicitudControlador(EnviarSolicitudVista v, EnviarSolicitudModelo 
 //Rellenamos la tabla con los colegiados en estado pendiente
 public void RellenaTabla() {
 	List<ColegiadoDTO> listaColegiados=this.m.getListaColegiados();
-	String[] columnas= {"DNI", "nombre", "apellido" };
-	String [] ticolumnas= {"DNI", "nombre", "apellido"};
+	String[] columnas= {"DNI", "nombre", "apellido","estado_solicitud" };
+	String [] ticolumnas= {"DNI", "nombre", "apellido","estado_solicitud"};
 	TableModel tablaCursos = SwingUtil.getTableModelFromPojos(listaColegiados, columnas);
 	this.v.setTabla(tablaCursos);
 	SwingUtil.autoAdjustColumns(this.v.getTablaColegiados());
