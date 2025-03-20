@@ -15,6 +15,7 @@ import javax.swing.JTable;
 import javax.swing.table.TableModel;
 
 import util.SwingUtil;
+import util.Util;
 
 public class EnviarSolicitudControlador {
 private EnviarSolicitudVista v;
@@ -30,10 +31,26 @@ public EnviarSolicitudControlador(EnviarSolicitudVista v, EnviarSolicitudModelo 
 	    	generaFichero();
 	    	RellenaTabla();
 	        }});
+	this.v.getBotonComprobarTitulos().addActionListener(new ActionListener(){
+	    @Override
+	    public void actionPerformed(ActionEvent e) {
+	    	procesarFichero();
+	    	RellenaTablaRecibido();
+	        }});
+	
 }
 //Rellenamos la tabla con los colegiados en estado pendiente
 public void RellenaTabla() {
 	List<ColegiadoDTO> listaColegiados=this.m.getListaColegiados();
+	String[] columnas= {"DNI", "nombre", "apellido","estado_solicitud" };
+	String [] ticolumnas= {"DNI", "nombre", "apellido","estado_solicitud"};
+	TableModel tablaCursos = SwingUtil.getTableModelFromPojos(listaColegiados, columnas);
+	this.v.setTabla(tablaCursos);
+	SwingUtil.autoAdjustColumns(this.v.getTablaColegiados());
+
+}
+public void RellenaTablaRecibido() {
+	List<ColegiadoDTO> listaColegiados=this.m.getListaColegiadosAceptadosRechazados();
 	String[] columnas= {"DNI", "nombre", "apellido","estado_solicitud" };
 	String [] ticolumnas= {"DNI", "nombre", "apellido","estado_solicitud"};
 	TableModel tablaCursos = SwingUtil.getTableModelFromPojos(listaColegiados, columnas);
@@ -68,6 +85,22 @@ public void generaFichero() {
     }
 }
 //Funciones relativas a la historia modificar estado de la solicitud
+public void procesarFichero() {
+	String [] separadores= {";"};
+	String DNI="";
+	List<String[]> listaTitulaciones=Util.procesarFichero("titulaciones.txt", ";");
+	for(String [] l:listaTitulaciones) {
+		DNI=l[0];
+		for(int i=1;i<l.length;i++) {
+			if(m.EstaColegiado(DNI) && m.comprobarEnviado(DNI)) {
+				if(l[i].equals("Ingeniero en Informática") || l[i].equals("Licenciado en Ingeniería Informática") || l[i].equals("Máster en Ingeniería Informática")) {
+						m.cambiarAprobado(DNI);
+						break;
+				}
+						m.cambiarDenegado(DNI);}
+			
+					}
+	}
+}
 
-// MIRAR CLASE PRUEBA
 }

@@ -12,8 +12,16 @@ public class EnviarSolicitudModelo {
 	        List<ColegiadoDTO> listaCursos=db.executeQueryPojo(ColegiadoDTO.class,sql);
 	        return listaCursos;
 	    }
+	 public List<ColegiadoDTO> getListaColegiadosAceptadosRechazados() { 
+		 //la consulta toma el dni, nombre y apellidos de los colegiados con una solicitud pendiente
+		 String sql = "SELECT c.DNI, c.nombre, c.apellido, c.estado_solicitud FROM Colegiados c ";
+	        List<ColegiadoDTO> listaCursos=db.executeQueryPojo(ColegiadoDTO.class,sql);
+	        return listaCursos;
+	    }
+	 
+	 
 	 public void cambiarEnviado(String dni) {
-			String sql="UPDATE colegiados SET estado_solicitud = 'Enviado' WHERE dni = ?";
+			String sql="UPDATE colegiados SET estado_solicitud = 'enviado' WHERE dni = ?";
 			db.executeUpdate(sql, dni);
 			
 		}
@@ -35,9 +43,15 @@ public class EnviarSolicitudModelo {
 			db.executeUpdate(sql, dni);
 			
 		}
+		
 		public void cambiarDenegado(String dni) {
 			String sql="UPDATE colegiados SET estado_solicitud = 'Denegado' WHERE dni = ?";
 			db.executeUpdate(sql, dni);
 			
+		}
+		public boolean comprobarEnviado(String dni) {
+			String sql="SELECT COUNT(*) from Colegiados WHERE DNI = ? AND estado_solicitud='enviado'";
+			int estadoenviado=(int)db.executeQueryArray(sql,dni).get(0)[0];
+			return estadoenviado>0;
 		}
 }

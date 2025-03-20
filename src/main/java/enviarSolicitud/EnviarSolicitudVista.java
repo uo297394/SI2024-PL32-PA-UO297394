@@ -10,12 +10,15 @@ import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.TableModel;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class EnviarSolicitudVista {
 
 	private JFrame frame;
 	private JTable table;
 	private JButton BotonEnviar;
+	private JButton ComprobarTitulos;
 
 	/**
 	 * Launch the application.
@@ -50,7 +53,7 @@ public class EnviarSolicitudVista {
 		frame.getContentPane().setLayout(null);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 50, 271, 175);
+		scrollPane.setBounds(10, 50, 286, 175);
 		frame.getContentPane().add(scrollPane);
 		
 		table = new JTable();
@@ -69,7 +72,11 @@ public class EnviarSolicitudVista {
 		lblNewLabel_1.setBounds(10, 33, 178, 13);
 		frame.getContentPane().add(lblNewLabel_1);
 		
-		JButton ComprobarTitulos = new JButton("Comprobar Titulos");
+		 ComprobarTitulos = new JButton("Comprobar Titulos");
+		 ComprobarTitulos.addActionListener(new ActionListener() {
+		 	public void actionPerformed(ActionEvent e) {
+		 	}
+		 });
 		ComprobarTitulos.setBounds(180, 231, 151, 23);
 		frame.getContentPane().add(ComprobarTitulos);
 	}
@@ -81,4 +88,5 @@ public class EnviarSolicitudVista {
 	}
 	public JFrame getFrame() {return this.frame;}
 	public JButton getBotonEnviar() {return this.BotonEnviar;}
+	public JButton getBotonComprobarTitulos() {return this.ComprobarTitulos;}
 }

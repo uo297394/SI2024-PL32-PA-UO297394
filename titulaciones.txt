@@ -2,7 +2,7 @@
 23456789B;Máster en Ingeniería Informática  
 34567890C;Ingeniero en Informática  
 45678901D;Licenciado en Ingeniería Informática; Licenciado en Administración de Empresas  
-56789012E;Máster en Ingeniería Informática, Máster en Finanzas  
+56789012E;Máster en Ingeniería Informática; Máster en Finanzas  
 67890123F;Ingeniero en Informática; Licenciado en Ciencias Económicas  
 78901234G;Licenciado en Ingeniería Informática  
 89012345H;Máster en Ingeniería Informática  
@@ -12,9 +12,13 @@
 22334455L;Médico Cirujano  
 33445566M;Licenciado en Derecho  
 44556677N;Ingeniero Civil  
-55667788O;Licenciado en Administración de Empresas, Máster en Biotecnología  
+55667788O;Licenciado en Administración de Empresas; Máster en Biotecnología  
 66778899P;Licenciado en Psicología  
 77889900Q;Ingeniero Industrial  
 88990011R;Máster en Finanzas  
 99001122S;Licenciado en Ciencias Económicas  
 10011002T;Licenciado en Filosofía
+123456;Licenciado en Ingeniería Informática
+32211D;Cirujano
+456;Ingeniero en Informática
+87654321B;Pastor
