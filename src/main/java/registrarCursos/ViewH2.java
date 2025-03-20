@@ -2,14 +2,16 @@ package registrarCursos;
 
 import javax.swing.*;
 import javax.swing.text.MaskFormatter;
+
 import registrar_Sesiones.ControllerSesiones;
 import registrar_Sesiones.ModelSesiones;
 import registrar_Sesiones.SesionManagerView;
+
 import java.awt.*;
 import java.awt.event.*;
 import java.text.ParseException;
 import java.util.HashMap;
-import java.util.Map;
+import java.util.Map; 
 
 public class ViewH2 extends JFrame {
     private JTextField txtTitulo;

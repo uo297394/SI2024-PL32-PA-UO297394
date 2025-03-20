@@ -6,7 +6,8 @@ import util.ApplicationException;
 import util.Database;
 
 public class InscribirColegiadoModel {
-	private static final String MSG_COLEG_INSCR = "El colegiado ya está inscrito";
+	enum states{ACEPTADO,PENDIENTE, RECHAZADO}
+	private static final String MSG_COLEG_INSCR = "El colegiado ya está inscrito, operación de pago cancelada";
 	private Database db=new Database();
 	
 	//SQL para obtener la lista de titulos de los cursos que no han sido planificados
@@ -48,13 +49,23 @@ public class InscribirColegiadoModel {
 	/**
 	 * Inserta la inscripcion del colegiado al curso si no está inscrito
 	 */
-	public void insertInscColegiado(String idColeg, String idCurso) {
+	public void insertInscColegiado(String idColeg, String idCurso, int estado) {
+		states estadoEnum = states.RECHAZADO;
+		switch(estado) {
+		case 0:
+			estadoEnum = states.ACEPTADO;
+			break;
+		case 1:
+			estadoEnum = states.PENDIENTE;
+			break;
+			
+		}
 		if(!estaInscrito(idColeg,idCurso) && hayPlazas(idCurso)) {
-		String sql="INSERT INTO Inscripciones (id, idColegiado, idCurso, fechaInscripcion)"+
+		String sql="INSERT INTO Inscripciones (id, idColegiado, idCurso, fechaInscripcion, estado)"+
 					" VALUES"+
-					" (?, ?, ?, ?);";
+					" (?, ?, ?, ?, ?);";
 		int id=lastID();
-		db.executeUpdate(sql, id ,idColeg, idCurso, Util.getTodayISO());
+		db.executeUpdate(sql, id ,idColeg, idCurso, Util.getTodayISO(), estadoEnum);
 		}else if(hayPlazas(idCurso))throw new ApplicationException(MSG_COLEG_INSCR);
 		else throw new ApplicationException("No hay plazas disponibles para este curso");
 	}

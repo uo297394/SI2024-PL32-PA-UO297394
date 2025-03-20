@@ -35,5 +35,4 @@ public class Model_inscribirse_peritos {
 	    
 	    return true;
 	}
-	
 }

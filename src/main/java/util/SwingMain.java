@@ -7,27 +7,17 @@ import javax.swing.border.EmptyBorder;
 import registrarCursos.ControllerH2;
 import registrarCursos.ModelH2;
 import registrarCursos.ViewH2;
-import java.awt.BorderLayout;
 import javax.swing.JButton;
 import registrar_colegiado.*;
-import util.Database;
 import visualizar_cursos.*;
-import javax.swing.BoxLayout;
-import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
 import javax.swing.border.BevelBorder;
 import javax.swing.SwingConstants;
-import aperturaInscripciones.*;
-import inscribirColegiado.*;
 import inscribirse_peritos.Controller_inscribirse_peritos;
 import inscribirse_peritos.Model_inscribirse_peritos;
 import inscribirse_peritos.View_inscribirse_peritos;
-import inscritos_cursos_formacion.ControllerInscripciones;
-import inscritos_cursos_formacion.ModelCursos;
-import inscritos_cursos_formacion.ModelInscripciones;
-import inscritos_cursos_formacion.ViewInscripciones;
 import mostrar_historico_cursos_inscritos.CursosInscritosControlador;
 import mostrar_historico_cursos_inscritos.CursosInscritosModelo;
 import mostrar_historico_cursos_inscritos.CursosInscritosVista;
@@ -172,14 +162,6 @@ public class SwingMain extends JFrame {
 				controller.initController();
 			}
 		});
-		/*
-		btnInscritosCursos.addActionListener(new ActionListener() { //NOSONAR codigo autogenerado
-			public void actionPerformed(ActionEvent e) {
-				ControllerInscripciones controller=new ControllerInscripciones
-						(new ModelInscripciones(), new ModelCursos(), new ViewInscripciones());
-			}
-		});
-		*/
 		
 		btnHistoria2.addActionListener(new ActionListener() { //NOSONAR codigo autogenerado
 			public void actionPerformed(ActionEvent e) {
@@ -198,20 +180,7 @@ public class SwingMain extends JFrame {
 				
 			}
 		});
-		/*
-		btnApInscr.addActionListener(new ActionListener() { //NOSONAR codigo autogenerado
-			public void actionPerformed(ActionEvent e) {
-				AperturaInscripcionesController controladorApInscr=new AperturaInscripcionesController(new AperturaInscripcionesModel(), new AperturaInscripcionesView());
-				controladorApInscr.initController();
-			}
-		});
-		btnInscColeg.addActionListener(new ActionListener() { //NOSONAR codigo autogenerado
-			public void actionPerformed(ActionEvent e) {
-				InscribirColegiadoController controladorInscColeg=new InscribirColegiadoController(new InscribirColegiadoModel(), new InscribirColegiadoView());
-				controladorInscColeg.initController();
-			}
-		});
-		*/
+		
 		btnCursosActions.addActionListener(new ActionListener() { //NOSONAR codigo autogenerado
 			public void actionPerformed(ActionEvent e) {
 				CursosActionsController controladorCursosActions=new CursosActionsController(new CursosActionsModel(), new CursosActionsView());
