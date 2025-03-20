@@ -1,9 +1,13 @@
 package util;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.text.Format;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -181,4 +185,19 @@ public class Util {
 		String fechaHoy = sdf.format(new Date());
 		return fechaHoy;
 	}
+	public static List<String[]> procesarFichero(String nombreArchivo,String sep) {
+		List<String[]> ls = new ArrayList<>();
+		try {
+		BufferedReader br = new BufferedReader(new FileReader(nombreArchivo));
+		 String linea;
+		 linea=br.readLine();
+		while(linea !=null) {
+			ls.add(linea.split(sep));
+			linea = br.readLine();
+		}
+		 }
+	catch(IOException e) {e.printStackTrace();}
+		return ls;
+		}
+	
 }
