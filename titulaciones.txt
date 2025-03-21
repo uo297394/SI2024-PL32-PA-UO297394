@@ -21,4 +21,4 @@
 123456;Licenciado en Ingeniería Informática
 32211D;Cirujano
 456;Ingeniero en Informática
-87654321B;Pastor
+87654321B;Ingeniero en Informática
