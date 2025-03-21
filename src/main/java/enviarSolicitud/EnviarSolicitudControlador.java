@@ -91,6 +91,7 @@ public void generaFichero() {
 public void procesarFichero() {
 	List<String> listaAceptados=new LinkedList<>();
 	List<String> listaRechazados=new LinkedList<>();
+	int numeroColegiadosAceptadosRechazados=0;
 	String [] separadores= {";"};
 	String DNI="";
 	List<String[]> listaTitulaciones=Util.procesarFichero("titulaciones.txt", ";");
@@ -98,6 +99,7 @@ public void procesarFichero() {
 		DNI=l[0];
 		for(int i=1;i<l.length;i++) {
 			if(m.EstaColegiado(DNI) && m.comprobarEnviado(DNI)) {
+				numeroColegiadosAceptadosRechazados++;
 				if(l[i].equals("Ingeniero en Informática") || l[i].equals("Licenciado en Ingeniería Informática") || l[i].equals("Máster en Ingeniería Informática")) {
 						m.cambiarAprobado(DNI);
 						listaAceptados.add(DNI);
@@ -110,10 +112,15 @@ public void procesarFichero() {
 			
 					}
 	}
+	if(numeroColegiadosAceptadosRechazados==0) {
+		JOptionPane.showMessageDialog(null,"Ningún título nuevo comprobado","Resultado",JOptionPane.INFORMATION_MESSAGE);
+	}
+	else {
 	String aceptados=listaAceptados.toString();
 	String rechazados=listaRechazados.toString();
 	JOptionPane.showMessageDialog(null,"Colegiados aceptados:" + aceptados +"\n" +"Colegiados rechazados:"+rechazados.toString(), "Resultado",JOptionPane.INFORMATION_MESSAGE);
 }
+	}
 public void modificaEtiqueta() {
 	this.v.setEiqueta("Solicitudes");
 }
