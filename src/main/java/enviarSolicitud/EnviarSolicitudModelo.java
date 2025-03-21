@@ -39,13 +39,13 @@ public class EnviarSolicitudModelo {
 			
 		}
 		public void cambiarAprobado(String dni) {
-			String sql="UPDATE colegiados SET estado_solicitud = 'Aprobado' WHERE dni = ?";
+			String sql="UPDATE colegiados SET estado_solicitud = 'aprobado' WHERE dni = ?";
 			db.executeUpdate(sql, dni);
 			
 		}
 		
 		public void cambiarDenegado(String dni) {
-			String sql="UPDATE colegiados SET estado_solicitud = 'Denegado' WHERE dni = ?";
+			String sql="UPDATE colegiados SET estado_solicitud = 'rechazado' WHERE dni = ?";
 			db.executeUpdate(sql, dni);
 			
 		}

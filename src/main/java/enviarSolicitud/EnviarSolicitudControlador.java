@@ -9,8 +9,10 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.TableModel;
 
@@ -35,6 +37,7 @@ public EnviarSolicitudControlador(EnviarSolicitudVista v, EnviarSolicitudModelo 
 	    @Override
 	    public void actionPerformed(ActionEvent e) {
 	    	procesarFichero();
+	    	modificaEtiqueta();
 	    	RellenaTablaRecibido();
 	        }});
 	
@@ -86,6 +89,8 @@ public void generaFichero() {
 }
 //Funciones relativas a la historia modificar estado de la solicitud
 public void procesarFichero() {
+	List<String> listaAceptados=new LinkedList<>();
+	List<String> listaRechazados=new LinkedList<>();
 	String [] separadores= {";"};
 	String DNI="";
 	List<String[]> listaTitulaciones=Util.procesarFichero("titulaciones.txt", ";");
@@ -95,12 +100,22 @@ public void procesarFichero() {
 			if(m.EstaColegiado(DNI) && m.comprobarEnviado(DNI)) {
 				if(l[i].equals("Ingeniero en Informática") || l[i].equals("Licenciado en Ingeniería Informática") || l[i].equals("Máster en Ingeniería Informática")) {
 						m.cambiarAprobado(DNI);
+						listaAceptados.add(DNI);
 						break;
 				}
-						m.cambiarDenegado(DNI);}
+						m.cambiarDenegado(DNI);
+						listaRechazados.add(DNI);
+						
+			}
 			
 					}
 	}
+	String aceptados=listaAceptados.toString();
+	String rechazados=listaRechazados.toString();
+	JOptionPane.showMessageDialog(null,"Colegiados aceptados:" + aceptados +"\n" +"Colegiados rechazados:"+rechazados.toString(), "Resultado",JOptionPane.INFORMATION_MESSAGE);
+}
+public void modificaEtiqueta() {
+	this.v.setEiqueta("Solicitudes");
 }
 
 }

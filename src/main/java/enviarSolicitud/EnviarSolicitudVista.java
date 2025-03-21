@@ -19,6 +19,7 @@ public class EnviarSolicitudVista {
 	private JTable table;
 	private JButton BotonEnviar;
 	private JButton ComprobarTitulos;
+	private JLabel etiquetaColegiados;
 
 	/**
 	 * Launch the application.
@@ -64,13 +65,13 @@ public class EnviarSolicitudVista {
 		BotonEnviar.setBounds(341, 232, 85, 21);
 		frame.getContentPane().add(BotonEnviar);
 		
-		JLabel lblNewLabel = new JLabel("Enviar solicitud de colegiacion");
+		JLabel lblNewLabel = new JLabel("Comprobacion de solicitudes de colegiados");
 		lblNewLabel.setBounds(120, 10, 183, 13);
 		frame.getContentPane().add(lblNewLabel);
 		
-		JLabel lblNewLabel_1 = new JLabel("Solicitudes pendientes");
-		lblNewLabel_1.setBounds(10, 33, 178, 13);
-		frame.getContentPane().add(lblNewLabel_1);
+		 etiquetaColegiados = new JLabel("Solicitudes pendientes");
+		etiquetaColegiados.setBounds(10, 33, 178, 13);
+		frame.getContentPane().add(etiquetaColegiados);
 		
 		 ComprobarTitulos = new JButton("Comprobar Titulos");
 		 ComprobarTitulos.addActionListener(new ActionListener() {
@@ -89,4 +90,7 @@ public class EnviarSolicitudVista {
 	public JFrame getFrame() {return this.frame;}
 	public JButton getBotonEnviar() {return this.BotonEnviar;}
 	public JButton getBotonComprobarTitulos() {return this.ComprobarTitulos;}
+	public void setEiqueta(String nuevoTexto) {
+		this.etiquetaColegiados.setText(nuevoTexto);
+	}
 }

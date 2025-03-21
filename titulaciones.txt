@@ -22,3 +22,6 @@
 32211D;Cirujano
 456;Ingeniero en Informática
 87654321B;Ingeniero en Informática
+44332211D;Astronauta
+12345678A;Ingeniero en Informática
+66778899E;Pintor
