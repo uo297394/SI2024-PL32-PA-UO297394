@@ -5,8 +5,10 @@ public class InscripcionDisplayDTO {
     private String apellido;
     private String DNI;
     private String estado;
+    private String fechaInscripcion;
     private String telefono;
     private String correo;
+    private String cuota;
 
     // Getters y setters
     public String getNombre() {
@@ -45,4 +47,32 @@ public class InscripcionDisplayDTO {
 	public void setCorreo(String correo) {
 		this.correo = correo;
 	}
+	public String getCuota() {
+		return cuota;
+	}
+	public void setCuota(String cuota) {
+		this.cuota = cuota;
+	}
+	public String getFechaInscripcion() {
+		return fechaInscripcion;
+	}
+	public void setFechaInscripcion(String fechaInscripcion) {
+		this.fechaInscripcion = fechaInscripcion;
+	}
+	public InscripcionDisplayDTO(String nombre, String apellido, String dNI, String estado, String telefono,
+			String correo, String cuota, String fechaInscripcion) {
+		this.nombre = nombre;
+		this.apellido = apellido;
+		DNI = dNI;
+		this.estado = estado;
+		this.telefono = telefono;
+		this.correo = correo;
+		this.cuota = cuota;
+		this.fechaInscripcion = fechaInscripcion;
+	}
+	public InscripcionDisplayDTO() {
+		
+	}
+	
+	
 }
