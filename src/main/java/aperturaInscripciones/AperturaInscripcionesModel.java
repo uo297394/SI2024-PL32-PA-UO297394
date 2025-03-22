@@ -16,8 +16,9 @@ public class AperturaInscripcionesModel {
 	
 	//SQL para obtener la lista de titulos de los cursos que no han sido planificados
 	public static final String SQL_LISTA_CURSOS=
-			"SELECT id,titulo_curso as tituloCurso,descripcion,fecha_inicio_curso as fechaInicioCurso,fecha_fin_curso as fechaFinCurso,duracion,max_plazas as maxPlazas,cuota,colectivos,fecha_inicio_inscripcion as fechaInicioInscripcion, fecha_fin_inscripcion as fechaFinInscripcion"
-					+" from Cursos";
+			"SELECT cr.id,cr.titulo_curso as tituloCurso,cr.descripcion,cr.fecha_inicio_curso as fechaInicioCurso,cr.fecha_fin_curso as fechaFinCurso,cr.duracion,cr.max_plazas as maxPlazas,GROUP_CONCAT(ct.cuota) as cuotas,GROUP_CONCAT(ct.colectivo) as colectivos,cr.fecha_inicio_inscripcion as fechaInicioInscripcion, cr.fecha_fin_inscripcion as fechaFinInscripcion"
+					+" from Cursos cr "
+					+"LEFT JOIN Cuotas ct ON cr.id = ct.idCurso GROUP BY cr.id";
 	/**
 	 * Obtiene la lista de curso que o han sido planificados
 	 * Implementacion usando la utilidad que obtiene una lista de arrays de objetos 

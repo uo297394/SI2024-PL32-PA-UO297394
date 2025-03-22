@@ -9,10 +9,12 @@ public class ActualizarInscritosModel {
 	private Database db = new Database();
 	
 	public List<InscripcionDisplayDTO> getInscripcionesPorCurso() {
-		String sql = "SELECT c.nombre, c.apellido, c.DNI, c.telefono, c.correo, i.estado,i.fechaInscripcion, ct.cuota " +
+		String sql = "SELECT DISTINCT c.id, c.nombre, c.apellido, c.DNI, c.telefono, c.correo, i.estado,i.fechaInscripcion, ct.cuota,cr.titulo_curso as tituloCurso " +
                 "FROM Colegiados c " +
                 "JOIN Inscripciones i ON c.id = i.idColegiado " +
-                "JOIN Cuotas ct ON ct.idCurso = i.idCurso where i.estado = 1";
+                "JOIN Cuotas ct ON ct.idCurso = i.idCurso "+
+                "JOIN Cursos cr ON cr.id = i.idCurso "+
+                "where i.estado = 1";
 		return db.executeQueryPojo(InscripcionDisplayDTO.class, sql);
 	}
 	public void actualizaInscripcion(boolean aprobado, String DNI) {

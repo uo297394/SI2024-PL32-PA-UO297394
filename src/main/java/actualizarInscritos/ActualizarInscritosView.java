@@ -21,7 +21,7 @@ public class ActualizarInscritosView extends JFrame {
 	 * Create the frame.
 	 */
 	public ActualizarInscritosView() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -36,7 +36,7 @@ public class ActualizarInscritosView extends JFrame {
 		tableInscripciones = new JTable();
 		scrollPane.setViewportView(tableInscripciones);
 		
-		btnComprobar.setBounds(351, 232, 85, 21);
+		btnComprobar.setBounds(309, 232, 127, 21);
 		contentPane.add(btnComprobar);
 	}
 

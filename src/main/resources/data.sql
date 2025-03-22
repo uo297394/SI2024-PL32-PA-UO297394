@@ -26,13 +26,13 @@ VALUES
 
 -- Inserciones para la tabla Inscripciones
 delete from Inscripciones;
-INSERT INTO Inscripciones (id, idColegiado, idCurso, fechaInscripcion)
+INSERT INTO Inscripciones (id, idColegiado, idCurso, fechaInscripcion, estado)
 VALUES 
-(1, 1, 1, '2024-05-05'),
-(2, 2, 2, '2024-06-10'),
-(3, 3, 3, '2024-08-15'),
-(4, 4, 4, '2024-09-20'),
-(5, 5, 5, '2024-10-25');
+(1, 1, 1, '2024-05-05', 0),
+(2, 2, 2, '2024-06-10', 1),
+(3, 3, 3, '2024-08-15', 2),
+(4, 4, 4, '2024-09-20', 1),
+(5, 5, 5, '2024-10-25', 1);
 
 delete from Sesiones;
 INSERT INTO Sesiones (id, idCurso, nombre_sesion, fecha_sesion, hora_inicio, duracion)
@@ -51,3 +51,22 @@ VALUES
 (1, 'Manolo', 'Preciado', '46723479Z','Calle Falsa 33','manolitopreci@gmail.com','600111222','1957-08-28'),
 (2, 'Pedro', 'Picapiedra', '46723579Y','Calle de los amores 54','pedritoGOAT@gmail.com','74151622','1989-9-18'),
 (3, 'Bulma', 'Kakarot', '76423479II','Peña del cristo 43','vegetrunks@gmail.com','330111256','1957-08-28');
+
+delete from Cuotas;
+INSERT INTO Cuotas(id,idCurso, cuota, colectivo)
+VALUES
+(1,1,50.0,'Estudiantes'),
+(2,2,50.0,'Estudiantes'),
+(3,3,50.0,'Estudiantes'),
+(4,4,50.0,'Estudiantes'),
+(5,5,50.0,'Estudiantes'),
+(6,6,50.0,'Estudiantes'),
+(7,7,50.0,'Estudiantes'),
+(8,8,50.0,'Estudiantes'),
+(9,9,50.0,'Estudiantes'),
+(10,10,50.0,'Estudiantes'),
+(11,1,10.0,'Profesores'),
+(12,1,20.0,'Empresa'),
+(13,2,50.0,'Estudiantes'),
+(14,3,50.0,'Estudiantes'),
+(15,4,50.0,'Estudiantes');

@@ -1,6 +1,7 @@
 package inscritos_cursos_formacion;
 
 public class InscripcionDisplayDTO {
+	private String id;
     private String nombre;
     private String apellido;
     private String DNI;
@@ -9,6 +10,7 @@ public class InscripcionDisplayDTO {
     private String telefono;
     private String correo;
     private String cuota;
+    private String tituloCurso;
 
     // Getters y setters
     public String getNombre() {
@@ -59,20 +61,45 @@ public class InscripcionDisplayDTO {
 	public void setFechaInscripcion(String fechaInscripcion) {
 		this.fechaInscripcion = fechaInscripcion;
 	}
-	public InscripcionDisplayDTO(String nombre, String apellido, String dNI, String estado, String telefono,
-			String correo, String cuota, String fechaInscripcion) {
+	public String getTituloCurso() {
+		return tituloCurso;
+	}
+	public void setTituloCurso(String tituloCurso) {
+		this.tituloCurso = tituloCurso;
+	}
+	
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
+	
+	
+	public InscripcionDisplayDTO(String id, String nombre, String apellido, String dNI, String estado,
+			String fechaInscripcion, String telefono, String correo, String cuota, String tituloCurso) {
+		this.id = id;
 		this.nombre = nombre;
 		this.apellido = apellido;
 		DNI = dNI;
 		this.estado = estado;
+		this.fechaInscripcion = fechaInscripcion;
 		this.telefono = telefono;
 		this.correo = correo;
 		this.cuota = cuota;
-		this.fechaInscripcion = fechaInscripcion;
+		this.tituloCurso = tituloCurso;
 	}
 	public InscripcionDisplayDTO() {
 		
 	}
+	@Override
+	public String toString() {
+		return "InscripcionDisplayDTO [id=" + id + ", nombre=" + nombre + ", apellido=" + apellido + ", DNI=" + DNI
+				+ ", estado=" + estado + ", fechaInscripcion=" + fechaInscripcion + ", telefono=" + telefono
+				+ ", correo=" + correo + ", cuota=" + cuota + ", tituloCurso=" + tituloCurso + "]";
+	}
+	
+	
 	
 	
 }

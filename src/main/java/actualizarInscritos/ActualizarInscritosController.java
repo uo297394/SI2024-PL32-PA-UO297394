@@ -33,7 +33,7 @@ public class ActualizarInscritosController {
 		this.initView();
 	}
 	public void initController() {
-		view.getBtnComprobar().addActionListener(e -> SwingUtil.exceptionWrapper(() -> actualizarInscripcion()));
+		view.getBtnComprobar().addActionListener(e -> SwingUtil.exceptionWrapper(() -> actualizarInscripcion(model.getInscripcionesPorCurso().get(view.getTableInscripciones().getSelectedRow()))));
 
 		view.getTableInscripciones().addMouseListener(new MouseAdapter() {
 			@Override
@@ -45,15 +45,16 @@ public class ActualizarInscritosController {
 		});
 	}
 	public void initView() {
-		this.getListaCursos();
+		this.getListaInscripcionesPorCurso();
+		initController();
 		view.setVisible(true); 
 	}
 	/**
 	 * La obtencion de la lista de cursos y insercion de la misma en la tabla de los cursos
 	 */
-	public void getListaCursos() {
+	public void getListaInscripcionesPorCurso() {
 		List<InscripcionDisplayDTO> inscripciones=model.getInscripcionesPorCurso();
-		TableModel tmodel=SwingUtil.getTableModelFromPojos(inscripciones, new String[] {"id","tituloCurso","descripcion","fechaInicioCurso","fechaFinCurso","duracion","maxPlazas","cuota","colectivos","fechaInicioInscripcion","fechaFinInscripcion"});
+		TableModel tmodel=SwingUtil.getTableModelFromPojos(inscripciones, new String[] {"id","nombre","apellido","DNI","estado","fechaInscripcion","telefono","correo","cuota","tituloCurso"});
 		view.getTableInscripciones().setModel(tmodel);
 		SwingUtil.autoAdjustColumns(view.getTableInscripciones());
 		
@@ -75,14 +76,14 @@ public class ActualizarInscritosController {
 	 * Actualiza la seleccion de los cursos */
 	public void updateDetail() {
 		this.lastSelectedKey=SwingUtil.getSelectedKey(view.getTableInscripciones());
-		this.actualizarInscripcion(model.getInscripcionesPorCurso().get(view.getTableInscripciones().getSelectedRow()));
 	}
 	
 	private void actualizarInscripcion(InscripcionDisplayDTO insc) {
+		System.out.println(insc);
 		boolean ap = true;
 		boolean found = false;
-		String inputFile = "transacciones.csv";
-	    String outputFile = "deudas.csv";
+		String inputFile = "src/main/resources/transacciones.csv";
+	    String outputFile = "src/main/resources/deudas.csv";
 
 	        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 	        
@@ -91,15 +92,16 @@ public class ActualizarInscritosController {
 	            
 	            String line;
 	            while ((line = br.readLine()) != null) {
-	                String[] fields = line.split(";");
-	                if (fields.length < 4) continue;
+	                String[] fields = line.split(",");
+	                if (fields.length < 5) continue;
 	                
 	                String dni = fields[0].trim();
-	                String cuenta = fields[1].trim();
-	                LocalDateTime fechaTransaccion = LocalDateTime.parse(fields[2].trim(), formatter);
-	                double cuota = Double.parseDouble(fields[3].trim());
-	                //TODO: COMPROBAR QUE NO SE TRATE UNA TRANSACCION YA TRATADA DE LA MISMA PERSONA
-	                if (dni.equals(insc.getDNI())) {
+	                String cuenta = fields[4].trim();
+	                String concepto = fields[2].trim();
+	                LocalDateTime fechaTransaccion = LocalDateTime.parse(fields[3].trim()+" 00:00:00", formatter);
+	                double cuota = Double.parseDouble(fields[1].trim());
+	                //COMPROBAR QUE NO SE TRATE UNA TRANSACCION YA TRATADA DE LA MISMA PERSONA
+	                if (dni.equals(insc.getDNI()) && concepto.equals(insc.getTituloCurso())) {
 	                    long hoursDifference = Duration.between(LocalDateTime.parse(insc.getFechaInscripcion(), formatter), fechaTransaccion).toHours();
 	                    if (hoursDifference >= 0 && hoursDifference <= 48) {
 	                        if (cuota < Float.parseFloat(insc.getCuota())) {
@@ -119,6 +121,7 @@ public class ActualizarInscritosController {
 	            e.printStackTrace();
 	        }
 		if(!found)throw new ApplicationException("No hay ningún pago de este usuario");
+		if(!ap)throw new ApplicationException("El usuario no realizó el pago suficiente o lo hizo fuera de plazo");
 		model.actualizaInscripcion(ap, insc.getDNI());
 		
 		

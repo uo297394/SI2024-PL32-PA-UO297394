@@ -2,6 +2,7 @@ package cursosActions;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.Iterator;
 import java.util.List;
 import javax.swing.table.TableModel;
 import aperturaInscripciones.AperturaInscripcionesDisplayDTO;
@@ -53,7 +54,7 @@ public class CursosActionsController {
 	 */
 	public void getListaCursos() {
 		List<AperturaInscripcionesDisplayDTO> cursos=model.getListaCursos();
-		TableModel tmodel=SwingUtil.getTableModelFromPojos(cursos, new String[] {"id","tituloCurso","descripcion","fechaInicioCurso","fechaFinCurso","duracion","maxPlazas","cuota","colectivos","fechaInicioInscripcion","fechaFinInscripcion"});
+		TableModel tmodel=SwingUtil.getTableModelFromPojos(cursos, new String[] {"id","tituloCurso","descripcion","fechaInicioCurso","fechaFinCurso","duracion","maxPlazas","cuotas","colectivos","fechaInicioInscripcion","fechaFinInscripcion"});
 		view.getTablaCursos().setModel(tmodel);
 		SwingUtil.autoAdjustColumns(view.getTablaCursos());
 		
@@ -98,7 +99,7 @@ public class CursosActionsController {
 				model.insertInscColegiado(numColeg,disp.getId());
 				getListaCursos();
 				ColegiadoDisplayDTO col = model.aiModel.getColegiado(numColeg);
-				throw new ApplicationException(MSG_COLEG_INSCRITO+"\n"+col.toString()+"\n"+"Fecha de solicitud realizada el: "+Util.getTodayISO()+"\nCuota: "+disp.getCuota()+"\n"+MSG_CUENTA);
+				throw new ApplicationException(MSG_COLEG_INSCRITO+"\n"+col.toString()+"\n"+"Fecha de solicitud realizada el: "+Util.getTodayISO()+"\nCuota: "+disp.getCuotas()+"\n"+MSG_CUENTA);
 			}
 		}
 	}

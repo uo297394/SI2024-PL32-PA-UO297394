@@ -32,6 +32,7 @@ import mostrar_historico_cursos_inscritos.CursosInscritosControlador;
 import mostrar_historico_cursos_inscritos.CursosInscritosModelo;
 import mostrar_historico_cursos_inscritos.CursosInscritosVista;
 import cursosActions.*;
+import actualizarInscritos.*;
 
 import solicitarPericiales.*;
 import enviarSolicitud.*;
@@ -109,6 +110,10 @@ public class SwingMain extends JFrame {
 		btnHistoria3.setBounds(205, 144, 177, 30);
 		panel_1.add(btnHistoria3);
 		
+		JButton btnActualizarInscripcion = new JButton("Actualizar Inscripciones");
+		btnActualizarInscripcion.setBounds(205, 184, 177, 30);
+		panel_1.add(btnActualizarInscripcion);
+		
 		JButton btnSoliColeg = new JButton("Solicitud de colegiación");
 		btnSoliColeg.setBounds(413, 64, 177, 30);
 		panel_1.add(btnSoliColeg);
@@ -172,14 +177,14 @@ public class SwingMain extends JFrame {
 				controller.initController();
 			}
 		});
-		/*
-		btnInscritosCursos.addActionListener(new ActionListener() { //NOSONAR codigo autogenerado
+		
+		btnActualizarInscripcion.addActionListener(new ActionListener() { //NOSONAR codigo autogenerado
 			public void actionPerformed(ActionEvent e) {
-				ControllerInscripciones controller=new ControllerInscripciones
-						(new ModelInscripciones(), new ModelCursos(), new ViewInscripciones());
+				ActualizarInscritosController controller=new ActualizarInscritosController
+						(new ActualizarInscritosModel(), new ActualizarInscritosView());
 			}
 		});
-		*/
+		
 		
 		btnHistoria2.addActionListener(new ActionListener() { //NOSONAR codigo autogenerado
 			public void actionPerformed(ActionEvent e) {
