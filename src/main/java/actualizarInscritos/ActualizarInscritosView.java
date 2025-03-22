@@ -1,7 +1,5 @@
 package actualizarInscritos;
 
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -22,7 +20,7 @@ public class ActualizarInscritosView extends JFrame {
 	 */
 	public ActualizarInscritosView() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 572, 370);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -30,13 +28,13 @@ public class ActualizarInscritosView extends JFrame {
 		contentPane.setLayout(null);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(0, 10, 436, 212);
+		scrollPane.setBounds(0, 10, 548, 282);
 		contentPane.add(scrollPane);
 		
 		tableInscripciones = new JTable();
 		scrollPane.setViewportView(tableInscripciones);
 		
-		btnComprobar.setBounds(309, 232, 127, 21);
+		btnComprobar.setBounds(361, 302, 187, 21);
 		contentPane.add(btnComprobar);
 	}
 
