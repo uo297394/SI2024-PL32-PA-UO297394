@@ -79,7 +79,6 @@ public class ActualizarInscritosController {
 	}
 	
 	private void actualizarInscripcion(InscripcionDisplayDTO insc) {
-		System.out.println(insc);
 		boolean ap = true;
 		boolean found = false;
 		String inputFile = "src/main/resources/transacciones.csv";
@@ -99,10 +98,12 @@ public class ActualizarInscritosController {
 	                String cuenta = fields[4].trim();
 	                String concepto = fields[2].trim();
 	                LocalDateTime fechaTransaccion = LocalDateTime.parse(fields[3].trim()+" 00:00:00", formatter);
+	                
 	                double cuota = Double.parseDouble(fields[1].trim());
 	                //COMPROBAR QUE NO SE TRATE UNA TRANSACCION YA TRATADA DE LA MISMA PERSONA
 	                if (dni.equals(insc.getDNI()) && concepto.equals(insc.getTituloCurso())) {
-	                    long hoursDifference = Duration.between(LocalDateTime.parse(insc.getFechaInscripcion(), formatter), fechaTransaccion).toHours();
+	                	found = true;
+	                    long hoursDifference = Duration.between(LocalDateTime.parse(insc.getFechaInscripcion()+" 00:00:00", formatter), fechaTransaccion).toHours();
 	                    if (hoursDifference >= 0 && hoursDifference <= 48) {
 	                        if (cuota < Float.parseFloat(insc.getCuota())) {
 	                            bw.write(dni + "," + cuenta + "," + cuota);
@@ -115,15 +116,23 @@ public class ActualizarInscritosController {
 	                        }
 	                    }
 	                }
+	                if(!found) {
+	                	long hoursDifference = Duration.between(LocalDateTime.parse(insc.getFechaInscripcion()+" 00:00:00", formatter), LocalDateTime.now()).toHours();
+	                    if (hoursDifference < 0 || hoursDifference > 48) { // HA PASADO EL PLAZO Y NO SE HA PAGADO
+	                    	ap = false;
+	                    }
+	                        
+	                }
 	            }
 	            
 	        } catch (IOException | NumberFormatException e) {
 	            e.printStackTrace();
 	        }
-		if(!found)throw new ApplicationException("No hay ningún pago de este usuario");
-		if(!ap)throw new ApplicationException("El usuario no realizó el pago suficiente o lo hizo fuera de plazo");
+		if(!found && ap)throw new ApplicationException("No hay ningún pago de este usuario, sin embargo sigue dentro del plazo"); //Dentro de plazo, ningún pago
 		model.actualizaInscripcion(ap, insc.getDNI());
-		
+		getListaInscripcionesPorCurso();
+		if(!ap)throw new ApplicationException("El usuario no realizó el pago correcto o lo hizo fuera de plazo"); //Fuera de plazo/ No pago
+		throw new ApplicationException("Inscripcion aceptada");
 		
 	}
 }

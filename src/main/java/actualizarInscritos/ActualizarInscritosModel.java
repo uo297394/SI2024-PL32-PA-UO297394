@@ -19,7 +19,7 @@ public class ActualizarInscritosModel {
 	}
 	public void actualizaInscripcion(boolean aprobado, String DNI) {
 		int estado = aprobado? 0 : 2;
-		String sql="UPDATE Inscripciones SET estado=? WHERE DNI = ?";
+		String sql="UPDATE Inscripciones as i SET estado=? WHERE (SELECT DNI FROM Colegiados c WHERE i.idColegiado = c.id) = ?";
 		db.executeUpdate(sql, estado, DNI);
 	}
 	
