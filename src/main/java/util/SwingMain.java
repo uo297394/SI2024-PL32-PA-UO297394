@@ -166,7 +166,6 @@ public class SwingMain extends JFrame {
 		btnHistoria2.addActionListener(new ActionListener() { //NOSONAR codigo autogenerado
 			public void actionPerformed(ActionEvent e) {
 				ControllerH2 controllerH2=new ControllerH2(new ModelH2(), new ViewH2());
-				controllerH2.initController();
 			}
 		});
 		
