@@ -141,11 +141,4 @@ public class ViewH2 extends JFrame {
     public JButton getBtnVerCursos() { return btnVerCursos; }
     public JButton getBtnRegistrarSesiones() { return btnRegistrarSesiones; }
 
-    // Método main para prueba
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            ViewH2 view = new ViewH2();
-            view.setVisible(true);
-        });
-    }
 }
