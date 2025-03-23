@@ -129,7 +129,6 @@ public class ViewH2 extends JFrame {
             return new JFormattedTextField();
         }
     }
-
     // Getters
     public JTextField getTxtTitulo() { return txtTitulo; }
     public JTextArea getTxtDescripcion() { return txtDescripcion; }
