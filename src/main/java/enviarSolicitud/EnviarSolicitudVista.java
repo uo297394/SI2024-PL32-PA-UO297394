@@ -66,7 +66,7 @@ public class EnviarSolicitudVista {
 		frame.getContentPane().add(BotonEnviar);
 		
 		JLabel lblNewLabel = new JLabel("Comprobacion de solicitudes de colegiados");
-		lblNewLabel.setBounds(120, 10, 183, 13);
+		lblNewLabel.setBounds(120, 10, 274, 13);
 		frame.getContentPane().add(lblNewLabel);
 		
 		 etiquetaColegiados = new JLabel("Solicitudes pendientes");
@@ -93,4 +93,5 @@ public class EnviarSolicitudVista {
 	public void setEiqueta(String nuevoTexto) {
 		this.etiquetaColegiados.setText(nuevoTexto);
 	}
+	
 }

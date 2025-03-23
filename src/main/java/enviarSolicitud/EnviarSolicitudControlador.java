@@ -38,6 +38,7 @@ public EnviarSolicitudControlador(EnviarSolicitudVista v, EnviarSolicitudModelo 
 	    public void actionPerformed(ActionEvent e) {
 	    	procesarFichero();
 	    	modificaEtiqueta();
+	    	deshabilitarEnviar();
 	    	RellenaTablaRecibido();
 	        }});
 	
@@ -123,6 +124,9 @@ public void procesarFichero() {
 	}
 public void modificaEtiqueta() {
 	this.v.setEiqueta("Solicitudes");
+}
+public void deshabilitarEnviar() {
+	this.v.getBotonEnviar().setEnabled(false);
 }
 
 }
