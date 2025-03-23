@@ -26,6 +26,7 @@ public class EnviarSolicitudModelo {
 			
 		}
 //Los siguientes métodos son relativos a la historia Cambiar estado de la solicitud
+	 //comprobamos si los dnis de la lista pertenecen a un colegiado
 	 public boolean EstaColegiado(String dni) {
 			String sql="SELECT COUNT(*) from Colegiados WHERE DNI = ?";	
 			Object[] numerocolegiados=db.executeQueryArray(sql,dni).get(0);
@@ -38,17 +39,19 @@ public class EnviarSolicitudModelo {
 			return estado=="Pendiente";
 			
 		}
+		//Se cambia el estado de la solicitud del colegiado a aprobado
 		public void cambiarAprobado(String dni) {
 			String sql="UPDATE colegiados SET estado_solicitud = 'aprobado' WHERE dni = ?";
 			db.executeUpdate(sql, dni);
 			
 		}
-		
+		//Se cambia el estado de la solicitud del colegiado a denegado
 		public void cambiarDenegado(String dni) {
 			String sql="UPDATE colegiados SET estado_solicitud = 'rechazado' WHERE dni = ?";
 			db.executeUpdate(sql, dni);
 			
 		}
+		//Se comprueba que la solicitud esté en estado "enviado"
 		public boolean comprobarEnviado(String dni) {
 			String sql="SELECT COUNT(*) from Colegiados WHERE DNI = ? AND estado_solicitud='enviado'";
 			int estadoenviado=(int)db.executeQueryArray(sql,dni).get(0)[0];

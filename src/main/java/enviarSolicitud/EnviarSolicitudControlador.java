@@ -33,6 +33,8 @@ public EnviarSolicitudControlador(EnviarSolicitudVista v, EnviarSolicitudModelo 
 	    	generaFichero();
 	    	RellenaTabla();
 	        }});
+	//Historia de cambiar estado de la soliciud
+	//Esvuchamos el botón de comprobar títulos
 	this.v.getBotonComprobarTitulos().addActionListener(new ActionListener(){
 	    @Override
 	    public void actionPerformed(ActionEvent e) {
@@ -53,6 +55,7 @@ public void RellenaTabla() {
 	SwingUtil.autoAdjustColumns(this.v.getTablaColegiados());
 
 }
+//Rellenamos la tabla con todas las solicitudes de colegiados
 public void RellenaTablaRecibido() {
 	List<ColegiadoDTO> listaColegiados=this.m.getListaColegiadosAceptadosRechazados();
 	String[] columnas= {"DNI", "nombre", "apellido","estado_solicitud" };
@@ -98,9 +101,13 @@ public void procesarFichero() {
 	List<String[]> listaTitulaciones=Util.procesarFichero("titulaciones.txt", ";");
 	for(String [] l:listaTitulaciones) {
 		DNI=l[0];
+		//recorremos cada fila del fichero (almacenado en su conjunto en una lista de String[])
 		for(int i=1;i<l.length;i++) {
+			//Solo hacemos algo si el DNI del fichero hace referencia a un colegiado en estado "enviado"
 			if(m.EstaColegiado(DNI) && m.comprobarEnviado(DNI)) {
+				//Variable utilizada para comprobar que se ha realizado la comprobación de al menos un título.
 				numeroColegiadosAceptadosRechazados++;
+				//en el caso de que la solicitud sea de un coelgiado ingeniero informatico su estado pasará a aprobado, en caso contrario a rechazado
 				if(l[i].equals("Ingeniero en Informática") || l[i].equals("Licenciado en Ingeniería Informática") || l[i].equals("Máster en Ingeniería Informática")) {
 						m.cambiarAprobado(DNI);
 						listaAceptados.add(DNI);
@@ -113,18 +120,21 @@ public void procesarFichero() {
 			
 					}
 	}
+	//Si no ha habido ninguna modificación de estado de ningún colegiado se informa de ello
 	if(numeroColegiadosAceptadosRechazados==0) {
 		JOptionPane.showMessageDialog(null,"Ningún título nuevo comprobado","Resultado",JOptionPane.INFORMATION_MESSAGE);
 	}
 	else {
 	String aceptados=listaAceptados.toString();
 	String rechazados=listaRechazados.toString();
+	//Justificante con coleiados aceptados y colegiados
 	JOptionPane.showMessageDialog(null,"Colegiados aceptados:" + aceptados +"\n" +"Colegiados rechazados:"+rechazados.toString(), "Resultado",JOptionPane.INFORMATION_MESSAGE);
 }
 	}
 public void modificaEtiqueta() {
 	this.v.setEiqueta("Solicitudes");
 }
+//El boton enviar solo está habilitado cuando nos encontramos en la pantalla que muestra las solicitudes pendientes.
 public void deshabilitarEnviar() {
 	this.v.getBotonEnviar().setEnabled(false);
 }
