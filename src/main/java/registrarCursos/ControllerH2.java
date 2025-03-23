@@ -7,6 +7,7 @@ import java.time.format.DateTimeParseException;
 import java.util.List;
 import javax.swing.JOptionPane;
 
+import registrar_Sesiones.ModelSesiones;
 import util.ApplicationException;
 
 public class ControllerH2 {
@@ -19,11 +20,7 @@ public class ControllerH2 {
         initController();
     }
     
-    public void initController() {
-        // Obtener todas las cuotas para poblar la tabla en la vista.
-        List<CuotaDTO> cuotas = model.getAllCuotas();
-        view.populateCuotasTable(cuotas);
-        
+    public void initController() {   
         // Agregar listener para el botón de registrar curso.
         view.getBtnRegistrar().addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -31,8 +28,21 @@ public class ControllerH2 {
             }
         });
         
+        view.getBtnVerCursos().addActionListener(e -> {
+            // Se instancia la nueva vista y su controlador
+            registrarCuotas.ViewCuota viewCuota = new registrarCuotas.ViewCuota();
+            new registrarCuotas.ControllerCuota(new ModelH2(), viewCuota);
+        });
+        
+        view.getBtnRegistrarSesiones().addActionListener(e -> {
+            // Se instancia la nueva vista y su controlador
+            registrar_Sesiones.SesionManagerView viewSesiones = new registrar_Sesiones.SesionManagerView();
+            new registrar_Sesiones.ControllerSesiones(new ModelSesiones(), viewSesiones);
+        });
+        
         view.setVisible(true);
     }
+    
     
     private void registrarCurso() {
         // Recoger datos del curso desde la vista.
@@ -81,32 +91,11 @@ public class ControllerH2 {
                     "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        
-        // Recuperar el idCuotas seleccionado de la tabla.
-        int selectedRow = view.getTableCuotas().getSelectedRow();
-        if (selectedRow == -1) {
-            JOptionPane.showMessageDialog(view, "Seleccione una cuota de la tabla.", 
-                    "Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-        int idCuotaSeleccionado;
-        try {
-            // Se asume que la primera columna (oculta) contiene el idCuota.
-            idCuotaSeleccionado = Integer.parseInt(view.getTableCuotas().getValueAt(selectedRow, 0).toString());
-        } catch (NumberFormatException ex) {
-            JOptionPane.showMessageDialog(view, "ID de cuota inválido.", 
-                    "Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-        
-        // Extraer el nombre del colectivo y el valor de la cuota desde la tabla.
-        String colectivoSeleccionado = view.getTableCuotas().getValueAt(selectedRow, 1).toString();
-        String cuotaValor = view.getTableCuotas().getValueAt(selectedRow, 2).toString();
-        
+           
         // Registrar el curso usando el idCuota seleccionado.
         try {
             model.registrarCurso(titulo, descripcion, fechaInicioStr, fechaFinStr, 
-                                 duracion, maxPlazas, idCuotaSeleccionado);
+                                 duracion, maxPlazas);
         } catch (ApplicationException ex) {
             JOptionPane.showMessageDialog(view, "Error al registrar el curso: " + ex.getMessage(), 
                     "Error", JOptionPane.ERROR_MESSAGE);
@@ -120,9 +109,7 @@ public class ControllerH2 {
                          "Fecha Inicio: " + fechaInicioStr + "\n" +
                          "Fecha Fin: " + fechaFinStr + "\n" +
                          "Duración: " + duracion + " horas\n" +
-                         "Máximo de Plazas: " + maxPlazas + "\n" +
-                         "Colectivo: " + colectivoSeleccionado + "\n" +
-                         "Cuota: " + cuotaValor;
+                         "Máximo de Plazas: " + maxPlazas;
         JOptionPane.showMessageDialog(view, mensaje, "Confirmación", JOptionPane.INFORMATION_MESSAGE);
         
         view.dispose();

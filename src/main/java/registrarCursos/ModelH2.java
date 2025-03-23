@@ -59,11 +59,11 @@ public class ModelH2 {
     
     // Nuevo método para registrar un curso sin insertar cuota ni colectivo en la tabla Cursos
     public void registrarCurso(String titulo, String descripcion, String fechaInicio, String fechaFin,
-            int duracion, int maxPlazas, int idCuotas) throws ApplicationException {
+            int duracion, int maxPlazas) throws ApplicationException {
     	String sql = "INSERT INTO Cursos (id, titulo_curso, descripcion, fecha_inicio_curso, fecha_fin_curso, " +
-			"duracion, max_plazas, idCuotas, fecha_inicio_inscripcion, fecha_fin_inscripcion) " +
-			"VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+			"duracion, max_plazas, fecha_inicio_inscripcion, fecha_fin_inscripcion) " +
+			"VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
     	db.executeUpdate(sql, ultimoIDCursos(), titulo, descripcion, fechaInicio, fechaFin,
-    			duracion, maxPlazas, idCuotas, null, null);
+    			duracion, maxPlazas, null, null);
     }
 }
