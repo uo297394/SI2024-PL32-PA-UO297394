@@ -1,7 +1,6 @@
 package enviarSolicitud;
 
 import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JButton;
@@ -12,7 +11,6 @@ import javax.swing.ListSelectionModel;
 import javax.swing.table.TableModel;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-
 public class EnviarSolicitudVista {
 
 	private JFrame frame;

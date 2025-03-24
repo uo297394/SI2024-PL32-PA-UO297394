@@ -11,14 +11,11 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
-
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.TableModel;
-
 import util.SwingUtil;
 import util.Util;
-
 public class EnviarSolicitudControlador {
 private EnviarSolicitudVista v;
 private EnviarSolicitudModelo m;
