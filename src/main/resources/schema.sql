@@ -1,7 +1,3 @@
---Primero se deben borrar todas las tablas (de detalle a maestro) y lugo anyadirlas (de maestro a detalle)
---(en este caso en cada aplicacion se usa solo una tabla, por lo que no hace falta)
-
---Para giis.demo.tkrun:
 drop table if EXISTS Colegiados;
 drop table if EXISTS Cursos;
 drop table if EXISTS Inscripciones;
@@ -18,7 +14,7 @@ create table Colegiados (id int primary key not null, nombre varchar(20) not nul
  
 create table Cursos (id int primary key not null, titulo_curso varchar(20), descripcion varchar(60),
 	fecha_inicio_curso date, fecha_fin_curso date, duracion int ,max_plazas int,
- 	colectivos varchar(20), fecha_inicio_inscripcion date, fecha_fin_inscripcion date);
+	fecha_inicio_inscripcion date, fecha_fin_inscripcion date);
 
 create table Inscripciones (id int primary key not null, idColegiado int, idOtros int,
  	idCurso int,fechaInscripcion date, estado enum,FOREIGN KEY (idColegiado) REFERENCES Colegiados(id),
