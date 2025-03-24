@@ -38,7 +38,8 @@ VALUES
 (2, 2, 2, '2024-06-10', 1),
 (3, 3, 3, '2024-08-15', 2),
 (4, 4, 4, '2024-09-20', 1),
-(5, 5, 5, '2024-10-25', 1);
+(5, 5, 5, '2024-10-25', 1),
+(6, 2, 1, '2024-05-05', 0);
 
 delete from Sesiones;
 INSERT INTO Sesiones (id, idCurso, nombre_sesion, fecha_sesion, hora_inicio, duracion)

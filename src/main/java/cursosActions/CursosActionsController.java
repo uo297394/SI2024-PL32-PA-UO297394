@@ -8,6 +8,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import javax.swing.ComboBoxModel;
+import javax.swing.JOptionPane;
 import javax.swing.table.TableModel;
 import aperturaInscripciones.AperturaInscripcionesDisplayDTO;
 import inscritos_cursos_formacion.InscripcionDisplayDTO;
@@ -22,7 +23,7 @@ public class CursosActionsController {
 	private String lastSelectedKey="";
 	private static final String MSG_CURSO_NO_ABIERTO = "Este curso no está abierto";
 	private static final String MSG_COLEG_INSCRITO = "La inscripción se ha realizado con exito";
-	private static final String MSG_CUENTA = "La cuota se debe abonar al numero de cuenta: XXXXXXXXX";
+	private static final String MSG_CUENTA = "En caso de haber escogido pago por transferencia, recuerde que la cuota se debe abonar al numero de cuenta: XXXXXXXXX";
 	private static final String MSG_FECHA_INSC = "La fecha de plazo para inscribirse al curso ha cambiado con exito";
 
 	public CursosActionsController(CursosActionsModel m, CursosActionsView v) {
@@ -56,16 +57,24 @@ public class CursosActionsController {
 	}
 	
 	public void initView() {
-		this.setCbColectivos();
+		this.setCbFiltrado();
 		view.getCbFiltrado().setSelectedItem("Todos");
 		this.getListaCursos("Todos");
 		view.getFrame().setVisible(true); 
 	}
-	private void setCbColectivos() {
+	private void setCbFiltrado() {
 		List<Object[]> colectivos = model.getListaColectivos();
 		colectivos.add(new Object[] {"Todos"});
 		ComboBoxModel<Object> cbmodel = SwingUtil.getComboModelFromList(colectivos);
 		view.getCbFiltrado().setModel(cbmodel);
+	}
+	private void setCbColectivos() {
+		String filtro = view.getCbFiltrado().getSelectedItem().toString();
+		if(filtro == null)filtro = "Todos";
+		int sel = view.getTablaCursos().getSelectedRow();
+		List<Object[]> colectivos = model.getColectivosDeCurso(model.getListaCursos(filtro).get(sel));
+		ComboBoxModel<Object> cbmodel = SwingUtil.getComboModelFromList(colectivos);
+		view.getCbColectivos().setModel(cbmodel);
 	}
 	/**
 	 * La obtencion de la lista de cursos y insercion de la misma en la tabla de los cursos
@@ -99,6 +108,8 @@ public class CursosActionsController {
 	public void updateDetail() {
 		this.lastSelectedKey=SwingUtil.getSelectedKey(view.getTablaCursos());
 		this.loadInscripciones(Integer.parseInt(model.getListaCursos().get(view.getTablaCursos().getSelectedRow()).getId()));
+		this.setCbColectivos();
+		
 	}
 	
 	
@@ -130,15 +141,16 @@ public class CursosActionsController {
 		String numColeg = view.getTfNumColeg().getText();
 		AperturaInscripcionesDisplayDTO disp = model.getListaCursos().get(view.getTablaCursos().getSelectedRow());
 		model.insertInscColegiado(numColeg,disp.getId(),estado);
-		getListaCursos("Todos");
 		view.getCbFiltrado().setSelectedItem("Todos");
+		String cuota = model.getCuota(view.getCbColectivos().getSelectedItem().toString(),disp.getId());
 		ColegiadoDisplayDTO col = model.aiModel.getColegiado(numColeg);
-		throw new ApplicationException(MSG_COLEG_INSCRITO+"\n"+col.toString()+"\n"+"Fecha de solicitud realizada el: "+Util.getTodayISO()+"\nCuota: NO DISPONIBLE"+"\n"+MSG_CUENTA);
+		getListaCursos("Todos");
+		SwingUtil.showMessage(MSG_COLEG_INSCRITO+"\n"+col.toString()+"\n"+"Fecha de solicitud realizada el: "+Util.getTodayISO()+"\nCuota: "+cuota+"\n"+MSG_CUENTA,"Inscripción Completada",JOptionPane.INFORMATION_MESSAGE);
 	}
 	public void loadInscripciones(int idCurso) {
         List<InscripcionDisplayDTO> inscripciones = model.getInscripcionesPorCurso(idCurso);
         TableModel tmodel = SwingUtil.getTableModelFromPojos(inscripciones, new String[] {
-            "nombre", "apellido", "DNI", "telefono", "correo", "estado"});
+            "nombre", "apellido", "DNI", "telefono", "correo"});
         
         view.getTable().setModel(tmodel);
         SwingUtil.autoAdjustColumns(view.getTable());

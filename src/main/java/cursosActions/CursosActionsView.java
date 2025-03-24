@@ -37,7 +37,7 @@ public class CursosActionsView {
 	private void initialize() {
 		//Inicializado del frame
 		frame = new JFrame();
-		frame.setBounds(0, 0, 492, 422);
+		frame.setBounds(0, 0, 1050, 600);
 		frame.setTitle("Acciones con Cursos");
 		frame.setName("Acciones con Cursos");
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

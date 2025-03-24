@@ -71,6 +71,14 @@ public class AperturaInscripcionesModel {
 	public List<Object[]> getListaColectivos() {
 		return db.executeQueryArray("SELECT DISTINCT colectivo FROM Cuotas");
 	}
+	public List<Object[]> getColectivosDeCurso(AperturaInscripcionesDisplayDTO aperturaInscripcionesDisplayDTO) {
+		String nomCurso = aperturaInscripcionesDisplayDTO.getTituloCurso();
+		return db.executeQueryArray("SELECT DISTINCT ct.colectivo FROM Cuotas ct JOIN Cursos cr ON ct.idCurso = cr.id WHERE titulo_curso = ?",nomCurso);
+	}
+	public String getCuota(String string, String string2) {
+		String s = db.executeQueryArray("SELECT cuota FROM Cuotas WHERE colectivo LIKE ? AND idCurso = ?",string,string2).get(0)[0].toString();
+		return s;
+	}
 	
 	
 }

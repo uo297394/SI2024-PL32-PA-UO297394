@@ -30,6 +30,7 @@ public class CursosActionsModel {
 		return aiModel.getListaCursos();
 	}
 	public List<AperturaInscripcionesDisplayDTO> getListaCursos(String colectivo) {
+		if(colectivo == "Todos") return aiModel.getListaCursos();
 		return aiModel.getListaCursos(colectivo);
 	}
 	public void insertInscColegiado(String idColeg, String idCurso, int estado) {
@@ -42,5 +43,13 @@ public class CursosActionsModel {
 	public List<Object[]> getListaColectivos() {
 		return aiModel.getListaColectivos();
 
+	}
+
+	public List<Object[]> getColectivosDeCurso(AperturaInscripcionesDisplayDTO aperturaInscripcionesDisplayDTO) {
+		return aiModel.getColectivosDeCurso(aperturaInscripcionesDisplayDTO);
+	}
+
+	public String getCuota(String string, String string2) {
+		return aiModel.getCuota(string,string2);
 	}
 }

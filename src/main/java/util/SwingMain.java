@@ -93,12 +93,14 @@ public class SwingMain extends JFrame {
 		panel_1.setBounds(5, 112, 815, 252);
 		contentPane.add(panel_1);
 		panel_1.setLayout(null);
+		/*
 		JButton btnHistoria3 = new JButton("Visualizar cursos");
 		btnHistoria3.setBounds(205, 144, 177, 30);
 		panel_1.add(btnHistoria3);
+		*/
 		
 		JButton btnActualizarInscripcion = new JButton("Actualizar Inscripciones");
-		btnActualizarInscripcion.setBounds(205, 184, 177, 30);
+		btnActualizarInscripcion.setBounds(205, 144, 177, 30);
 		panel_1.add(btnActualizarInscripcion);
 		
 		JButton btnSoliColeg = new JButton("Solicitud de colegiación");
@@ -160,12 +162,14 @@ public class SwingMain extends JFrame {
 		JLabel lblNewLabel_1 = new JLabel("FUNCIONES DISPONIBLES");
 		lblNewLabel_1.setBounds(5, 81, 246, 31);
 		contentPane.add(lblNewLabel_1);
+		/*
 		btnHistoria3.addActionListener(new ActionListener() { // NOSONAR codigo autogenerado
 			public void actionPerformed(ActionEvent e) {
 				ControllerH3 controller = new ControllerH3(new ModelH3(), new ViewH3());
 				controller.initController();
 			}
 		});
+		*/
 	
 		btnActualizarInscripcion.addActionListener(new ActionListener() { //NOSONAR codigo autogenerado
 			public void actionPerformed(ActionEvent e) {
