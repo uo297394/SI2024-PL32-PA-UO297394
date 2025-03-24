@@ -12,10 +12,7 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
-
 import javax.swing.table.TableModel;
-
-import aperturaInscripciones.AperturaInscripcionesDisplayDTO;
 import inscritos_cursos_formacion.InscripcionDisplayDTO;
 import util.ApplicationException;
 import util.SwingUtil;
@@ -34,7 +31,6 @@ public class ActualizarInscritosController {
 	}
 	public void initController() {
 		view.getBtnComprobar().addActionListener(e -> SwingUtil.exceptionWrapper(() -> actualizarInscripcion(model.getInscripcionesPorCurso().get(view.getTableInscripciones().getSelectedRow()))));
-
 		view.getTableInscripciones().addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
@@ -57,7 +53,6 @@ public class ActualizarInscritosController {
 		TableModel tmodel=SwingUtil.getTableModelFromPojos(inscripciones, new String[] {"id","nombre","apellido","DNI","estado","fechaInscripcion","telefono","correo","cuota","tituloCurso"});
 		view.getTableInscripciones().setModel(tmodel);
 		SwingUtil.autoAdjustColumns(view.getTableInscripciones());
-		
 		//Como se guarda la clave del ultimo elemento seleccionado, restaura la seleccion de los detalles
 		this.restoreDetail();
 	}
@@ -125,8 +120,11 @@ public class ActualizarInscritosController {
 	                }
 	            }
 	            
-	        } catch (IOException | NumberFormatException e) {
-	            e.printStackTrace();
+	        } catch (NumberFormatException e) {
+	            throw new ApplicationException("Error al leer el archivo, formato de numero incorrecto");
+	        }
+	        catch(IOException e) {
+	        	throw new ApplicationException("Error al leer el archivo, error en la entrada / salida");
 	        }
 		if(!found && ap)throw new ApplicationException("No hay ningún pago de este usuario, sin embargo sigue dentro del plazo"); //Dentro de plazo, ningún pago
 		model.actualizaInscripcion(ap, insc.getDNI());
