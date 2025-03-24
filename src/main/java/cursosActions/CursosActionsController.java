@@ -103,7 +103,14 @@ public class CursosActionsController {
 			}
 		}
 	}
-	
+	public void guardarInscripcion(int estado) {
+		String numColeg = view.getTfNumColeg().getText();
+		AperturaInscripcionesDisplayDTO disp = model.getListaCursos().get(view.getTablaCursos().getSelectedRow());
+		model.insertInscColegiado(numColeg,disp.getId(),estado);
+		getListaCursos();
+		ColegiadoDisplayDTO col = model.aiModel.getColegiado(numColeg);
+		throw new ApplicationException(MSG_COLEG_INSCRITO+"\n"+col.toString()+"\n"+"Fecha de solicitud realizada el: "+Util.getTodayISO()+"\nCuota: NO DISPONIBLE"+"\n"+MSG_CUENTA);
+	}
 	public void loadInscripciones(int idCurso) {
         List<InscripcionDisplayDTO> inscripciones = model.getInscripcionesPorCurso(idCurso);
         TableModel tmodel = SwingUtil.getTableModelFromPojos(inscripciones, new String[] {

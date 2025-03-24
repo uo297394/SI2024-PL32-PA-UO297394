@@ -29,8 +29,8 @@ public class CursosActionsModel {
 	public List<AperturaInscripcionesDisplayDTO> getListaCursos() {
 		return aiModel.getListaCursos();
 	}
-	public void insertInscColegiado(String idColeg, String idCurso) {
-		icModel.insertInscColegiado(idColeg, idCurso);
+	public void insertInscColegiado(String idColeg, String idCurso, int estado) {
+		icModel.insertInscColegiado(idColeg, idCurso, estado);
 	}
 	public void updateAperturaCurso(String titulo, String inicio, String fin) {
 		aiModel.updateAperturaCurso(titulo, inicio, fin);
