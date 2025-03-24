@@ -1,12 +1,19 @@
 package enviarSolicitud;
 
 public class ColegiadoDTO {
-private String DNI, nombre, apellido;
+private String DNI, nombre, apellido,estado_solicitud;
 public ColegiadoDTO() {}
-public ColegiadoDTO(String DNI, String nombre, String apellido) {
+public ColegiadoDTO(String DNI, String nombre, String apellido, String estado_solicitud) {
 	this.DNI=DNI;
 	this.nombre=nombre;
 	this.apellido=apellido;
+	this.estado_solicitud=estado_solicitud;
+}
+public String getEstado_solicitud() {
+	return estado_solicitud;
+}
+public void setEstado_solicitud(String estado_solicitud) {
+	this.estado_solicitud = estado_solicitud;
 }
 public String getDNI() {
 	return DNI;
