@@ -7,6 +7,7 @@ import java.util.List;
 import javax.swing.table.TableModel;
 import aperturaInscripciones.AperturaInscripcionesDisplayDTO;
 import inscritos_cursos_formacion.InscripcionDisplayDTO;
+import pagoInscripcion.PagoInscripcionView;
 import util.ApplicationException;
 import util.SwingUtil;
 import util.Util;
@@ -96,10 +97,10 @@ public class CursosActionsController {
 			AperturaInscripcionesDisplayDTO disp = model.getListaCursos().get(view.getTablaCursos().getSelectedRow());
 			if(disp.getFechaInicioInscripcion() == null || disp.getFechaFinInscripcion() == null) throw new ApplicationException(MSG_CURSO_NO_ABIERTO);
 			else {
-				model.insertInscColegiado(numColeg,disp.getId());
-				getListaCursos();
-				ColegiadoDisplayDTO col = model.aiModel.getColegiado(numColeg);
-				throw new ApplicationException(MSG_COLEG_INSCRITO+"\n"+col.toString()+"\n"+"Fecha de solicitud realizada el: "+Util.getTodayISO()+"\nCuota: "+disp.getCuotas()+"\n"+MSG_CUENTA);
+				// Ventana pagos
+				PagoInscripcionView piv = new PagoInscripcionView(this);
+				piv.setVisible(true);
+				//FIN ventana pagos
 			}
 		}
 	}

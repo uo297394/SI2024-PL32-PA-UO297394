@@ -29,7 +29,7 @@ public class PagoInscripcionView extends JFrame {
 	JRadioButton rdbtnTransferencia = new JRadioButton("Transferencia Bancaria");
 	JPanel pTarjeta = new JPanel();
 	JPanel pTransferencia = new JPanel();
-	private final JLabel lblTransferencia = new JLabel("<html>Al aceptar el pago por transferencia, <br>dispondrá de <b>48 horas</b> para realizar una transferencia a la siguiente cuenta:<br> XXXX-XXXX-XXXX-XXXX <br>Recuerde poner como concepto su nombre y apellidos para así poder identificar que el pago ha sido recibido correctamente </html>");
+	private final JLabel lblTransferencia = new JLabel("<html>Al aceptar el pago por transferencia, <br>dispondrá de <b>48 horas</b> para realizar una transferencia a la siguiente cuenta:<br> XXXX-XXXX-XXXX-XXXX <br>Recuerde poner como concepto el curso al que se inscribe para así poder identificar que el pago ha sido recibido correctamente </html>");
 	private JTextField tfTarjeta;
 	private JTextField tfCVC;
 	private JTextField tfFechaCad;

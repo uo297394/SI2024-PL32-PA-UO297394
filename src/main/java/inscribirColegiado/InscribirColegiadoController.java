@@ -83,7 +83,7 @@ public class InscribirColegiadoController {
 	public void updatePlazo() {
 		String numColeg = view.getTfNumColeg().getText();
 		if(this.lastSelectedKey !="" && numColeg != "") {
-		model.insertInscColegiado(numColeg,model.getListaCursos().get(view.getTablaCursos().getSelectedRow()).getId());
+		model.insertInscColegiado(numColeg,model.getListaCursos().get(view.getTablaCursos().getSelectedRow()).getId(),0);
 		getListaCursos();
 		}
 	}
