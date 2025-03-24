@@ -6,11 +6,13 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import net.miginfocom.swing.MigLayout;
+import javax.swing.JComboBox;
 
 public class InscribirColegiadoViewPanel extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 	JButton btnInscColeg = new JButton("Inscribir Colegiado");
+	JComboBox<Object> cbColectivo = new JComboBox<>();
 	private JTextField tfNumColeg;
 	/**
 	 * Create the panel.
@@ -24,6 +26,10 @@ public class InscribirColegiadoViewPanel extends JPanel {
 				tfNumColeg = new JTextField();
 				this.add(tfNumColeg, "cell 0 2,growx");
 				tfNumColeg.setColumns(10);
+				
+				JLabel lblColectivo = new JLabel("Seleccione el colectivo:");
+				add(lblColectivo, "cell 0 3");
+				add(cbColectivo, "cell 0 4,growx");
 				
 				//Adicion del boton que se utiliza para registrar el plazo del curso seleccionado
 				this.add(btnInscColeg, "cell 0 5");
@@ -40,5 +46,13 @@ public class InscribirColegiadoViewPanel extends JPanel {
 	public void setTfNumColeg(JTextField tfNumColeg) {
 		this.tfNumColeg = tfNumColeg;
 	}
+	public JComboBox<Object> getCbColectivo() {
+		return cbColectivo;
+	}
+	public void setCbColectivo(JComboBox<Object> cbColectivo) {
+		this.cbColectivo = cbColectivo;
+	}
+	
+	
 
 }

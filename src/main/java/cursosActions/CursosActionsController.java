@@ -1,9 +1,13 @@
 package cursosActions;
 
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.Iterator;
 import java.util.List;
+
+import javax.swing.ComboBoxModel;
 import javax.swing.table.TableModel;
 import aperturaInscripciones.AperturaInscripcionesDisplayDTO;
 import inscritos_cursos_formacion.InscripcionDisplayDTO;
@@ -44,21 +48,38 @@ public class CursosActionsController {
 				SwingUtil.exceptionWrapper(() -> updateDetail());
 			}
 		});
+		view.getCbFiltrado().addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent arg0) {
+				SwingUtil.exceptionWrapper(() -> getListaCursos(view.getCbFiltrado().getSelectedItem().toString()));
+			}
+		});
 	}
 	
 	public void initView() {
-		this.getListaCursos();
+		this.setCbColectivos();
+		view.getCbFiltrado().setSelectedItem("Todos");
+		this.getListaCursos("Todos");
 		view.getFrame().setVisible(true); 
+	}
+	private void setCbColectivos() {
+		List<Object[]> colectivos = model.getListaColectivos();
+		colectivos.add(new Object[] {"Todos"});
+		ComboBoxModel<Object> cbmodel = SwingUtil.getComboModelFromList(colectivos);
+		view.getCbFiltrado().setModel(cbmodel);
 	}
 	/**
 	 * La obtencion de la lista de cursos y insercion de la misma en la tabla de los cursos
 	 */
-	public void getListaCursos() {
-		List<AperturaInscripcionesDisplayDTO> cursos=model.getListaCursos();
+	public void getListaCursos(String colectivo) {
+		List<AperturaInscripcionesDisplayDTO> cursos;
+		if(colectivo.equals("Todos")) {
+			cursos=model.getListaCursos();
+		}else {
+			cursos=model.getListaCursos(colectivo);
+		}
 		TableModel tmodel=SwingUtil.getTableModelFromPojos(cursos, new String[] {"id","tituloCurso","descripcion","fechaInicioCurso","fechaFinCurso","duracion","maxPlazas","cuotas","colectivos","fechaInicioInscripcion","fechaFinInscripcion"});
 		view.getTablaCursos().setModel(tmodel);
 		SwingUtil.autoAdjustColumns(view.getTablaCursos());
-		
 		//Como se guarda la clave del ultimo elemento seleccionado, restaura la seleccion de los detalles
 		this.restoreDetail();
 	}
@@ -86,7 +107,8 @@ public class CursosActionsController {
 		String inicio = view.getTfFechaInicio();
 		String fin = view.getTfFechaFin();
 		model.updateAperturaCurso(model.getListaCursos().get(view.getTablaCursos().getSelectedRow()).getTituloCurso(), inicio, fin);
-		getListaCursos();
+		getListaCursos("Todos");
+		view.getCbFiltrado().setSelectedItem("Todos");
 		throw new ApplicationException(MSG_FECHA_INSC);
 		}
 	}
@@ -108,7 +130,8 @@ public class CursosActionsController {
 		String numColeg = view.getTfNumColeg().getText();
 		AperturaInscripcionesDisplayDTO disp = model.getListaCursos().get(view.getTablaCursos().getSelectedRow());
 		model.insertInscColegiado(numColeg,disp.getId(),estado);
-		getListaCursos();
+		getListaCursos("Todos");
+		view.getCbFiltrado().setSelectedItem("Todos");
 		ColegiadoDisplayDTO col = model.aiModel.getColegiado(numColeg);
 		throw new ApplicationException(MSG_COLEG_INSCRITO+"\n"+col.toString()+"\n"+"Fecha de solicitud realizada el: "+Util.getTodayISO()+"\nCuota: NO DISPONIBLE"+"\n"+MSG_CUENTA);
 	}

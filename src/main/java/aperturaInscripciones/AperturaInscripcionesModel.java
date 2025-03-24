@@ -19,6 +19,10 @@ public class AperturaInscripcionesModel {
 			"SELECT cr.id,cr.titulo_curso as tituloCurso,cr.descripcion,cr.fecha_inicio_curso as fechaInicioCurso,cr.fecha_fin_curso as fechaFinCurso,cr.duracion,cr.max_plazas as maxPlazas,GROUP_CONCAT(ct.cuota) as cuotas,GROUP_CONCAT(ct.colectivo) as colectivos,cr.fecha_inicio_inscripcion as fechaInicioInscripcion, cr.fecha_fin_inscripcion as fechaFinInscripcion"
 					+" from Cursos cr "
 					+"LEFT JOIN Cuotas ct ON cr.id = ct.idCurso GROUP BY cr.id";
+	public static final String SQL_LISTA_CURSOS_COL=
+			"SELECT cr.id,cr.titulo_curso as tituloCurso,cr.descripcion,cr.fecha_inicio_curso as fechaInicioCurso,cr.fecha_fin_curso as fechaFinCurso,cr.duracion,cr.max_plazas as maxPlazas,GROUP_CONCAT(ct.cuota) as cuotas,GROUP_CONCAT(ct.colectivo) as colectivos,cr.fecha_inicio_inscripcion as fechaInicioInscripcion, cr.fecha_fin_inscripcion as fechaFinInscripcion"
+					+" from Cursos cr "
+					+"LEFT JOIN Cuotas ct ON cr.id = ct.idCurso WHERE ct.colectivo LIKE ? GROUP BY cr.id";
 	/**
 	 * Obtiene la lista de curso que o han sido planificados
 	 * Implementacion usando la utilidad que obtiene una lista de arrays de objetos 
@@ -26,6 +30,9 @@ public class AperturaInscripcionesModel {
 	 */
 	public List<AperturaInscripcionesDisplayDTO> getListaCursos() {
 		return db.executeQueryPojo(AperturaInscripcionesDisplayDTO.class, SQL_LISTA_CURSOS);
+	}
+	public List<AperturaInscripcionesDisplayDTO> getListaCursos(String colectivo) {
+		return db.executeQueryPojo(AperturaInscripcionesDisplayDTO.class, SQL_LISTA_CURSOS_COL,colectivo);
 	}
 	public ColegiadoDisplayDTO getColegiado(String idColeg) {
 		ColegiadoDisplayDTO col = db.executeQueryPojo(ColegiadoDisplayDTO.class, "SELECT id, nombre, apellido, DNI, direccion, correo, telefono, fecha_nacimiento as fechaNacimiento, numero_cuenta as numeroCuenta, banco, precolegiados, estado_solicitud as estadoSolicitud, fecha_solicitud as fechaSolicitud, titulacion FROM Colegiados WHERE id = ?", idColeg).get(0);
@@ -60,6 +67,9 @@ public class AperturaInscripcionesModel {
 	private void validateCondition(boolean condition, String message) {
 		if (!condition)
 			throw new ApplicationException(message);
+	}
+	public List<Object[]> getListaColectivos() {
+		return db.executeQueryArray("SELECT DISTINCT colectivo FROM Cuotas");
 	}
 	
 	

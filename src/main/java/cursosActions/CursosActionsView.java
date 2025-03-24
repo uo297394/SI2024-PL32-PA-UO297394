@@ -13,11 +13,13 @@ import inscritos_cursos_formacion.InscritosCursosViewPanel;
 import net.miginfocom.swing.MigLayout;
 import javax.swing.JTabbedPane;
 import javax.swing.JPanel;
+import javax.swing.JComboBox;
 
 public class CursosActionsView {
 
 	private JFrame frame;
 	private JTable tabSelecionCurso;
+	JComboBox<Object> cbFiltrado = new JComboBox<>();
 	JPanel abrirInscripcion = new AperturaInscripcionesViewPanel();
 	JPanel inscribirColegiado = new InscribirColegiadoViewPanel();
 	JPanel inscritosCurso = new InscritosCursosViewPanel();
@@ -39,21 +41,28 @@ public class CursosActionsView {
 		frame.setTitle("Acciones con Cursos");
 		frame.setName("Acciones con Cursos");
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		frame.getContentPane().setLayout(new MigLayout("", "[grow]", "[][][grow][][][][][][][][]"));
+		frame.getContentPane().setLayout(new MigLayout("", "[grow]", "[grow][][][grow][][][][][][][][]"));
+		
+		JPanel panelFiltrado = new JPanel();
+		frame.getContentPane().add(panelFiltrado, "cell 0 0,grow");
+		
+		JLabel lblFiltrado = new JLabel("Seleccione el colectivo deseado: ");
+		panelFiltrado.add(lblFiltrado);
+		panelFiltrado.add(cbFiltrado);
 		
 		//Label
 		JLabel lblSelecionaCurso = new JLabel("Seleccione el curso:");
-		frame.getContentPane().add(lblSelecionaCurso, "cell 0 0");
+		frame.getContentPane().add(lblSelecionaCurso, "cell 0 1");
 		//Adicion de la tabla
 		tabSelecionCurso = new JTable();
 		tabSelecionCurso.setName("tabSelecionCurso");
 		tabSelecionCurso.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		tabSelecionCurso.setDefaultEditor(Object.class, null); //readonly
 		JScrollPane tablePanel = new JScrollPane(tabSelecionCurso);
-		frame.getContentPane().add(tablePanel, "cell 0 1,grow");
+		frame.getContentPane().add(tablePanel, "cell 0 2,grow");
 		
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-		frame.getContentPane().add(tabbedPane, "cell 0 2,grow");
+		frame.getContentPane().add(tabbedPane, "cell 0 3,grow");
 		tabbedPane.addTab("Inscribir colegiado a Curso", null, inscribirColegiado, null);
 		tabbedPane.addTab("Abrir inscripción a Curso", null, abrirInscripcion, null);
 		tabbedPane.addTab("Mostrar inscritos al curso", null, inscritosCurso, null);
@@ -81,6 +90,12 @@ public class CursosActionsView {
 	public JButton getBtnInscColeg() {
 		return ((InscribirColegiadoViewPanel)inscribirColegiado).getBtnInscColeg();
 	}
+	public JComboBox<Object> getCbColectivos() {
+		return ((InscribirColegiadoViewPanel)inscribirColegiado).getCbColectivo();
+	}
+	public void setCbColectivo(JComboBox<Object> cbColectivo) {
+		((InscribirColegiadoViewPanel)inscribirColegiado).setCbColectivo(cbColectivo);
+	}
 	// VER INSCRITOS A CURSO
 	public JTable getTable() {
         return ((InscritosCursosViewPanel) inscritosCurso).getTable();
@@ -90,6 +105,13 @@ public class CursosActionsView {
     }
 	//COMUN A TODOS
 	public JTable getTablaCursos() {return this.tabSelecionCurso;}
+
+	public JComboBox<Object> getCbFiltrado() {
+		return cbFiltrado;
+	}
+	public void setCbFiltrado(JComboBox<Object> cbFiltrado) {
+		this.cbFiltrado = cbFiltrado;
+	}
 
 
 }
