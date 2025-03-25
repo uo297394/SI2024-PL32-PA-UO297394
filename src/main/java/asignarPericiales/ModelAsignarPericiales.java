@@ -23,7 +23,7 @@ public class ModelAsignarPericiales {
 	 */
 	public List<SolicitudesDisplayDTO> getListaSolicitudes() {
 		String sql = "SELECT id, estado, idSolicitante, caracter, descripcion "
-				+ "FROM Periciales WHERE estado = 'pendiente'";
+				+ "FROM Periciales WHERE estado LIKE 'pendiente'";
 		return db.executeQueryPojo(SolicitudesDisplayDTO.class, sql);
 	}
 

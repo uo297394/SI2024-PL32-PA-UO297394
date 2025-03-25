@@ -8,7 +8,7 @@ drop table if EXISTS Otros;
 drop table if EXISTS Solicitante;
 
 create table Colegiados (id int primary key not null, nombre varchar(20) not null, apellido varchar(40) not null,
-	DNI varchar(9), direccion varchar(60),correo varchar(50), telefono varchar(20), fecha_nacimiento date, numero_cuenta int not null,
+	DNI varchar(9), direccion varchar(60),correo varchar(50), telefono varchar(20), fecha_nacimiento date, numero_cuenta varchar(20) not null,
  	banco varchar(20),precolegiados boolean, estado_solicitud enum, fecha_solicitud date, titulacion varchar(40),
  	solicitud_perito boolean, es_perito boolean, orden_TAP int);
  

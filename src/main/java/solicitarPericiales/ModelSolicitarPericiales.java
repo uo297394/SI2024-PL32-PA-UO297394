@@ -50,18 +50,25 @@ public class ModelSolicitarPericiales {
 	}
 
 	public boolean registrarSolicitudPericial(int idSolicitante, String descripcion,String caracter) {
-	    String sql = "INSERT INTO Periciales (idSolicitante, descripcion,caracter, estado) VALUES (?, ?,?, 'Pendiente')";
+	    String sql = "INSERT INTO Periciales (id,idSolicitante, descripcion,caracter, estado) VALUES (?,?,?,?, 'Pendiente')";
 	    Database db = new Database();
 
 	    try (Connection conn = db.getConnection();
 	         PreparedStatement stmt = conn.prepareStatement(sql)) {
-
-	        stmt.setInt(1, idSolicitante);
-	        stmt.setString(2, descripcion);
+	    	stmt.setInt(1, lastID());
+	        stmt.setInt(2, idSolicitante);
+	        stmt.setString(3, descripcion);
+	        stmt.setString(4, caracter);
 	        return stmt.executeUpdate() > 0;
 	    } catch (Exception e) {
 	        e.printStackTrace();
 	        return false;
 	    }
 	}
+	private int lastID() {
+		String ide = "SELECT COUNT(id) FROM Periciales";
+	    Object[] numerocolegiados=db.executeQueryArray(ide).get(0);
+	    int numerocoleg=(int) numerocolegiados[0];
+	    return numerocoleg+1;
+	    }
 }
