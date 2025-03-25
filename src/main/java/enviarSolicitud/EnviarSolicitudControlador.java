@@ -78,7 +78,7 @@ public void generaFichero() {
 		this.m.cambiarEnviado(DNI);
 		System.out.print(DNI);
 		writer.print(DNI);
-		writer.print(';');
+		writer.print('\n');
 		
 	}
 	writer.close();
