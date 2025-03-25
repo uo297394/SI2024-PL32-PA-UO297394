@@ -107,7 +107,7 @@ public class CursosActionsController {
 	 * Actualiza la seleccion de los cursos */
 	public void updateDetail() {
 		this.lastSelectedKey=SwingUtil.getSelectedKey(view.getTablaCursos());
-		this.loadInscripciones(Integer.parseInt(model.getListaCursos().get(view.getTablaCursos().getSelectedRow()).getId()));
+		this.loadInscripciones(Integer.parseInt(model.getListaCursos(view.getCbFiltrado().getSelectedItem().toString()).get(view.getTablaCursos().getSelectedRow()).getId()));
 		this.setCbColectivos();
 		
 	}
@@ -117,7 +117,7 @@ public class CursosActionsController {
 		if(this.lastSelectedKey !="") {
 		String inicio = view.getTfFechaInicio();
 		String fin = view.getTfFechaFin();
-		model.updateAperturaCurso(model.getListaCursos().get(view.getTablaCursos().getSelectedRow()).getTituloCurso(), inicio, fin);
+		model.updateAperturaCurso(model.getListaCursos(view.getCbFiltrado().getSelectedItem().toString()).get(view.getTablaCursos().getSelectedRow()).getTituloCurso(), inicio, fin);
 		getListaCursos("Todos");
 		view.getCbFiltrado().setSelectedItem("Todos");
 		throw new ApplicationException(MSG_FECHA_INSC);
@@ -127,7 +127,7 @@ public class CursosActionsController {
 	public void inscribir() {
 		String numColeg = view.getTfNumColeg().getText();
 		if(this.lastSelectedKey !="" && numColeg != "") {
-			AperturaInscripcionesDisplayDTO disp = model.getListaCursos().get(view.getTablaCursos().getSelectedRow());
+			AperturaInscripcionesDisplayDTO disp = model.getListaCursos(view.getCbFiltrado().getSelectedItem().toString()).get(view.getTablaCursos().getSelectedRow());
 			if(disp.getFechaInicioInscripcion() == null || disp.getFechaFinInscripcion() == null) throw new ApplicationException(MSG_CURSO_NO_ABIERTO);
 			else {
 				// Ventana pagos
@@ -139,7 +139,7 @@ public class CursosActionsController {
 	}
 	public void guardarInscripcion(int estado) {
 		String numColeg = view.getTfNumColeg().getText();
-		AperturaInscripcionesDisplayDTO disp = model.getListaCursos().get(view.getTablaCursos().getSelectedRow());
+		AperturaInscripcionesDisplayDTO disp = model.getListaCursos(view.getCbFiltrado().getSelectedItem().toString()).get(view.getTablaCursos().getSelectedRow());
 		model.insertInscColegiado(numColeg,disp.getId(),estado);
 		view.getCbFiltrado().setSelectedItem("Todos");
 		String cuota = model.getCuota(view.getCbColectivos().getSelectedItem().toString(),disp.getId());
