@@ -19,6 +19,8 @@ import javax.swing.AbstractAction;
 import javax.swing.Action;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.time.YearMonth;
+import java.time.format.DateTimeFormatter;
 
 public class PagoInscripcionView extends JFrame {
 
@@ -112,7 +114,7 @@ public class PagoInscripcionView extends JFrame {
 		lblCVC.setBounds(9, 53, 71, 13);
 		pTarjeta.add(lblCVC);
 		
-		JLabel lblFechaCad = new JLabel("Fecha de caducidad (DD/MM):");
+		JLabel lblFechaCad = new JLabel("Fecha de caducidad (MM/yy):");
 		lblFechaCad.setBounds(10, 99, 178, 13);
 		pTarjeta.add(lblFechaCad);
 		
@@ -154,7 +156,11 @@ public class PagoInscripcionView extends JFrame {
 		return buttonGroup.isSelected(rdbtnTarjeta.getModel());
 	}
 	public boolean camposCorrectos() {
-		return this.tfCVC.getText().length() == 3 && this.tfFechaCad.getText().length() == 5 && this.tfTarjeta.getText().length() > 0;
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/yy");
+        YearMonth fechaTarjeta = YearMonth.parse(this.tfFechaCad.getText(), formatter);
+        YearMonth fechaActual = YearMonth.now();
+        boolean fecha =  !fechaTarjeta.isBefore(fechaActual);
+		return this.tfCVC.getText().length() == 3 && this.tfFechaCad.getText().length() == 5 && this.tfTarjeta.getText().length() > 0 && fecha;
 	}
 	private void disposeFrame() {
 		this.setVisible(false);

@@ -33,8 +33,8 @@ public class CursosActionsModel {
 		if(colectivo == "Todos") return aiModel.getListaCursos();
 		return aiModel.getListaCursos(colectivo);
 	}
-	public void insertInscColegiado(String idColeg, String idCurso, int estado) {
-		icModel.insertInscColegiado(idColeg, idCurso, estado);
+	public void insertInscColegiado(String idColeg, String idCurso, int estado, String colectivo) {
+		icModel.insertInscColegiado(idColeg, idCurso, estado, colectivo);
 	}
 	public void updateAperturaCurso(String titulo, String inicio, String fin) {
 		aiModel.updateAperturaCurso(titulo, inicio, fin);
@@ -51,5 +51,8 @@ public class CursosActionsModel {
 
 	public String getCuota(String string, String string2) {
 		return aiModel.getCuota(string,string2);
+	}
+	public boolean estaInscrito(String idColeg, String idCurso) {
+		return icModel.estaInscrito(idColeg, idCurso);
 	}
 }

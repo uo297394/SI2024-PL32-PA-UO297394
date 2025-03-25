@@ -9,7 +9,6 @@ import registrarCursos.ModelH2;
 import registrarCursos.ViewH2;
 import javax.swing.JButton;
 import registrar_colegiado.*;
-import visualizar_cursos.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JLabel;

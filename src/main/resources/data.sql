@@ -32,14 +32,14 @@ VALUES
 
 -- Inserciones para la tabla Inscripciones
 delete from Inscripciones;
-INSERT INTO Inscripciones (id, idColegiado, idCurso, fechaInscripcion, estado)
+INSERT INTO Inscripciones (id, idColegiado, idCurso, fechaInscripcion,colectivo, estado)
 VALUES 
-(1, 1, 1, '2024-05-05', 0),
-(2, 2, 2, '2024-06-10', 1),
-(3, 3, 3, '2024-08-15', 2),
-(4, 4, 4, '2024-09-20', 1),
-(5, 5, 5, '2024-10-25', 1),
-(6, 2, 1, '2024-05-05', 0);
+(1, 1, 1, '2024-05-05','Estudiantes', 0),
+(2, 2, 2, '2024-06-10','Estudiantes', 1),
+(3, 3, 3, '2024-08-15','Estudiantes', 2),
+(4, 4, 4, '2024-09-20','Estudiantes', 1),
+(5, 5, 5, '2024-10-25','Estudiantes', 1),
+(6, 2, 1, '2024-05-05','Estudiantes', 0);
 
 delete from Sesiones;
 INSERT INTO Sesiones (id, idCurso, nombre_sesion, fecha_sesion, hora_inicio, duracion)

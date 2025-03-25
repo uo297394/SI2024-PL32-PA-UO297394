@@ -11,6 +11,7 @@ import java.nio.file.StandardOpenOption;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Iterator;
 import java.util.List;
 import javax.swing.table.TableModel;
 import inscritos_cursos_formacion.InscripcionDisplayDTO;
@@ -22,6 +23,8 @@ public class ActualizarInscritosController {
 	private ActualizarInscritosModel model;
 	private ActualizarInscritosView view;
 	private String lastSelectedKey="";
+	private int aceptadas = 0;
+	private int rechazadas = 0;
 	
 	public ActualizarInscritosController(ActualizarInscritosModel m, ActualizarInscritosView v) {
 		this.model = m;
@@ -30,7 +33,6 @@ public class ActualizarInscritosController {
 		this.initView();
 	}
 	public void initController() {
-		view.getBtnComprobar().addActionListener(e -> SwingUtil.exceptionWrapper(() -> actualizarInscripcion(model.getInscripcionesPorCurso().get(view.getTableInscripciones().getSelectedRow()))));
 		view.getTableInscripciones().addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
@@ -41,6 +43,15 @@ public class ActualizarInscritosController {
 		});
 	}
 	public void initView() {
+		//ACTUALIZAR INSCRIPCIONES
+		List<InscripcionDisplayDTO> l = model.getInscripcionesPorCurso();
+		Iterator<InscripcionDisplayDTO> it = l.iterator();
+		while(it.hasNext()) {
+			this.actualizarInscripcion(it.next());
+		}
+		view.setLblAceptadosCount(aceptadas+"");
+		view.setLblRechazadosCount(rechazadas+"");
+		//FIN
 		this.getListaInscripcionesPorCurso();
 		initController();
 		view.setVisible(true); 
@@ -49,8 +60,13 @@ public class ActualizarInscritosController {
 	 * La obtencion de la lista de cursos y insercion de la misma en la tabla de los cursos
 	 */
 	public void getListaInscripcionesPorCurso() {
-		List<InscripcionDisplayDTO> inscripciones=model.getInscripcionesPorCurso();
-		TableModel tmodel=SwingUtil.getTableModelFromPojos(inscripciones, new String[] {"id","nombre","apellido","DNI","estado","fechaInscripcion","telefono","correo","cuota","tituloCurso"});
+		List<InscripcionDisplayDTO> inscripciones=model.getInscripcionesActualizadas();
+		Iterator<InscripcionDisplayDTO> it = inscripciones.iterator();
+		while(it.hasNext()) {
+			InscripcionDisplayDTO n = it.next();
+			n.setEstado(n.getEstado().equals("0")? "Aceptado" : n.getEstado().equals("1")?"Pendiente":"Rechazado");
+		}
+		TableModel tmodel=SwingUtil.getTableModelFromPojos(inscripciones, new String[] {"estado","id","nombre","apellido","DNI","fechaInscripcion","telefono","correo","cuota","tituloCurso"});
 		view.getTableInscripciones().setModel(tmodel);
 		SwingUtil.autoAdjustColumns(view.getTableInscripciones());
 		//Como se guarda la clave del ultimo elemento seleccionado, restaura la seleccion de los detalles
@@ -75,14 +91,12 @@ public class ActualizarInscritosController {
 	
 	private void actualizarInscripcion(InscripcionDisplayDTO insc) {
 		boolean ap = true;
-		boolean found = false;
+		boolean paid = false;
 		String inputFile = "src/main/resources/transacciones.csv";
-	    String outputFile = "src/main/resources/deudas.csv";
 
 	        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 	        
-	        try (BufferedReader br = Files.newBufferedReader(Paths.get(inputFile));
-	             BufferedWriter bw = Files.newBufferedWriter(Paths.get(outputFile), StandardOpenOption.CREATE, StandardOpenOption.APPEND)) {
+	        try (BufferedReader br = Files.newBufferedReader(Paths.get(inputFile))) {
 	            
 	            String line;
 	            while ((line = br.readLine()) != null) {
@@ -97,28 +111,30 @@ public class ActualizarInscritosController {
 	                double cuota = Double.parseDouble(fields[1].trim());
 	                //COMPROBAR QUE NO SE TRATE UNA TRANSACCION YA TRATADA DE LA MISMA PERSONA
 	                if (dni.equals(insc.getDNI()) && concepto.equals(insc.getTituloCurso())) {
-	                	found = true;
 	                    long hoursDifference = Duration.between(LocalDateTime.parse(insc.getFechaInscripcion()+" 00:00:00", formatter), fechaTransaccion).toHours();
 	                    if (hoursDifference >= 0 && hoursDifference <= 48) {
+	                    	paid = true;
 	                        if (cuota < Float.parseFloat(insc.getCuota())) {
-	                            bw.write(dni + "," + cuenta + "," + cuota);
-	                            bw.newLine();
+	                            model.actualizaDeuda(dni, concepto, cuota+"");
 	                            ap = false;
+	                            rechazadas++;
 	                        } else if (cuota > Float.parseFloat(insc.getCuota())) {
+	                        	paid = true;
 	                            double diferencia = cuota - Float.parseFloat(insc.getCuota());
-	                            bw.write(dni + "," + cuenta + "," + diferencia);
-	                            bw.newLine();
+	                            model.actualizaDeuda(dni, concepto, diferencia+"");
+	                            aceptadas++;
 	                        }
+	                        model.actualizaInscripcion(ap, insc.getDNI());
 	                    }
-	                }
-	                if(!found) {
-	                	long hoursDifference = Duration.between(LocalDateTime.parse(insc.getFechaInscripcion()+" 00:00:00", formatter), LocalDateTime.now()).toHours();
-	                    if (hoursDifference < 0 || hoursDifference > 48) { // HA PASADO EL PLAZO Y NO SE HA PAGADO
-	                    	ap = false;
-	                    }
-	                        
 	                }
 	            }
+                long hoursDifference = Duration.between(LocalDateTime.parse(insc.getFechaInscripcion()+" 00:00:00", formatter), LocalDateTime.now()).toHours();
+                if (hoursDifference < 0 || hoursDifference > 48 && !paid) { // HA PASADO EL PLAZO Y NO SE HA PAGADO
+                    	ap = false;
+                    	rechazadas++;
+                    	model.actualizaInscripcion(ap, insc.getDNI());
+                    }
+                        
 	            
 	        } catch (NumberFormatException e) {
 	            throw new ApplicationException("Error al leer el archivo, formato de numero incorrecto");
@@ -126,11 +142,7 @@ public class ActualizarInscritosController {
 	        catch(IOException e) {
 	        	throw new ApplicationException("Error al leer el archivo, error en la entrada / salida");
 	        }
-		if(!found && ap)throw new ApplicationException("No hay ningún pago de este usuario, sin embargo sigue dentro del plazo"); //Dentro de plazo, ningún pago
-		model.actualizaInscripcion(ap, insc.getDNI());
-		getListaInscripcionesPorCurso();
-		if(!ap)throw new ApplicationException("El usuario no realizó el pago correcto o lo hizo fuera de plazo"); //Fuera de plazo/ No pago
-		throw new ApplicationException("Inscripcion aceptada");
+		
 		
 	}
 }

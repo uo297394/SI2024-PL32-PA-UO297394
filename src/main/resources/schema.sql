@@ -17,7 +17,7 @@ create table Cursos (id int primary key not null, titulo_curso varchar(20), desc
 	fecha_inicio_inscripcion date, fecha_fin_inscripcion date);
 
 create table Inscripciones (id int primary key not null, idColegiado int, idOtros int,
- 	idCurso int,fechaInscripcion date, estado enum,FOREIGN KEY (idColegiado) REFERENCES Colegiados(id),
+ 	idCurso int,fechaInscripcion date, estado enum,colectivo varchar(40) not null, deuda float default 0.0,FOREIGN KEY (idColegiado) REFERENCES Colegiados(id),
  	FOREIGN KEY (idCurso) REFERENCES Cursos(id),FOREIGN KEY (idOtros) REFERENCES Otros(id));
 
 create table Sesiones (id int primary key not null, idCurso int, 
@@ -27,7 +27,7 @@ create table Sesiones (id int primary key not null, idCurso int,
 create table Periciales (id int auto_increment primary key,idColegiado int, idSolicitante int not null, descripcion varchar(100) not null, estado enum, 
 	 caracter enum,FOREIGN KEY (idColegiado) REFERENCES Colegiados(id), FOREIGN KEY (idSolicitante) REFERENCES Solicitante(id));
 	  
-create table Cuotas (id int primary key not null, idCurso int, cuota int not null,
+create table Cuotas (id int primary key not null, idCurso int, cuota float not null,
  	colectivo varchar(40) not null,FOREIGN KEY (idCurso) REFERENCES Cursos(id));
  	
 create table Otros (id int primary key not null, nombre varchar(20) not null, apellido varchar(40) not null,

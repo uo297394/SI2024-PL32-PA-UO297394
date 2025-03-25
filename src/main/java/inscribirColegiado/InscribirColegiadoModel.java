@@ -30,10 +30,11 @@ public class InscribirColegiadoModel {
 	 * @param idCurso
 	 * @return
 	 */
-	private boolean estaInscrito(String idColegiado, String idCurso) {
+	public boolean estaInscrito(String idColegiado, String idCurso) {
 		String sql="SELECT COUNT(id) FROM Inscripciones WHERE idColegiado = ? AND idCurso = ?";
 		Object[] inscr =db.executeQueryArray(sql,idColegiado,idCurso).get(0);
 		int estaInscrito = (int)inscr[0];
+		if(estaInscrito>0)throw new ApplicationException(MSG_COLEG_INSCR);
 		return estaInscrito>0;
 	}
 	private boolean hayPlazas(String idCurso) {
@@ -49,14 +50,14 @@ public class InscribirColegiadoModel {
 	/**
 	 * Inserta la inscripcion del colegiado al curso si no está inscrito
 	 */
-	public void insertInscColegiado(String idColeg, String idCurso, int estado) {
-		if(!estaInscrito(idColeg,idCurso) && hayPlazas(idCurso)) {
-		String sql="INSERT INTO Inscripciones (id, idColegiado, idCurso, fechaInscripcion, estado)"+
+	public void insertInscColegiado(String idColeg, String idCurso, int estado, String colectivo) {
+		if(hayPlazas(idCurso)) {
+		String sql="INSERT INTO Inscripciones (id, idColegiado, idCurso, fechaInscripcion, estado, colectivo)"+
 					" VALUES"+
-					" (?, ?, ?, ?, ?);";
+					" (?, ?, ?, ?, ?, ?);";
 		int id=lastID();
-		db.executeUpdate(sql, id ,idColeg, idCurso, Util.getTodayISO(), estado);
-		}else if(hayPlazas(idCurso))throw new ApplicationException(MSG_COLEG_INSCR);
+		db.executeUpdate(sql, id ,idColeg, idCurso, Util.getTodayISO(), estado, colectivo);
+		}
 		else throw new ApplicationException("No hay plazas disponibles para este curso");
 	}
 	private int lastID() {

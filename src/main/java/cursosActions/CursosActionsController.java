@@ -130,17 +130,19 @@ public class CursosActionsController {
 			AperturaInscripcionesDisplayDTO disp = model.getListaCursos(view.getCbFiltrado().getSelectedItem().toString()).get(view.getTablaCursos().getSelectedRow());
 			if(disp.getFechaInicioInscripcion() == null || disp.getFechaFinInscripcion() == null) throw new ApplicationException(MSG_CURSO_NO_ABIERTO);
 			else {
-				// Ventana pagos
-				PagoInscripcionView piv = new PagoInscripcionView(this);
-				piv.setVisible(true);
-				//FIN ventana pagos
+				if(!model.estaInscrito(numColeg, disp.getId())) {
+					// Ventana pagos
+					PagoInscripcionView piv = new PagoInscripcionView(this);
+					piv.setVisible(true);
+					//FIN ventana pagos
+				}
 			}
 		}
 	}
 	public void guardarInscripcion(int estado) {
 		String numColeg = view.getTfNumColeg().getText();
 		AperturaInscripcionesDisplayDTO disp = model.getListaCursos(view.getCbFiltrado().getSelectedItem().toString()).get(view.getTablaCursos().getSelectedRow());
-		model.insertInscColegiado(numColeg,disp.getId(),estado);
+		model.insertInscColegiado(numColeg,disp.getId(),estado,view.getCbColectivos().getSelectedItem().toString());
 		view.getCbFiltrado().setSelectedItem("Todos");
 		String cuota = model.getCuota(view.getCbColectivos().getSelectedItem().toString(),disp.getId());
 		ColegiadoDisplayDTO col = model.aiModel.getColegiado(numColeg);

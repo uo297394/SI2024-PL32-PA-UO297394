@@ -6,14 +6,15 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 
 public class ActualizarInscritosView extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTable tableInscripciones;
-	private JButton btnComprobar = new JButton("Comprobar Pago");
-
+	JLabel lblAceptadosCount = new JLabel("");
+	JLabel lblRechazadosCount = new JLabel("");
 
 	/**
 	 * Create the frame.
@@ -32,10 +33,24 @@ public class ActualizarInscritosView extends JFrame {
 		contentPane.add(scrollPane);
 		
 		tableInscripciones = new JTable();
+		tableInscripciones.setRowSelectionAllowed(false);
 		scrollPane.setViewportView(tableInscripciones);
 		
-		btnComprobar.setBounds(361, 302, 187, 21);
-		contentPane.add(btnComprobar);
+		JLabel lblAceptados = new JLabel("Inscripciones Aceptadas:");
+		lblAceptados.setBounds(10, 310, 158, 13);
+		contentPane.add(lblAceptados);
+		
+		
+		lblAceptadosCount.setBounds(158, 310, 45, 13);
+		contentPane.add(lblAceptadosCount);
+		
+		JLabel lblRechazados = new JLabel("Inscripciones Rechazadas:");
+		lblRechazados.setBounds(226, 310, 202, 13);
+		contentPane.add(lblRechazados);
+		
+		
+		lblRechazadosCount.setBounds(401, 310, 45, 13);
+		contentPane.add(lblRechazadosCount);
 	}
 
 	public JTable getTableInscripciones() {
@@ -46,9 +61,20 @@ public class ActualizarInscritosView extends JFrame {
 		this.tableInscripciones = tableInscripciones;
 	}
 
-	public JButton getBtnComprobar() {
-		return btnComprobar;
+	public JLabel getLblAceptadosCount() {
+		return lblAceptadosCount;
 	}
-	
+
+	public void setLblAceptadosCount(String lblAceptadosCount) {
+		this.lblAceptadosCount.setText(lblAceptadosCount);;
+	}
+
+	public JLabel getLblRechazadosCount() {
+		return lblRechazadosCount;
+	}
+
+	public void setLblRechazadosCount(String lblRechazadosCount) {
+		this.lblRechazadosCount.setText(lblRechazadosCount);;
+	}
 	
 }

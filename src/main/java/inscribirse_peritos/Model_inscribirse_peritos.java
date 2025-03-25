@@ -2,7 +2,6 @@ package inscribirse_peritos;
 import java.util.List;
 
 import util.Database;
-import visualizar_cursos.CursoDisplayDTO;
 
 public class Model_inscribirse_peritos {
 	private Database db = new Database();
