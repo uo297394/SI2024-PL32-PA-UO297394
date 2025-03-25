@@ -34,7 +34,7 @@ public class ControllerAsignarPericiales {
 			}
 		});
 
-		// Manejar la selección de filas en tabla de peritos
+		/*// Manejar la selección de filas en tabla de peritos
 		view.getScrollListaPeritos().getViewport().getView().addMouseListener(new java.awt.event.MouseAdapter() {
 			public void mouseClicked(java.awt.event.MouseEvent evt) {
 				JTable tabla = (JTable) view.getScrollListaPeritos().getViewport().getView();
@@ -44,7 +44,7 @@ public class ControllerAsignarPericiales {
 					view.getTxtIdPerito().setText(idPerito.toString());
 				}
 			}
-		});
+		});*/
 
 		// Acción del botón "Asignar"
 		view.getBtnAsignar().addActionListener(new ActionListener() {
@@ -76,7 +76,6 @@ public class ControllerAsignarPericiales {
 				String mensaje = "El perito ha sido correctamente asignado a la solicitud seleccionada:\n";
 
 	            JOptionPane.showMessageDialog(view, mensaje, "Justificante de asignación", JOptionPane.INFORMATION_MESSAGE);
-	            view.getTxtIdPerito().setText("");
 	            view.getTxtIdSolicitud().setText("");
 			} else {
 				javax.swing.JOptionPane.showMessageDialog(view, "No se pudo asignar el perito.", "Error",
@@ -105,6 +104,11 @@ public class ControllerAsignarPericiales {
 		for (Object[] fila : model.obtenerPeritosParaTabla()) {
 			modeloPeritos.addRow(fila);
 		}
+		JTable tablaPeritos = (JTable) view.getScrollListaPeritos().getViewport().getView();
+	    if (tablaPeritos.getRowCount() > 0) {
+	        Object idPerito = tablaPeritos.getValueAt(0, 0);
+	        view.getTxtIdPerito().setText(idPerito.toString());
+	    }
 	}
 
 	// Método para iniciar la vista
