@@ -104,7 +104,7 @@ public class CursosActionsController {
 	}
 	
 	/**
-	 * Actualiza la seleccion de los cursos */
+	 * Actualiza la seleccion de los cursos */ 
 	public void updateDetail() {
 		this.lastSelectedKey=SwingUtil.getSelectedKey(view.getTablaCursos());
 		this.loadInscripciones(Integer.parseInt(model.getListaCursos(view.getCbFiltrado().getSelectedItem().toString()).get(view.getTablaCursos().getSelectedRow()).getId()));
