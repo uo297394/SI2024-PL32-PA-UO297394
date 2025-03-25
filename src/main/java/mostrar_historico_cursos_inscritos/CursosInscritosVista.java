@@ -69,7 +69,7 @@ public class CursosInscritosVista {
 		lblNewLabel_1.setBounds(179, 10, 184, 13);
 		frame.getContentPane().add(lblNewLabel_1);
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 101, 621, 91);
+		scrollPane.setBounds(10, 119, 621, 171);
 		frame.getContentPane().add(scrollPane);
 		tablaCursos = new JTable();
 		//frame.getContentPane().add(tablaCursos);
@@ -79,12 +79,13 @@ public class CursosInscritosVista {
 		tablaCursos.setBounds(10, 133, 345, 128);
 		tablaCursos.setDefaultEditor(Object.class, null); 
 		 mostrarCursos = new JButton("Mostrar cursos");
-		mostrarCursos.setBackground(Color.CYAN);
+		mostrarCursos.setBackground(new Color(240, 240, 240));
 		mostrarCursos.setBounds(140, 73, 127, 21);
 		frame.getContentPane().add(mostrarCursos);
 		
 		 totalCursos = new JTextArea();
-		totalCursos.setBounds(10, 202, 162, 91);
+		 totalCursos.setEditable(false);
+		totalCursos.setBounds(346, 34, 162, 65);
 		frame.getContentPane().add(totalCursos);
 		 frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 	}
