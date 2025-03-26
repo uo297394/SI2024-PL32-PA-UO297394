@@ -8,38 +8,50 @@ import util.Database;
 
 public class CursosInscritosModelo {
 	private Database db=new Database();
-	 public List<CursosInscritosDTO> getListaTodosCursos(int numeroColegiado) { 
-		 String sql = "SELECT i.idColegiado, c.titulo_curso, c.fecha_inicio_curso, c.fecha_fin_curso, c.duracion, CASE WHEN c.fecha_inicio_curso IS NOT NULL AND c.fecha_fin_curso IS NOT NULL THEN 'Abierto' ELSE 'Cerrado' END AS estado FROM Inscripciones i JOIN Cursos c ON i.idCurso = c.id WHERE i.idColegiado = ? ";
+	 public List<CursosInscritosDTO> getListaTodosCursos(String DNI) { 
+		 String sql = "SELECT COALESCE(o.DNI,cl.DNI), c.titulo_curso, c.fecha_inicio_curso, c.fecha_fin_curso, c.duracion, "
+		 		+ "CASE "
+		 		+ "WHEN c.fecha_inicio_curso IS NOT NULL AND c.fecha_fin_curso IS NOT NULL "
+		 		+ "THEN 'Abierto' "
+		 		+ "ELSE 'Cerrado' "
+		 		+ "END AS estado "
+		 		+ "FROM Inscripciones i JOIN Cursos c ON i.idCurso = c.id "
+		 		+ "LEFT JOIN Colegiados cl ON cl.id = i.idColegiado "
+		 		+ "LEFT JOIN Otros o ON o.id = i.idOtros "
+		 		+ "WHERE o.DNI = ? OR cl.DNI = ?";
 		 //String sql = "SELECT titulo_curso, fecha_inicio_curso, fecha_fin_curso, duracion FROM Cursos c JOIN Inscripciones i ON i.idColegiado=?";
-	        List<CursosInscritosDTO> listaCursos=db.executeQueryPojo(CursosInscritosDTO.class, sql, numeroColegiado);
+	        List<CursosInscritosDTO> listaCursos=db.executeQueryPojo(CursosInscritosDTO.class, sql, DNI,DNI);
 	        return listaCursos;
 	   
 	    }
-public int getTotalCursos(int numeroColegiado) {
-	String sql="SELECT COUNT(c.id) FROM Cursos c INNER JOIN Inscripciones i ON i.idCurso=c.id WHERE i.idColegiado=?";
-	int total=(int)db.executeQueryArray(sql, numeroColegiado).get(0)[0];
+public int getTotalCursos(String DNI) {
+	String sql="SELECT COUNT(c.id) FROM Cursos c "
+			+ "LEFT JOIN Inscripciones i ON i.idCurso=c.id "
+			+ "LEFT JOIN Colegiados cl ON cl.id = i.idColegiado "
+			+ "LEFT JOIN Otros o ON o.id = i.idOtros "
+			+ "WHERE o.DNI = ? OR cl.DNI = ?";
+	int total=(int)db.executeQueryArray(sql, DNI,DNI).get(0)[0];
 	return total;
 }
-public int getTotalHoras(int numeroColegiado) {
-	String sql="SELECT SUM(c.duracion) FROM Cursos c INNER JOIN Inscripciones i ON i.idCurso=c.id WHERE i.idColegiado=?";
-	int total=(int)db.executeQueryArray(sql, numeroColegiado).get(0)[0];
+public int getTotalHoras(String DNI) {
+	String sql="SELECT SUM(c.duracion) FROM Cursos c "
+			+ "LEFT JOIN Inscripciones i ON i.idCurso=c.id "
+			+ "LEFT JOIN Colegiados cl ON cl.id = i.idColegiado "
+			+ "LEFT JOIN Otros o ON o.id = i.idOtros "
+			+ "WHERE o.DNI = ? OR cl.DNI = ?";
+	int total=(int)db.executeQueryArray(sql, DNI,DNI).get(0)[0];
 	return total;
 }
-public void EstaColegiado(int id) {
-	String sql="SELECT COUNT(*) from Colegiados WHERE id = ?";	
-	Object[] numerocolegiados=db.executeQueryArray(sql,id).get(0);
-	int numerocoleg=(int) numerocolegiados[0];
-	if(numerocoleg==0) {
-		JOptionPane.showMessageDialog(null, "Número de colegiado incorrecto", "Error", JOptionPane.ERROR_MESSAGE);
-		throw new ApplicationException("Número de colegiado incorrecto:");
-	}}
-public void TieneCursos(int id) {
-	String sql="SELECT COUNT(*) from Cursos c INNER JOIN Inscripciones i ON i.idCurso=c.id WHERE i.idColegiado=?";
-	int numeroCursos=(int)db.executeQueryArray(sql,id).get(0)[0];
-	if(numeroCursos==0) {
-		JOptionPane.showMessageDialog(null, "No está inscrito a ningún curso", "Error", JOptionPane.ERROR_MESSAGE);
-		throw new ApplicationException("Número de colegiado incorrecto:");
+public void hayDatos(String DNI) {
+	String sql="SELECT COUNT(*) FROM Inscripciones i "
+			+ "LEFT JOIN Colegiados cl ON cl.id = i.idColegiado "
+			+ "LEFT JOIN Otros o ON o.id = i.idOtros "
+			+ "WHERE o.DNI = ? OR cl.DNI = ?";	
+	Object[] ocurrencias=db.executeQueryArray(sql,DNI,DNI).get(0);
+	int occ=(int) ocurrencias[0];
+	if(occ==0) {
+		JOptionPane.showMessageDialog(null, "Esta persona no cuenta con ningún curso", "Error", JOptionPane.ERROR_MESSAGE);
+		throw new ApplicationException("Esta persona no cuenta con ningún curso:");
+		}
 	}
-}
-
 }

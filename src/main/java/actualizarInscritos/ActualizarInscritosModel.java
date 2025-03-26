@@ -16,11 +16,14 @@ public class ActualizarInscritosModel {
 	 * @return la lista de inscripciones
 	 */
 	public List<InscripcionDisplayDTO> getInscripcionesPorCurso() {
-		String sql = "SELECT DISTINCT c.id, c.nombre, c.apellido, c.DNI, c.telefono, c.correo, i.estado,i.fechaInscripcion, ct.cuota,cr.titulo_curso as tituloCurso " +
-                "FROM Colegiados c " +
-                "JOIN Inscripciones i ON c.id = i.idColegiado " +
-                "JOIN Cuotas ct ON ct.idCurso = i.idCurso "+
-                "JOIN Cursos cr ON cr.id = i.idCurso "+
+		String sql = "SELECT DISTINCT COALESCE(c.id,o.id) as id, COALESCE(c.nombre,o.nombre) as nombre, COALESCE(c.apellido,o.apellido) as apellido,"
+				+ " COALESCE(c.DNI,o.DNI) as DNI, COALESCE(c.telefono,o.telefono) as telefono, COALESCE(c.correo,o.correo) as correo,"
+				+ " i.estado,i.fechaInscripcion, ct.cuota,cr.titulo_curso as tituloCurso " +
+                "FROM Inscripciones i " +
+                "LEFT JOIN Colegiados c ON c.id = i.idColegiado "
+                +"LEFT JOIN Otros o ON o.id = i.idOtros " +
+                "LEFT JOIN Cuotas ct ON ct.idCurso = i.idCurso "+
+                "LEFT JOIN Cursos cr ON cr.id = i.idCurso "+
                 "where i.estado = 1 and i.colectivo = ct.colectivo";
 		return db.executeQueryPojo(InscripcionDisplayDTO.class, sql);
 	}
@@ -29,24 +32,29 @@ public class ActualizarInscritosModel {
 	 * @param aprobado booleano que indica si la inscripcion está aprobada o no
 	 * @param DNI DNI de la persona que figura en la inscripcion
 	 */
+	//TODO: INSCRIPCIONES ACEPTADAS Y RECHAZADAS
 	public void actualizaInscripcion(boolean aprobado, String DNI) {
 		int estado = aprobado? 0 : 2;
-		String sql="UPDATE Inscripciones as i SET estado=? WHERE (SELECT DNI FROM Colegiados c WHERE i.idColegiado = c.id) = ?";
+		String sql="UPDATE Inscripciones as i SET estado=? WHERE COALESCE((SELECT DNI FROM Colegiados c WHERE i.idColegiado = c.id),(SELECT DNI FROM Otros o WHERE i.idOtros = o.id)) = ?";
 		db.executeUpdate(sql, estado, DNI);
 	}
+	
 	public List<InscripcionDisplayDTO> getInscripcionesActualizadas(){
-		String sql = "SELECT DISTINCT c.id, c.nombre, c.apellido, c.DNI, c.telefono, c.correo, i.estado,i.fechaInscripcion, ct.cuota,cr.titulo_curso as tituloCurso " +
-                "FROM Colegiados c " +
-                "JOIN Inscripciones i ON c.id = i.idColegiado " +
-                "JOIN Cuotas ct ON ct.idCurso = i.idCurso "+
-                "JOIN Cursos cr ON cr.id = i.idCurso "+
-                "and i.colectivo = ct.colectivo";
+		String sql = "SELECT DISTINCT COALESCE(c.id,o.id) as id, COALESCE(c.nombre,o.nombre) as nombre, COALESCE(c.apellido,o.apellido) as apellido,"
+				+ " COALESCE(c.DNI,o.DNI) as DNI, COALESCE(c.telefono,o.telefono) as telefono, COALESCE(c.correo,o.correo) as correo,"
+				+ " i.estado,i.fechaInscripcion, ct.cuota,cr.titulo_curso as tituloCurso " +
+                "FROM Inscripciones i " +
+                "LEFT JOIN Colegiados c ON c.id = i.idColegiado "
+                +"LEFT JOIN Otros o ON o.id = i.idOtros " +
+                "LEFT JOIN Cuotas ct ON ct.idCurso = i.idCurso "+
+                "LEFT JOIN Cursos cr ON cr.id = i.idCurso "+
+                "where i.colectivo = ct.colectivo";
 		return db.executeQueryPojo(InscripcionDisplayDTO.class, sql);
 	}
 	public void actualizaDeuda(String DNI, String concepto, String deuda) {
 		db.executeUpdate("UPDATE Inscripciones SET deuda = ? WHERE (SELECT titulo_curso FROM Cursos cr "
-				+ "JOIN Inscripciones i ON cr.id = i.idCurso\r\n"
-				+ "JOIN Colegiados cl ON cl.id = i.idColegiado\r\n"
+				+ "LEFT JOIN Inscripciones i ON cr.id = i.idCurso\r\n"
+				+ "LEFT JOIN Colegiados cl ON cl.id = i.idColegiado\r\n"
 				+ "LEFT JOIN Otros o ON o.id = i.idOtros\r\n"
 				+ "WHERE (cl.DNI = ? OR o.DNI = ?) \r\n"
 				+ "AND cr.titulo_curso = ?) = ?", deuda,DNI,DNI,concepto,concepto);

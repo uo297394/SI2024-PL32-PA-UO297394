@@ -22,9 +22,9 @@ public CursosInscritosControlador(CursosInscritosVista v, CursosInscritosModelo 
 	      metodos();
 	        }});
 }
-public void RellenaTabla(int numeroColegiado) {
+public void RellenaTabla(String DNI) {
 	
-	List<CursosInscritosDTO> listaCursos=this.m.getListaTodosCursos(numeroColegiado);
+	List<CursosInscritosDTO> listaCursos=this.m.getListaTodosCursos(DNI);
 	String[] columnas= {"titulo_curso", "fecha_inicio_curso", "fecha_fin_curso", "duracion", "estado"};
 	String [] ticolumnas= {"titulo", "fechaInicio", "fechaFin","duracion", "estado"};
 	TableModel tablaCursos = SwingUtil.getTableModelFromPojos(listaCursos, columnas);
@@ -41,25 +41,19 @@ public void RellenaTabla(int numeroColegiado) {
 }
 public void metodos() {
 	try {
-	int numeroColegiado=Integer.parseInt(this.v.getIdColegiado());
-	this.m.EstaColegiado(numeroColegiado);
-	this.m.TieneCursos(numeroColegiado);
-	RellenaTabla(numeroColegiado);
-	RellenaTextArea(numeroColegiado);}
-	catch(NumberFormatException e){
-		JOptionPane.showMessageDialog(null, "Número de colegiado Incorrecto. Debe ser un número entero.", "Error", JOptionPane.ERROR_MESSAGE);
-		return;
+		String DNI=this.v.getDNI();
+		this.m.hayDatos(DNI);
+		RellenaTabla(DNI);
+		RellenaTextArea(DNI);
 	}
 	catch(ApplicationException e) {
-		
 		return;	
 	}
 	
 }
-public void RellenaTextArea(int numeroColegiado) {
-	int numeroCursos=this.m.getTotalCursos(numeroColegiado);
-	int numeroHoras=this.m.getTotalHoras(numeroColegiado);
-	System.out.print(numeroCursos);
+public void RellenaTextArea(String DNI) {
+	int numeroCursos=this.m.getTotalCursos(DNI);
+	int numeroHoras=this.m.getTotalHoras(DNI);
 	String b=String.format("Total de cursos: %d \n Total de horas: %d", numeroCursos, numeroHoras);
 	this.v.setTotalCursos(b);
 }

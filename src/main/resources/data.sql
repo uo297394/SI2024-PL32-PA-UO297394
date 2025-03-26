@@ -40,6 +40,14 @@ VALUES
 (4, 4, 4, '2024-09-20','Estudiantes', 1),
 (5, 5, 5, '2024-10-25','Estudiantes', 1),
 (6, 2, 1, '2024-05-05','Estudiantes', 0);
+INSERT INTO Inscripciones (id, idOtros, idCurso, fechaInscripcion,colectivo, estado)
+VALUES 
+(7, 1, 1, '2024-05-05','Estudiantes', 0),
+(8, 2, 2, '2024-06-10','Estudiantes', 1),
+(9, 3, 3, '2024-08-15','Estudiantes', 2),
+(10,4, 4, '2024-09-20','Estudiantes', 1),
+(11,5, 5, '2024-10-25','Estudiantes', 1),
+(12, 2, 1, '2024-05-05','Estudiantes', 0);
 
 delete from Sesiones;
 INSERT INTO Sesiones (id, idCurso, nombre_sesion, fecha_sesion, hora_inicio, duracion)
@@ -88,4 +96,10 @@ VALUES
 (3,NULL,5,'Aalizar geolocalización de un movil','pendiente','Normal'),
 (4,NULL,2,'Inspeccionar coche accidentado','pendiente','Normal');
 
-
+delete from Otros;
+INSERT INTO Otros (id, nombre, apellido, DNI, direccion, correo, telefono, fecha_nacimiento) VALUES
+(1, 'Juan', 'Pérez', '12345678Z', 'Calle Falsa 123, Madrid', 'juan.perez@email.com', '600123456', '1985-04-15'),
+(2, 'María', 'Gómez', '23456789X', 'Av. Principal 45, Barcelona', 'maria.gomez@email.com', '611234567', '1990-07-22'),
+(3, 'Carlos', 'López', '34567890V', 'Plaza Mayor 12, Valencia', 'carlos.lopez@email.com', '622345678', '1982-12-10'),
+(4, 'Ana', 'Martínez', '38527190T', 'C/ Secundaria 8, Sevilla', 'ana.martinez@email.com', '633456789', '1995-05-30'),
+(5, 'Pedro', 'Fernández', '56789012D', 'Paseo del Río 99, Zaragoza', NULL, '644567890', '1978-09-05');

@@ -19,7 +19,7 @@ import javax.swing.ListSelectionModel;
 public class CursosInscritosVista {
 
 	private JFrame frame;
-	private JTextField numero_colegiado;
+	private JTextField tfdni;
 	private JTable tablaCursos;
 	private JButton mostrarCursos;
 	private JTextArea totalCursos;
@@ -56,14 +56,14 @@ public class CursosInscritosVista {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
-		JLabel lblNewLabel = new JLabel("Nº colegiado:");
+		JLabel lblNewLabel = new JLabel("DNI:");
 		lblNewLabel.setBounds(10, 51, 93, 13);
 		frame.getContentPane().add(lblNewLabel);
 		
-		numero_colegiado = new JTextField();
-		numero_colegiado.setBounds(7, 74, 96, 19);
-		frame.getContentPane().add(numero_colegiado);
-		numero_colegiado.setColumns(10);
+		tfdni = new JTextField();
+		tfdni.setBounds(7, 74, 96, 19);
+		frame.getContentPane().add(tfdni);
+		tfdni.setColumns(10);
 		
 		JLabel lblNewLabel_1 = new JLabel("Histórico de cursos inscritos");
 		lblNewLabel_1.setBounds(179, 10, 184, 13);
@@ -92,8 +92,8 @@ public class CursosInscritosVista {
 	public JTable getTablaCursos() {
 		return this.tablaCursos;
 	}
-	public String getIdColegiado() {
-		return this.numero_colegiado.getText();
+	public String getDNI() {
+		return this.tfdni.getText();
 	}
 	public void setTablaCursos(TableModel t) {
 		this.tablaCursos.setModel(t);

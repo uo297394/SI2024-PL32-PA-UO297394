@@ -11,10 +11,18 @@ public class ModelInscripciones {
      * Se unen Colegiados e Inscripciones para obtener el nombre, apellido, DNI y estado_solicitud.
      */
     public List<InscripcionDisplayDTO> getInscripcionesPorCurso(int idCurso) {
-        String sql = "SELECT c.nombre, c.apellido, c.DNI, c.telefono, c.correo " +
-                     "FROM Colegiados c " +
-                     "JOIN Inscripciones i ON c.id = i.idColegiado "+
-                     "WHERE i.idCurso = ? AND i.estado = 0";
+        String sql = "SELECT \r\n"
+        		+ "    i.id AS id_inscripcion,\r\n"
+        		+ "    COALESCE(cl.nombre, o.nombre) AS nombre,\r\n"
+        		+ "    COALESCE(cl.apellido, o.apellido) AS apellido,\r\n"
+        		+ "    COALESCE(cl.DNI, o.DNI) AS DNI,\r\n"
+        		+ "    COALESCE(cl.direccion, o.direccion) AS direccion,\r\n"
+        		+ "    COALESCE(cl.correo, o.correo) AS correo,\r\n"
+        		+ "    COALESCE(cl.telefono, o.telefono) AS telefono,\r\n"
+        		+ "    i.estado AS estado_inscripcion\r\n"
+        		+ "FROM Inscripciones i\r\n"
+        		+ "LEFT JOIN Colegiados cl ON cl.id = i.idColegiado\r\n"
+        		+ "LEFT JOIN Otros o ON o.id = i.idOtros WHERE i.idCurso = ?";
         return db.executeQueryPojo(InscripcionDisplayDTO.class, sql, idCurso);
     }
 }
