@@ -116,23 +116,30 @@ public class ActualizarInscritosController {
 	                    if (hoursDifference >= 0 && hoursDifference <= 48) {
 	                    	paid = true;
 	                        if (cuota < Float.parseFloat(insc.getCuota())) {
-	                            model.actualizaDeuda(dni, concepto, cuota+"");
+	                            model.actualizaDeuda(dni, insc.getTituloCurso(), cuota+"");
 	                            ap = false;
 	                            rechazadas++;
 	                        } else if (cuota > Float.parseFloat(insc.getCuota())) {
 	                        	paid = true;
 	                            double diferencia = cuota - Float.parseFloat(insc.getCuota());
-	                            model.actualizaDeuda(dni, concepto, diferencia+"");
+	                            model.actualizaDeuda(dni, insc.getTituloCurso(), diferencia+"");
 	                            aceptadas++;
 	                        }
 	                        model.actualizaInscripcion(ap, insc.getDNI());
-	                    }
+	                    }else {
+	                    	paid = true;
+                        	ap = false;
+                        	rechazadas++;
+                        	model.actualizaDeuda(dni, insc.getTituloCurso(), cuota+"");
+                        	model.actualizaInscripcion(ap, insc.getDNI());
+                        }
 	                }
 	            }
-                long hoursDifference = Duration.between(LocalDateTime.parse(insc.getFechaInscripcion()+" 00:00:00", formatter), LocalDateTime.now()).toHours();
+	            long hoursDifference = Duration.between(LocalDateTime.parse(insc.getFechaInscripcion()+" 00:00:00", formatter), LocalDateTime.now()).toHours();
                 if (hoursDifference < 0 || hoursDifference > 48 && !paid) { // HA PASADO EL PLAZO Y NO SE HA PAGADO
                     	ap = false;
                     	rechazadas++;
+                    	model.actualizaDeuda(insc.getDNI(), insc.getTituloCurso(), "NP");
                     	model.actualizaInscripcion(ap, insc.getDNI());
                     }
                         

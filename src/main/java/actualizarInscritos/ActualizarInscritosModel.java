@@ -52,12 +52,11 @@ public class ActualizarInscritosModel {
 	}
 	//TODO MOSTRAR BIEN DEUDAS
 	public void actualizaDeuda(String DNI, String concepto, String deuda) {
-		db.executeUpdate("UPDATE Inscripciones SET deuda = ? WHERE (SELECT COALESCE(o.id,cl.id) FROM Cursos cr "
-				+ "LEFT JOIN Inscripciones i ON cr.id = i.idCurso\r\n"
-				+ "LEFT JOIN Colegiados cl ON cl.id = i.idColegiado\r\n"
-				+ "LEFT JOIN Otros o ON o.id = i.idOtros\r\n"
-				+ "WHERE (cl.DNI = ? OR o.DNI = ?) \r\n"
-				+ "AND cr.titulo_curso LIKE ?) = COALESCE(idColegiado,idOtros) AND idCurso = (SELECT id FROM Cursos WHERE titulo_curso LIKE ?)", deuda,DNI,DNI,concepto,concepto);
+		db.executeUpdate("UPDATE Inscripciones\r\n"
+				+ "SET deuda = ?\r\n"
+				+ "WHERE idColegiado IN (SELECT id FROM Colegiados WHERE DNI = ?)\r\n"
+				+ "   OR idOtros IN (SELECT id FROM Otros WHERE DNI = ?)\r\n"
+				+ "   AND idCurso IN (SELECT id FROM Cursos WHERE titulo_curso = ?)",deuda,DNI,DNI,concepto);
 		
 	}
 	
