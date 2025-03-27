@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
+import java.text.Normalizer;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -66,7 +67,7 @@ public class ActualizarInscritosController {
 			InscripcionDisplayDTO n = it.next();
 			n.setEstado(n.getEstado().equals("0")? "Aceptado" : n.getEstado().equals("1")?"Pendiente":"Rechazado");
 		}
-		TableModel tmodel=SwingUtil.getTableModelFromPojos(inscripciones, new String[] {"estado","id","nombre","apellido","DNI","fechaInscripcion","telefono","correo","cuota","tituloCurso"});
+		TableModel tmodel=SwingUtil.getTableModelFromPojos(inscripciones, new String[] {"estado","deuda","id","nombre","apellido","DNI","fechaInscripcion","telefono","correo","cuota","tituloCurso"});
 		view.getTableInscripciones().setModel(tmodel);
 		SwingUtil.autoAdjustColumns(view.getTableInscripciones());
 		//Como se guarda la clave del ultimo elemento seleccionado, restaura la seleccion de los detalles
@@ -110,7 +111,7 @@ public class ActualizarInscritosController {
 	                
 	                double cuota = Double.parseDouble(fields[1].trim());
 	                //COMPROBAR QUE NO SE TRATE UNA TRANSACCION YA TRATADA DE LA MISMA PERSONA
-	                if (dni.equals(insc.getDNI()) && concepto.equals(insc.getTituloCurso())) {
+	                if (dni.equals(insc.getDNI()) && quitarAcentos(concepto).equals(quitarAcentos(insc.getTituloCurso()))) {
 	                    long hoursDifference = Duration.between(LocalDateTime.parse(insc.getFechaInscripcion()+" 00:00:00", formatter), fechaTransaccion).toHours();
 	                    if (hoursDifference >= 0 && hoursDifference <= 48) {
 	                    	paid = true;
@@ -145,4 +146,11 @@ public class ActualizarInscritosController {
 		
 		
 	}
+	private static String quitarAcentos(String input) {
+        if (input == null) {
+            return null;
+        }
+        return Normalizer.normalize(input, Normalizer.Form.NFD)
+                         .replaceAll("\\p{M}", "");
+    }
 }

@@ -42,7 +42,7 @@ VALUES
 (6, 2, 1, '2024-05-05','Estudiantes', 0);
 INSERT INTO Inscripciones (id, idOtros, idCurso, fechaInscripcion,colectivo, estado)
 VALUES 
-(7, 1, 1, '2024-05-05','Estudiantes', 0),
+(7, 1, 1, '2024-05-05','Estudiantes', 1),
 (8, 2, 2, '2024-06-10','Estudiantes', 1),
 (9, 3, 3, '2024-08-15','Estudiantes', 2),
 (10,4, 4, '2024-09-20','Estudiantes', 1),

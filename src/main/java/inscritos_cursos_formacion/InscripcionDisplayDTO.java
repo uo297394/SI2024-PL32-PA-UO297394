@@ -11,6 +11,7 @@ public class InscripcionDisplayDTO {
     private String correo;
     private String cuota;
     private String tituloCurso;
+    private String deuda;
 
     // Getters y setters
     public String getNombre() {
@@ -75,9 +76,17 @@ public class InscripcionDisplayDTO {
 		this.id = id;
 	}
 	
-	
+	public String getDeuda() {
+		return deuda;
+	}
+	public void setDeuda(String deuda) {
+		this.deuda = deuda;
+	}
+	public InscripcionDisplayDTO() {
+		
+	}
 	public InscripcionDisplayDTO(String id, String nombre, String apellido, String dNI, String estado,
-			String fechaInscripcion, String telefono, String correo, String cuota, String tituloCurso) {
+			String fechaInscripcion, String telefono, String correo, String cuota, String tituloCurso, String deuda) {
 		this.id = id;
 		this.nombre = nombre;
 		this.apellido = apellido;
@@ -88,16 +97,17 @@ public class InscripcionDisplayDTO {
 		this.correo = correo;
 		this.cuota = cuota;
 		this.tituloCurso = tituloCurso;
-	}
-	public InscripcionDisplayDTO() {
-		
+		this.deuda = deuda;
 	}
 	@Override
 	public String toString() {
 		return "InscripcionDisplayDTO [id=" + id + ", nombre=" + nombre + ", apellido=" + apellido + ", DNI=" + DNI
 				+ ", estado=" + estado + ", fechaInscripcion=" + fechaInscripcion + ", telefono=" + telefono
-				+ ", correo=" + correo + ", cuota=" + cuota + ", tituloCurso=" + tituloCurso + "]";
+				+ ", correo=" + correo + ", cuota=" + cuota + ", tituloCurso=" + tituloCurso + ", deuda=" + deuda + "]";
 	}
+	
+	
+
 	
 	
 	
