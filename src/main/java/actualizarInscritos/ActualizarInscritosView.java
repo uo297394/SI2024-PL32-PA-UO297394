@@ -33,7 +33,8 @@ public class ActualizarInscritosView extends JFrame {
 		contentPane.add(scrollPane);
 		
 		tableInscripciones = new JTable();
-		tableInscripciones.setRowSelectionAllowed(false);
+		tableInscripciones.setDefaultEditor(Object.class, null); //readonly
+		tableInscripciones.setRowSelectionAllowed(true);
 		scrollPane.setViewportView(tableInscripciones);
 		
 		JLabel lblAceptados = new JLabel("Inscripciones Aceptadas:");
