@@ -2,6 +2,8 @@ package cursosActions;
 
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.Iterator;
@@ -9,6 +11,7 @@ import java.util.List;
 
 import javax.swing.ComboBoxModel;
 import javax.swing.JOptionPane;
+import javax.swing.JRadioButton;
 import javax.swing.table.TableModel;
 import aperturaInscripciones.AperturaInscripcionesDisplayDTO;
 import inscritos_cursos_formacion.InscripcionDisplayDTO;
@@ -25,6 +28,7 @@ public class CursosActionsController {
 	private static final String MSG_COLEG_INSCRITO = "La inscripción se ha realizado con exito";
 	private static final String MSG_CUENTA = "En caso de haber escogido pago por transferencia, recuerde que la cuota se debe abonar al numero de cuenta: XXXXXXXXX";
 	private static final String MSG_FECHA_INSC = "La fecha de plazo para inscribirse al curso ha cambiado con exito";
+	protected boolean estaColegiado = true;
 
 	public CursosActionsController(CursosActionsModel m, CursosActionsView v) {
 		this.model = m;
@@ -39,6 +43,30 @@ public class CursosActionsController {
 	 * emergentes cuando ocurra algun problema o excepcion controlada.
 	 */
 	public void initController() {
+		view.getRadBut().addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                    estaColegiado = view.muestraPanelInsc();
+                    if(estaColegiado)view.rellenaDatos(null);
+            }
+        });
+		view.getDNI().addKeyListener(new KeyListener() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                
+            }
+	
+            @Override
+            public void keyPressed(KeyEvent e) {
+            	
+            } 
+            @Override
+            public void keyReleased(KeyEvent e) {
+            	if(view.getDNI().getText().length() != 9 || estaColegiado) return;
+                ColegiadoDisplayDTO col = buscaPersona(view.getDNI().getText());
+                view.rellenaDatos(col);
+            } 
+        });
 		view.getBtnRegPlazo().addActionListener(e -> SwingUtil.exceptionWrapper(() -> updatePlazo()));
 		view.getBtnInscColeg().addActionListener(e -> SwingUtil.exceptionWrapper(() -> inscribir()));
 		view.getTablaCursos().addMouseListener(new MouseAdapter() {
@@ -158,4 +186,7 @@ public class CursosActionsController {
         SwingUtil.autoAdjustColumns(view.getTable());
         view.getLblTotal().setText("Total inscritos: " + inscripciones.size());
     }
+	public ColegiadoDisplayDTO buscaPersona(String DNI) {
+		return model.buscaPersona(DNI);
+	}
 }

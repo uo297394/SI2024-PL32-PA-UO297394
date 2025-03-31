@@ -55,4 +55,8 @@ public class CursosActionsModel {
 	public boolean estaInscrito(String idColeg, String idCurso) {
 		return icModel.estaInscrito(idColeg, idCurso);
 	}
+
+	public ColegiadoDisplayDTO buscaPersona(String DNI) {
+		return icModel.buscaPersona(DNI);
+	}
 }

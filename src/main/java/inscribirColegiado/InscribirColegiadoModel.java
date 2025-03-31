@@ -1,6 +1,8 @@
 package inscribirColegiado;
 
 import java.util.*;
+
+import cursosActions.ColegiadoDisplayDTO;
 import util.Util;
 import util.ApplicationException;
 import util.Database;
@@ -75,6 +77,12 @@ public class InscribirColegiadoModel {
 	private void validateCondition(boolean condition, String message) {
 		if (!condition)
 			throw new ApplicationException(message);
+	}
+	public ColegiadoDisplayDTO buscaPersona(String dNI) {
+		String ide = "SELECT * FROM Otros WHERE DNI = ?";
+		List<ColegiadoDisplayDTO> persona=db.executeQueryPojo(ColegiadoDisplayDTO.class,ide,dNI);
+		if(persona.size() == 0)return null;
+	    return persona.get(0);
 	}
 	
 	

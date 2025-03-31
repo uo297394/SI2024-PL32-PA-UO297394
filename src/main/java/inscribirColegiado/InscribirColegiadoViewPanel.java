@@ -47,14 +47,13 @@ public class InscribirColegiadoViewPanel extends JPanel {
 		tfDireccion.setColumns(10);
 		tfApellidos.setColumns(10);
 		tfNombre.setColumns(10);
-		tfDNI.setColumns(10);
 		this.setLayout(new MigLayout("", "[grow]", "[][][grow][grow][grow][grow][][][][][][][][]"));
 				buttonGroup.add(rdbtnColegiado);
 				rdbtnColegiado.setSelected(true);
 				
 				add(rdbtnColegiado, "flowx,cell 0 1");
 				
-				add(pColegiadoDatos, "cell 0 2,grow");
+				add(pColegiadoDatos, "flowx,cell 0 2,grow");
 		//Label
 				JLabel lblNumColeg = new JLabel("Numero de colegiado");
 				pColegiadoDatos.add(lblNumColeg);
@@ -62,12 +61,6 @@ public class InscribirColegiadoViewPanel extends JPanel {
 				tfNumColeg = new JTextField();
 				pColegiadoDatos.add(tfNumColeg);
 				tfNumColeg.setColumns(10);
-				
-				add(pOtroColectivo, "cell 0 3,grow");
-				
-				pOtroColectivo.add(lblDNI);
-				
-				pOtroColectivo.add(tfDNI);
 				
 				add(pDatos, "cell 0 4,grow");
 				pDatos.setLayout(new GridLayout(0, 2, 0, 0));
@@ -105,6 +98,13 @@ public class InscribirColegiadoViewPanel extends JPanel {
 				buttonGroup.add(rdbtnOtroColectivo);
 				
 				add(rdbtnOtroColectivo, "cell 0 1");
+				tfDNI.setColumns(10);
+				
+				add(pOtroColectivo, "cell 0 2,grow");
+				
+				pOtroColectivo.add(lblDNI);
+				
+				pOtroColectivo.add(tfDNI);
 				this.muestraPanel(this.rdbtnColegiado.isSelected());
 	}
 	// GETTERS AND SETTERS
@@ -132,6 +132,9 @@ public class InscribirColegiadoViewPanel extends JPanel {
 	public JTextField getTfDNI() {
 		return tfDNI;
 	}
+	public JRadioButton getRdbtnColegiado() {
+		return rdbtnColegiado;
+	}
 	//FIN GETTERS AND SETTERS
 
 	/**
@@ -155,6 +158,7 @@ public class InscribirColegiadoViewPanel extends JPanel {
 		this.tfCorreo.setEditable(!b);
 		this.tfDireccion.setEditable(!b);
 		this.tfFechaNac.setEditable(!b);
+		this.tfNumTelef.setEditable(!b);
 	}
 	
 	/**
@@ -165,12 +169,13 @@ public class InscribirColegiadoViewPanel extends JPanel {
 	 * @param direccion tfDireccion
 	 * @param fechaNac tfFechaNac
 	 */
-	public void rellenaDatos(String nombre, String apellidos, String correo, String direccion, String fechaNac) {
+	public void rellenaDatos(String nombre, String apellidos, String correo, String direccion,String numTelf, String fechaNac) {
 		
 		this.tfNombre.setText(nombre);
 		this.tfApellidos.setText(apellidos);
 		this.tfCorreo.setText(correo);
 		this.tfDireccion.setText(direccion);
+		this.tfNumTelef.setText(numTelf);
 		this.tfFechaNac.setText(fechaNac);
 		
 	}

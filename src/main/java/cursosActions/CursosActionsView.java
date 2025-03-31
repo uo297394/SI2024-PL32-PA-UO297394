@@ -16,6 +16,7 @@ import inscritos_cursos_formacion.InscritosCursosViewPanel;
 import net.miginfocom.swing.MigLayout;
 import javax.swing.JTabbedPane;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.JComboBox;
 
 public class CursosActionsView {
@@ -102,16 +103,20 @@ public class CursosActionsView {
 	public JTextField getDNI() {
 		return ((InscribirColegiadoViewPanel)inscribirColegiado).getTfDNI();
 	}
-	public ButtonGroup getBGroup() {
-		return ((InscribirColegiadoViewPanel)inscribirColegiado).getButtonGroup();
+	public JRadioButton getRadBut() {
+		return ((InscribirColegiadoViewPanel)inscribirColegiado).getRdbtnColegiado();
 	}
 	public boolean muestraPanelInsc() {
 		((InscribirColegiadoViewPanel)inscribirColegiado).muestraPanel(((InscribirColegiadoViewPanel)inscribirColegiado).isSelectedCol());
 		return ((InscribirColegiadoViewPanel)inscribirColegiado).isSelectedCol();
 	}
 	public void rellenaDatos(ColegiadoDisplayDTO i) {
+		if(i == null) {
+			((InscribirColegiadoViewPanel)inscribirColegiado).estaRegistrado(false);
+			return;
+		}
 		((InscribirColegiadoViewPanel)inscribirColegiado).estaRegistrado(true);
-		((InscribirColegiadoViewPanel)inscribirColegiado).rellenaDatos(i.getNombre(),i.getApellido(),i.getCorreo(),i.getDireccion(),i.getFechaNacimiento());
+		((InscribirColegiadoViewPanel)inscribirColegiado).rellenaDatos(i.getNombre(),i.getApellido(),i.getCorreo(),i.getDireccion(),i.getTelefono(),i.getFechaNacimiento());
 	}
 	// VER INSCRITOS A CURSO
 	public JTable getTable() {
