@@ -107,6 +107,7 @@ public class InscribirColegiadoViewPanel extends JPanel {
 				add(rdbtnOtroColectivo, "cell 0 1");
 				this.muestraPanel(this.rdbtnColegiado.isSelected());
 	}
+	// GETTERS AND SETTERS
 	public JButton getBtnInscColeg() {
 		return btnInscColeg;
 	}
@@ -125,6 +126,14 @@ public class InscribirColegiadoViewPanel extends JPanel {
 	public void setCbColectivo(JComboBox<Object> cbColectivo) {
 		this.cbColectivo = cbColectivo;
 	}
+	public ButtonGroup getButtonGroup() {
+		return buttonGroup;
+	}
+	public JTextField getTfDNI() {
+		return tfDNI;
+	}
+	//FIN GETTERS AND SETTERS
+
 	/**
 	 * Muestra el panel de inscripcion según el valor de b: <br>
 	 * 	- <b>Verdadero:</b> Colegiados y Precolegiados <br>
@@ -137,15 +146,15 @@ public class InscribirColegiadoViewPanel extends JPanel {
 	}
 	
 	/**
-	 * Deja editar los textfields del panel pDatos unicamente si el booleano toma valor Falso
+	 * Deja editar los textfields del panel pDatos unicamente si el booleano toma valor Verdadero
 	 * @param b el booleano
 	 */
 	public void estaRegistrado(boolean b) {
-		this.tfNombre.setEditable(b);
-		this.tfApellidos.setEditable(b);
-		this.tfCorreo.setEditable(b);
-		this.tfDireccion.setEditable(b);
-		this.tfFechaNac.setEditable(b);
+		this.tfNombre.setEditable(!b);
+		this.tfApellidos.setEditable(!b);
+		this.tfCorreo.setEditable(!b);
+		this.tfDireccion.setEditable(!b);
+		this.tfFechaNac.setEditable(!b);
 	}
 	
 	/**
