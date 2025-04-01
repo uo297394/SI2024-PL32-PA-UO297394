@@ -6,6 +6,7 @@ drop table if EXISTS Periciales;
 drop table if EXISTS Cuotas;
 drop table if EXISTS Otros;
 drop table if EXISTS Solicitante;
+drop table if EXISTS Recibos;
 
 create table Colegiados (id int primary key not null, nombre varchar(20) not null, apellido varchar(40) not null,
 	DNI varchar(9), direccion varchar(60),correo varchar(50), telefono varchar(20), fecha_nacimiento date, numero_cuenta varchar(20) not null,
@@ -35,4 +36,4 @@ create table Otros (id int primary key not null, nombre varchar(20) not null, ap
 
 create table Solicitante (id int auto_increment primary key ,nombre varchar(20) not null, apellidos varchar(40) not null, DNI varchar(9) not null,
 	 direccion varchar(60),correo varchar(50), telefono varchar(20), fecha_nacimiento date);
-create table Recibos(id int auto_increment primary key, couta double, estado enum, año_emitido int, fecha_pagado date, fecha_devuelto date, FOREIGN KEY (idColegiado) REFERENCES Colegiados(id));
+create table Recibos(id int auto_increment primary key, idColegiado int,cuota double, estado enum, año_emitido int, fecha_pagado date, fecha_devuelto date, FOREIGN KEY (idColegiado) REFERENCES Colegiados(id));

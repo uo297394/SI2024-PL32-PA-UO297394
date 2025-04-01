@@ -5,6 +5,7 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.table.TableModel;
 import javax.swing.JLabel;
 import javax.swing.JButton;
 
@@ -46,14 +47,14 @@ public class CobrarRecibosVista {
 		frame.getContentPane().setLayout(null);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(20, 99, 215, 101);
+		scrollPane.setBounds(10, 66, 294, 184);
 		frame.getContentPane().add(scrollPane);
 		
 		tablaRecibos = new JTable();
 		scrollPane.setViewportView(tablaRecibos);
 		
 		JLabel lblNewLabel = new JLabel("Estado actual de los recibos");
-		lblNewLabel.setBounds(29, 74, 174, 14);
+		lblNewLabel.setBounds(21, 41, 174, 14);
 		frame.getContentPane().add(lblNewLabel);
 		
 		JButton btEmitirRecibos = new JButton("Emitir recibos");
@@ -63,5 +64,14 @@ public class CobrarRecibosVista {
 		JLabel lblNewLabel_1 = new JLabel("Emision de recibos");
 		lblNewLabel_1.setBounds(160, 11, 182, 14);
 		frame.getContentPane().add(lblNewLabel_1);
+	}
+	public JTable getTablaRecibos() {
+		return this.tablaRecibos;
+	}
+	public void setTablaRecibos(TableModel t) {
+		 this.tablaRecibos.setModel(t);
+	}
+	public JFrame getFrame() {
+		return this.frame;
 	}
 }

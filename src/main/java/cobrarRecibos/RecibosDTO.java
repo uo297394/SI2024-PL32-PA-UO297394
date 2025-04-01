@@ -4,15 +4,23 @@ public class RecibosDTO {
 private int id, idColegiado;
 private String estado;
 private double cuota;
+private String nombre;
 public int getId() {
 	return id;
 }
-public RecibosDTO(int id, int idColegiado, String estado, double cuota) {
+public String getNombre() {
+	return nombre;
+}
+public void setNombre(String nombre) {
+	this.nombre = nombre;
+}
+public RecibosDTO(int id, int idColegiado, String estado, double cuota, String nombre) {
 	super();
 	this.id = id;
 	this.idColegiado = idColegiado;
 	this.estado = estado;
 	this.cuota = cuota;
+	this.nombre=nombre;
 }
 public RecibosDTO() {}
 public void setId(int id) {
