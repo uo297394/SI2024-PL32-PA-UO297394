@@ -59,4 +59,16 @@ public class CursosActionsModel {
 	public ColegiadoDisplayDTO buscaPersona(String DNI) {
 		return icModel.buscaPersona(DNI);
 	}
+	public ColegiadoDisplayDTO buscaColegiado(String DNI) {
+		return icModel.buscaColegiado(DNI);
+	}
+
+	public boolean estaInscritoOtro(String dni, String id) {
+		return icModel.estaInscritoOtro(dni,id);
+	}
+
+	public void guardaDatosOtro(List<String> l) {
+		icModel.guardaDatosOtro(l);
+		
+	}
 }

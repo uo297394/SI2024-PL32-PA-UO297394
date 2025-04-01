@@ -84,6 +84,27 @@ public class InscribirColegiadoModel {
 		if(persona.size() == 0)return null;
 	    return persona.get(0);
 	}
+	public ColegiadoDisplayDTO buscaColegiado(String numCol) {
+		String ide = "SELECT nombre, apellido,direccion, correo, telefono, fecha_nacimiento as fechaNacimiento FROM Colegiados WHERE id = ?";
+		List<ColegiadoDisplayDTO> persona=db.executeQueryPojo(ColegiadoDisplayDTO.class,ide,numCol);
+		if(persona.size() == 0)return null;
+	    return persona.get(0);
+	}
+	public boolean estaInscritoOtro(String dni, String id) {
+		String sql="SELECT COUNT(i.id) FROM Inscripciones i JOIN Otros o ON i.idOtros = o.id WHERE o.DNI = ? AND idCurso = ?";
+		Object[] inscr =db.executeQueryArray(sql,dni,id).get(0);
+		int estaInscrito = (int)inscr[0];
+		if(estaInscrito>0)throw new ApplicationException(MSG_COLEG_INSCR);
+		return estaInscrito>0;
+	}
+	public void guardaDatosOtro(List<String> l) {
+		String sql="INSERT INTO Otros (id, nombre, apellido, direccion, correo, telefono, fecha_nacimiento, DNI)"+
+				" VALUES"+
+				" (?, ?, ?, ?, ?, ?, ?, ?);";
+		int id=lastID();
+		db.executeUpdate(sql,id, l.get(0),l.get(1),l.get(2),l.get(3),l.get(4),l.get(5),l.get(6));
+		
+	}
 	
 	
 }

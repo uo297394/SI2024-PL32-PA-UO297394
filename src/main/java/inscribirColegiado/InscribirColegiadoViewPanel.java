@@ -135,8 +135,27 @@ public class InscribirColegiadoViewPanel extends JPanel {
 	public JRadioButton getRdbtnColegiado() {
 		return rdbtnColegiado;
 	}
+	public JTextField getTfNombre() {
+		return tfNombre;
+	}
+	public JTextField getTfApellidos() {
+		return tfApellidos;
+	}
+	public JTextField getTfDireccion() {
+		return tfDireccion;
+	}
+	public JTextField getTfCorreo() {
+		return tfCorreo;
+	}
+	public JTextField getTfNumTelef() {
+		return tfNumTelef;
+	}
+	public JTextField getTfFechaNac() {
+		return tfFechaNac;
+	}
 	//FIN GETTERS AND SETTERS
 
+	
 	/**
 	 * Muestra el panel de inscripcion según el valor de b: <br>
 	 * 	- <b>Verdadero:</b> Colegiados y Precolegiados <br>

@@ -1,5 +1,8 @@
 package cursosActions;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -118,6 +121,16 @@ public class CursosActionsView {
 		}
 		((InscribirColegiadoViewPanel)inscribirColegiado).estaRegistrado(true);
 		((InscribirColegiadoViewPanel)inscribirColegiado).rellenaDatos(i.getNombre(),i.getApellido(),i.getCorreo(),i.getDireccion(),i.getTelefono(),i.getFechaNacimiento());
+	}
+	public List<String> getPDatos(){
+		List<String> l = new ArrayList<>();
+		l.add(((InscribirColegiadoViewPanel)inscribirColegiado).getTfNombre().getText());
+		l.add(((InscribirColegiadoViewPanel)inscribirColegiado).getTfApellidos().getText());
+		l.add(((InscribirColegiadoViewPanel)inscribirColegiado).getTfDireccion().getText());
+		l.add(((InscribirColegiadoViewPanel)inscribirColegiado).getTfCorreo().getText());
+		l.add(((InscribirColegiadoViewPanel)inscribirColegiado).getTfNumTelef().getText());
+		l.add(((InscribirColegiadoViewPanel)inscribirColegiado).getTfFechaNac().getText());
+		return l;
 	}
 	// VER INSCRITOS A CURSO
 	public JTable getTable() {
