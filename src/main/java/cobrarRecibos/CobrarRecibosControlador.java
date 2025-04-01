@@ -1,5 +1,7 @@
 package cobrarRecibos;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.List;
 
 import javax.swing.table.TableModel;
@@ -14,6 +16,14 @@ public class CobrarRecibosControlador {
 	this.v=v;
 	this.m=m;
 	this.RellenaTabla();
+	this.v.getBotonRecibos().addActionListener(new ActionListener(){
+	    @Override
+	    public void actionPerformed(ActionEvent e) {
+	    	
+	        }});
+	
+	
+	
 	}
 	public void RellenaTabla() {
 		int año=2025;
@@ -29,7 +39,10 @@ public class CobrarRecibosControlador {
 		 this.v.getTablaRecibos().getTableHeader().repaint();
 		
 	}
-	
+	public void generaFichero() {
+		
+		
+	}
 	
 	
 }

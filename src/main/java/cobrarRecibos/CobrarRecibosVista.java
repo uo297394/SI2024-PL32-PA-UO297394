@@ -13,7 +13,7 @@ public class CobrarRecibosVista {
 
 	private JFrame frame;
 	private JTable tablaRecibos;
-
+	private JButton btEmitirRecibos;
 	/**
 	 * Launch the application.
 	 */
@@ -57,7 +57,7 @@ public class CobrarRecibosVista {
 		lblNewLabel.setBounds(21, 41, 174, 14);
 		frame.getContentPane().add(lblNewLabel);
 		
-		JButton btEmitirRecibos = new JButton("Emitir recibos");
+		 btEmitirRecibos = new JButton("Emitir recibos");
 		btEmitirRecibos.setBounds(310, 213, 114, 23);
 		frame.getContentPane().add(btEmitirRecibos);
 		
@@ -73,5 +73,8 @@ public class CobrarRecibosVista {
 	}
 	public JFrame getFrame() {
 		return this.frame;
+	}
+	public JButton getBotonRecibos() {
+		return this.btEmitirRecibos;
 	}
 }

@@ -12,4 +12,14 @@ public class CobrarRecibosModelo {
 		List<RecibosDTO> recibos=db.executeQueryPojo(RecibosDTO.class,sql);
 		return recibos;
 	}
+	public void insertarRecibo(int id, int idColegiado) {
+		String sql="INSERT INTO Recibos(id , cuota , estado , año_emitido, idColegiado) VALUES (? ,120,'emitido',2025,?)";
+		db.executeUpdate(sql, id, idColegiado);
+	}
+	private int lastID() {
+		String ide = "SELECT COUNT(id) FROM Recibos";
+	    Object[] numerorecibos=db.executeQueryArray(ide).get(0);
+	    int numrec=(int) numerorecibos[0];
+	    return numrec+1;
+	    }
 }
