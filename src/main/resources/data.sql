@@ -106,6 +106,6 @@ INSERT INTO Otros (id, nombre, apellido, DNI, direccion, correo, telefono, fecha
 delete from Recibos;
 INSERT INTO Recibos(id , cuota , estado , año_emitido , fecha_pagado , fecha_devuelto ,idColegiado) VALUES
 (1,120,'emitido',2025,NULL,NULL,1),
-(2,120,'pagado',2025,2025-08-28,NULL,2),
-(3,120,'pagado',2025,2025-08-28,NULL,3);
+(2,120,'pagado',2025,'2025-08-28',NULL,2),
+(3,120,'pagado',2025,'2025-08-28',NULL,3);
 

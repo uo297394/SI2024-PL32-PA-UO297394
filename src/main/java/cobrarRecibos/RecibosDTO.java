@@ -1,12 +1,12 @@
 package cobrarRecibos;
 
 public class RecibosDTO {
-private int id, idColegiado;
+private int idRecibo, idColegiado;
 private String estado;
 private double cuota;
 private String nombre;
-public int getId() {
-	return id;
+public int getIdRecibo() {
+	return idRecibo;
 }
 public String getNombre() {
 	return nombre;
@@ -16,7 +16,7 @@ public void setNombre(String nombre) {
 }
 public RecibosDTO(int id, int idColegiado, String estado, double cuota, String nombre) {
 	super();
-	this.id = id;
+	this.idRecibo = id;
 	this.idColegiado = idColegiado;
 	this.estado = estado;
 	this.cuota = cuota;
@@ -24,7 +24,7 @@ public RecibosDTO(int id, int idColegiado, String estado, double cuota, String n
 }
 public RecibosDTO() {}
 public void setId(int id) {
-	this.id = id;
+	this.idRecibo = id;
 }
 public int getIdColegiado() {
 	return idColegiado;

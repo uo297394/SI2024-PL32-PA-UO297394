@@ -28,8 +28,8 @@ public class CobrarRecibosControlador {
 	public void RellenaTabla() {
 		int año=2025;
 		List<RecibosDTO> listaRecibos=this.m.ColegiadosRecibos(año);
-		String[] columnas= {"idColegiado", "nombre", "id","estado","cuota" };
-		String [] ticolumnas= {"idColegiado", "nombre", "id","estadoRecibo","cuota" };
+		String[] columnas= {"idColegiado", "nombre", "idRecibo","estado","cuota" };
+		String [] ticolumnas= {"idColegiado", "nombre", "idRecibo","estadoRecibo","cuota" };
 		TableModel tablaCursos = SwingUtil.getTableModelFromPojos(listaRecibos, columnas);
 		this.v.setTablaRecibos(tablaCursos);
 		for(int i=0;i<ticolumnas.length;i++) {
