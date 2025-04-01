@@ -98,8 +98,9 @@ public class SwingMain extends JFrame {
 		panel_1.add(btnHistoria3);
 		*/
 		
-		JButton btnActualizarInscripcion = new JButton("Actualizar Inscripciones");
-		btnActualizarInscripcion.setBounds(205, 144, 177, 30);
+		JButton btnActualizarInscripcion = new JButton("<html>Actualizar Inscripciones<br>Pendientes</html>");
+		btnActualizarInscripcion.setHorizontalAlignment(SwingConstants.LEADING);
+		btnActualizarInscripcion.setBounds(205, 144, 177, 56);
 		panel_1.add(btnActualizarInscripcion);
 		
 		JButton btnSoliColeg = new JButton("Solicitud de colegiación");
@@ -151,7 +152,7 @@ public class SwingMain extends JFrame {
 		panel_1.add(lblNewLabel_5);
 
 		JButton btnAsignarPericiales = new JButton("Asignar periciales");
-		btnAsignarPericiales.setBounds(205, 184, 177, 30);
+		btnAsignarPericiales.setBounds(205, 211, 177, 30);
 		panel_1.add(btnAsignarPericiales);
 
 		JLabel lblNewLabel = new JLabel("INICIO Y CARGA DE LA BASE DE  DATOS ");

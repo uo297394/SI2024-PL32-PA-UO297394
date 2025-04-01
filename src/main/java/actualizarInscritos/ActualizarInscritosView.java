@@ -24,6 +24,7 @@ public class ActualizarInscritosView extends JFrame {
 		setBounds(100, 100, 572, 370);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		this.setTitle("Inscripciones Actualizadas");
 
 		setContentPane(contentPane);
 		contentPane.setLayout(null);

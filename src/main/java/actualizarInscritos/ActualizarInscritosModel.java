@@ -18,7 +18,7 @@ public class ActualizarInscritosModel {
 	public List<InscripcionDisplayDTO> getInscripcionesPorCurso() {
 		String sql = "SELECT DISTINCT COALESCE(c.id,o.id) as id, COALESCE(c.nombre,o.nombre) as nombre, COALESCE(c.apellido,o.apellido) as apellido,"
 				+ " COALESCE(c.DNI,o.DNI) as DNI, COALESCE(c.telefono,o.telefono) as telefono, COALESCE(c.correo,o.correo) as correo,"
-				+ " i.estado,i.fechaInscripcion, ct.cuota,cr.titulo_curso as tituloCurso " +
+				+ " i.estado,i.fechaInscripcion, ct.cuota,cr.titulo_curso as tituloCurso, i.id as idInsc " +
                 "FROM Inscripciones i " +
                 "LEFT JOIN Colegiados c ON c.id = i.idColegiado "
                 +"LEFT JOIN Otros o ON o.id = i.idOtros " +
@@ -41,7 +41,7 @@ public class ActualizarInscritosModel {
 	public List<InscripcionDisplayDTO> getInscripcionesActualizadas(){
 		String sql = "SELECT DISTINCT COALESCE(c.id,o.id) as id, COALESCE(c.nombre,o.nombre) as nombre, COALESCE(c.apellido,o.apellido) as apellido,"
 				+ " COALESCE(c.DNI,o.DNI) as DNI, COALESCE(c.telefono,o.telefono) as telefono, COALESCE(c.correo,o.correo) as correo,"
-				+ " i.estado,i.fechaInscripcion, ct.cuota,cr.titulo_curso as tituloCurso, i.deuda " +
+				+ " i.estado,i.fechaInscripcion, ct.cuota,cr.titulo_curso as tituloCurso, i.deuda,i.id as idInsc " +
                 "FROM Inscripciones i " +
                 "LEFT JOIN Colegiados c ON c.id = i.idColegiado "
                 +"LEFT JOIN Otros o ON o.id = i.idOtros " +

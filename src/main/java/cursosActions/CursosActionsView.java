@@ -113,6 +113,7 @@ public class CursosActionsView {
 	public void rellenaDatos(ColegiadoDisplayDTO i) {
 		if(i == null) {
 			((InscribirColegiadoViewPanel)inscribirColegiado).estaRegistrado(false);
+			((InscribirColegiadoViewPanel)inscribirColegiado).rellenaDatos("","","","","","");
 			return;
 		}
 		((InscribirColegiadoViewPanel)inscribirColegiado).estaRegistrado(true);

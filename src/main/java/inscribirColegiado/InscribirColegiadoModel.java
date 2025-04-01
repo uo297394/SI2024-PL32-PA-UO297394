@@ -79,7 +79,7 @@ public class InscribirColegiadoModel {
 			throw new ApplicationException(message);
 	}
 	public ColegiadoDisplayDTO buscaPersona(String dNI) {
-		String ide = "SELECT * FROM Otros WHERE DNI = ?";
+		String ide = "SELECT nombre, apellido,direccion, correo, telefono, fecha_nacimiento as fechaNacimiento FROM Otros WHERE DNI = ?";
 		List<ColegiadoDisplayDTO> persona=db.executeQueryPojo(ColegiadoDisplayDTO.class,ide,dNI);
 		if(persona.size() == 0)return null;
 	    return persona.get(0);

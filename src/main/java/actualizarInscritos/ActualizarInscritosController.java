@@ -12,6 +12,7 @@ import java.text.Normalizer;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import javax.swing.table.TableModel;
@@ -47,25 +48,29 @@ public class ActualizarInscritosController {
 		//ACTUALIZAR INSCRIPCIONES
 		List<InscripcionDisplayDTO> l = model.getInscripcionesPorCurso();
 		Iterator<InscripcionDisplayDTO> it = l.iterator();
+		List<String> lID = new ArrayList<>();
 		while(it.hasNext()) {
-			this.actualizarInscripcion(it.next());
+			InscripcionDisplayDTO n = it.next();
+			lID.add(n.getIdInsc());
+			this.actualizarInscripcion(n);
 		}
 		view.setLblAceptadosCount(aceptadas+"");
 		view.setLblRechazadosCount(rechazadas+"");
 		//FIN
-		this.getListaInscripcionesPorCurso();
+		this.getListaInscripcionesPorCurso(lID);
 		initController();
 		view.setVisible(true); 
 	}
 	/**
 	 * La obtencion de la lista de cursos y insercion de la misma en la tabla de los cursos
 	 */
-	public void getListaInscripcionesPorCurso() {
+	public void getListaInscripcionesPorCurso(List<String> lID) {
 		List<InscripcionDisplayDTO> inscripciones=model.getInscripcionesActualizadas();
 		Iterator<InscripcionDisplayDTO> it = inscripciones.iterator();
 		while(it.hasNext()) {
 			InscripcionDisplayDTO n = it.next();
-			n.setEstado(n.getEstado().equals("0")? "Aceptado" : n.getEstado().equals("1")?"Pendiente":"Rechazado");
+			if(!lID.contains(n.getIdInsc()))it.remove();
+			else n.setEstado(n.getEstado().equals("0")? "Aceptado" : n.getEstado().equals("1")?"Pendiente":"Rechazado");
 		}
 		TableModel tmodel=SwingUtil.getTableModelFromPojos(inscripciones, new String[] {"estado","deuda","id","nombre","apellido","DNI","fechaInscripcion","telefono","correo","cuota","tituloCurso"});
 		view.getTableInscripciones().setModel(tmodel);
