@@ -190,10 +190,14 @@ public class CursosActionsController {
 			if(disp.getFechaInicioInscripcion() == null || disp.getFechaFinInscripcion() == null) throw new ApplicationException(MSG_CURSO_NO_ABIERTO);
 			else {
 				if(!model.estaInscrito(numColeg, disp.getId())) {
+					if(model.icModel.listaEspera(disp.getId()) && !model.icModel.hayPlazas(disp.getId())) {
+						this.guardarInscripcion(4);
+					}else if(model.icModel.hayPlazas(disp.getId())){
 					// Ventana pagos
 					PagoInscripcionView piv = new PagoInscripcionView(this);
 					piv.setVisible(true);
 					//FIN ventana pagos
+					}else this.guardarInscripcion(0); //No hay plazas asi que da error
 				}
 			}
 		}
@@ -204,10 +208,14 @@ public class CursosActionsController {
 				if(!model.estaInscritoOtro(dni, disp.getId())) {
 					l.add(dni);
 					model.guardaDatosOtro(l);
+					if(model.icModel.listaEspera(disp.getId()) && !model.icModel.hayPlazas(disp.getId())) {
+						this.guardarInscripcion(4);
+					}else if(model.icModel.hayPlazas(disp.getId())){
 					// Ventana pagos
 					PagoInscripcionView piv = new PagoInscripcionView(this);
 					piv.setVisible(true);
 					//FIN ventana pagos
+					}else this.guardarInscripcion(0); //No hay plazas asi que da error
 				}
 			}
 		}
@@ -224,7 +232,8 @@ public class CursosActionsController {
 		String cuota = model.getCuota(view.getCbColectivos().getSelectedItem().toString(),disp.getId());
 		ColegiadoDisplayDTO col = model.aiModel.getColegiado(identificador);
 		getListaCursos("Todos");
-		SwingUtil.showMessage(MSG_INSCRITO+"\n"+col.toString()+"\n"+"Fecha de solicitud realizada el: "+Util.getTodayISO()+"\nCuota: "+cuota+"\n"+MSG_CUENTA,"Inscripción Completada",JOptionPane.INFORMATION_MESSAGE);
+		if(estado != 4)SwingUtil.showMessage(MSG_INSCRITO+"\n"+col.toString()+"\n"+"Fecha de solicitud realizada el: "+Util.getTodayISO()+"\nCuota: "+cuota+"\n"+MSG_CUENTA,"Inscripción Completada",JOptionPane.INFORMATION_MESSAGE);
+		else SwingUtil.showMessage("Usted ha pasado a lista de espera, no se le realizará el cobro de la inscripción","Inscripción Completada",JOptionPane.INFORMATION_MESSAGE);
 	}
 	public void loadInscripciones(int idCurso) {
         List<InscripcionDisplayDTO> inscripciones = model.getInscripcionesPorCurso(idCurso);

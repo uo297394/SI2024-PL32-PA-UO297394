@@ -29,7 +29,10 @@ VALUES
 (9, 'Desarrollo Web II', 'Creación de aplicaciones web', '2024-10-15', '2024-11-15', 30, 30, NULL, NULL),
 (10, 'Ciberseguridad II', 'Seguridad en sistemas', '2024-11-20', '2024-12-20', 30, 20, NULL, NULL);
 
-
+INSERT INTO Cursos (id, titulo_curso, descripcion, fecha_inicio_curso, fecha_fin_curso, duracion, max_plazas, fecha_inicio_inscripcion, fecha_fin_inscripcion, lista_espera)
+VALUES 
+(11, 'Admito lista de espera', 'Introducción a SQL', '2027-06-01', '2027-06-30', 30, 1, '2024-02-01', '2026-05-31',1),
+(12, 'Yo no', 'Introducción a SQL', '2027-06-01', '2027-06-30', 30, 1, '2024-02-01', '2026-05-31',0);
 -- Inserciones para la tabla Inscripciones
 delete from Inscripciones;
 INSERT INTO Inscripciones (id, idColegiado, idCurso, fechaInscripcion,colectivo, estado)
