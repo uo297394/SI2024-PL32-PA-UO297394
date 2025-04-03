@@ -67,50 +67,72 @@ public class ModelAsignarPericiales {
 	 *         contrario.
 	 */
 	public boolean asignarPerito(int idSolicitud, int idPerito) {
-		// SQL para actualizar la solicitud: asigna el perito y cambia el estado
-		String sqlUpdateSolicitud = "UPDATE Periciales SET idColegiado = ?, estado = 'asignado' WHERE id = ?";
-		// SQL para obtener el valor máximo de orden_TAP entre los peritos
-		String sqlMaxOrden = "SELECT MAX(orden_TAP) AS maxOrden FROM Colegiados WHERE es_perito = true";
-		// SQL para actualizar el orden_TAP del perito asignado
-		String sqlUpdateOrden = "UPDATE Colegiados SET orden_TAP = ? WHERE id = ?";
+	    // SQL para actualizar la solicitud: asigna el perito y cambia el estado a 'asignado'
+	    String sqlUpdateSolicitud = "UPDATE Periciales SET idColegiado = ?, estado = 'asignado' WHERE id = ?";
+	    // SQL para obtener el valor máximo actual de orden_TAP entre los peritos
+	    String sqlMaxOrden = "SELECT MAX(orden_TAP) AS maxOrden FROM Colegiados WHERE es_perito = true";
+	    // SQL para actualizar el orden_TAP de un perito
+	    String sqlUpdateOrden = "UPDATE Colegiados SET orden_TAP = ? WHERE id = ?";
 
-		try (Connection conn = db.getConnection()) {
-			conn.setAutoCommit(false); // Iniciar la transacción
+	    try (Connection conn = db.getConnection()) {
+	        conn.setAutoCommit(false); // Iniciar la transacción
 
-			// 1. Actualizar la solicitud: asignar perito y cambiar estado
-			try (PreparedStatement stmtSolicitud = conn.prepareStatement(sqlUpdateSolicitud)) {
-				stmtSolicitud.setInt(1, idPerito);
-				stmtSolicitud.setInt(2, idSolicitud);
-				int filasActualizadas = stmtSolicitud.executeUpdate();
-				if (filasActualizadas == 0) {
-					conn.rollback();
-					return false;
-				}
-			}
+	        // 1. Actualizar la solicitud: asignar perito y cambiar estado a 'asignado'
+	        int filasActualizadas = executeUpdateWithConnection(conn, sqlUpdateSolicitud, idPerito, idSolicitud);
+	        if (filasActualizadas == 0) {
+	            conn.rollback();
+	            return false;
+	        }
 
-			// 2. Obtener el valor máximo actual de orden_TAP entre los peritos
-			int maxOrden = 0;
-			try (PreparedStatement stmtMax = conn.prepareStatement(sqlMaxOrden);
-					ResultSet rs = stmtMax.executeQuery()) {
-				if (rs.next()) {
-					maxOrden = rs.getInt("maxOrden");
-				}
-			}
+	        // 2. Obtener el valor máximo actual de orden_TAP entre los peritos
+	        int maxOrden = 0;
+	        try (PreparedStatement stmtMax = conn.prepareStatement(sqlMaxOrden);
+	             ResultSet rs = stmtMax.executeQuery()) {
+	            if (rs.next()) {
+	                maxOrden = rs.getInt("maxOrden");
+	            }
+	        }
 
-			// 3. Actualizar el perito asignado: moverlo al final (orden_TAP = maxOrden + 1)
-			try (PreparedStatement stmtUpdateOrden = conn.prepareStatement(sqlUpdateOrden)) {
-				stmtUpdateOrden.setInt(1, maxOrden + 1);
-				stmtUpdateOrden.setInt(2, idPerito);
-				stmtUpdateOrden.executeUpdate();
-			}
+	        // 3. Obtener la lista de peritos disponibles ordenados por orden_TAP
+	        String sqlSelectPeritos = "SELECT id FROM Colegiados WHERE es_perito = true ORDER BY orden_TAP ASC";
+	        java.util.List<Integer> listaPeritos = new java.util.ArrayList<>();
+	        try (PreparedStatement stmtSelect = conn.prepareStatement(sqlSelectPeritos);
+	             ResultSet rs = stmtSelect.executeQuery()) {
+	            while (rs.next()) {
+	                listaPeritos.add(rs.getInt("id"));
+	            }
+	        }
 
-			conn.commit(); // Confirmar la transacción
-			return true;
-		} catch (Exception e) {
-			e.printStackTrace();
-			return false;
-		}
+	        // 4. Reindexar los peritos: asignar nuevos valores secuenciales a los que NO sean el asignado
+	        int nuevoOrden = 1;
+	        for (Integer id : listaPeritos) {
+	            if (id == idPerito) continue; // Saltamos el perito asignado
+	            executeUpdateWithConnection(conn, sqlUpdateOrden, nuevoOrden, id);
+	            nuevoOrden++;
+	        }
+	        // 5. Asignar al perito asignado el orden final (última posición)
+	        executeUpdateWithConnection(conn, sqlUpdateOrden, nuevoOrden, idPerito);
+
+	        conn.commit(); // Confirmar la transacción
+	        return true;
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        return false;
+	    }
 	}
+
+	/**
+	 * Método auxiliar para ejecutar una actualización usando la conexión actual.
+	 */
+	private int executeUpdateWithConnection(Connection conn, String sql, Object... params) throws SQLException {
+	    try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+	        for (int i = 0; i < params.length; i++) {
+	            stmt.setObject(i + 1, params[i]);
+	        }
+	        return stmt.executeUpdate();
+	    }
+	}
+
 
 	/**
 	 * Obtiene las solicitudes en formato de tabla (para JTable).
