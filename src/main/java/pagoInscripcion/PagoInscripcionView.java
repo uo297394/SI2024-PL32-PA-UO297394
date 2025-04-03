@@ -153,7 +153,7 @@ public class PagoInscripcionView extends JFrame {
 	}
 	
 	public boolean esPagoPorTarjeta() {
-		return buttonGroup.isSelected(rdbtnTarjeta.getModel());
+		return rdbtnTarjeta.isSelected();
 	}
 	public boolean camposCorrectos() {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/yy");

@@ -9,7 +9,7 @@ import util.Database;
 
 
 public class InscribirColegiadoModel {
-	private static final String MSG_COLEG_INSCR = "El colegiado ya está inscrito";
+	private static final String MSG_COLEG_INSCR = "El usuario ya está inscrito";
 	private Database db=new Database();
 	
 	//SQL para obtener la lista de titulos de los cursos que no han sido planificados
@@ -54,11 +54,16 @@ public class InscribirColegiadoModel {
 	 */
 	public void insertInscColegiado(String idColeg, String idCurso, int estado, String colectivo) {
 		if(hayPlazas(idCurso)) {
-		String sql="INSERT INTO Inscripciones (id, idColegiado, idCurso, fechaInscripcion, estado, colectivo)"+
+			String sql;
+			if(!idColeg.matches(".*[a-zA-Z]"))
+				sql="INSERT INTO Inscripciones (id, idColegiado, idCurso, fechaInscripcion, estado, colectivo)"+
+							" VALUES"+
+							" (?, ?, ?, ?, ?, ?);";
+			else sql="INSERT INTO Inscripciones (id, idOtros, idCurso, fechaInscripcion, estado, colectivo)"+
 					" VALUES"+
-					" (?, ?, ?, ?, ?, ?);";
-		int id=lastID();
-		db.executeUpdate(sql, id ,idColeg, idCurso, Util.getTodayISO(), estado, colectivo);
+					" (?, (SELECT id FROM Otros WHERE DNI = ?), ?, ?, ?, ?);";
+			int id=lastID();
+			db.executeUpdate(sql, id ,idColeg, idCurso, Util.getTodayISO(), estado, colectivo);
 		}
 		else throw new ApplicationException("No hay plazas disponibles para este curso");
 	}

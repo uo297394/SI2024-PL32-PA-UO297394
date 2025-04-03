@@ -32,10 +32,11 @@ public class ActualizarInscritosModel {
 	 * @param aprobado booleano que indica si la inscripcion está aprobada o no
 	 * @param DNI DNI de la persona que figura en la inscripcion
 	 */
-	public void actualizaInscripcion(boolean aprobado, String DNI) {
+	public void actualizaInscripcion(boolean aprobado, String DNI, String curso) {
 		int estado = aprobado? 0 : 2;
-		String sql="UPDATE Inscripciones as i SET estado=? WHERE COALESCE((SELECT DNI FROM Colegiados c WHERE i.idColegiado = c.id),(SELECT DNI FROM Otros o WHERE i.idOtros = o.id)) = ?";
-		db.executeUpdate(sql, estado, DNI);
+		String sql="UPDATE Inscripciones as i SET estado=? WHERE (COALESCE((SELECT DNI FROM Colegiados c WHERE i.idColegiado = c.id),(SELECT DNI FROM Otros o WHERE i.idOtros = o.id)) = ?"
+				+ " AND (SELECT id FROM Cursos WHERE titulo_curso = ?) = i.idCurso)";
+		db.executeUpdate(sql, estado, DNI,curso);
 	}
 	
 	public List<InscripcionDisplayDTO> getInscripcionesActualizadas(){

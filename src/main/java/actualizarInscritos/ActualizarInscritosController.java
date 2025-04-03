@@ -116,7 +116,7 @@ public class ActualizarInscritosController {
 	                
 	                double cuota = Double.parseDouble(fields[1].trim());
 	                //COMPROBAR QUE NO SE TRATE UNA TRANSACCION YA TRATADA DE LA MISMA PERSONA
-	                if (dni.equals(insc.getDNI()) && quitarAcentos(concepto).equals(quitarAcentos(insc.getTituloCurso()))) {
+	                if (quitarAcentos(concepto).equals(quitarAcentos(insc.getTituloCurso())) && dni.equals(insc.getDNI())) {
 	                    long hoursDifference = Duration.between(LocalDateTime.parse(insc.getFechaInscripcion()+" 00:00:00", formatter), fechaTransaccion).toHours();
 	                    if (hoursDifference >= 0 && hoursDifference <= 48) {
 	                    	paid = true;
@@ -130,13 +130,13 @@ public class ActualizarInscritosController {
 	                            model.actualizaDeuda(dni, insc.getTituloCurso(), diferencia+"");
 	                            aceptadas++;
 	                        }
-	                        model.actualizaInscripcion(ap, insc.getDNI());
+	                        model.actualizaInscripcion(ap, insc.getDNI(),insc.getTituloCurso());
 	                    }else {
 	                    	paid = true;
                         	ap = false;
                         	rechazadas++;
                         	model.actualizaDeuda(dni, insc.getTituloCurso(), cuota+"");
-                        	model.actualizaInscripcion(ap, insc.getDNI());
+                        	model.actualizaInscripcion(ap, insc.getDNI(),insc.getTituloCurso());
                         }
 	                }
 	            }
@@ -145,7 +145,7 @@ public class ActualizarInscritosController {
                     	ap = false;
                     	rechazadas++;
                     	model.actualizaDeuda(insc.getDNI(), insc.getTituloCurso(), "NP");
-                    	model.actualizaInscripcion(ap, insc.getDNI());
+                    	model.actualizaInscripcion(ap, insc.getDNI(),insc.getTituloCurso());
                     }
                         
 	            

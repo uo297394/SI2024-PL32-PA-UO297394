@@ -25,7 +25,7 @@ public class CursosActionsController {
 	private CursosActionsView view;
 	private String lastSelectedKey="";
 	private static final String MSG_CURSO_NO_ABIERTO = "Este curso no está abierto";
-	private static final String MSG_COLEG_INSCRITO = "La inscripción se ha realizado con exito";
+	private static final String MSG_INSCRITO = "La inscripción se ha realizado con exito";
 	private static final String MSG_CUENTA = "En caso de haber escogido pago por transferencia, recuerde que la cuota se debe abonar al numero de cuenta: XXXXXXXXX";
 	private static final String MSG_FECHA_INSC = "La fecha de plazo para inscribirse al curso ha cambiado con exito";
 	protected boolean estaColegiado = true;
@@ -215,16 +215,16 @@ public class CursosActionsController {
 		if(!estaColegiado && !camposCubiertos)throw new ApplicationException("Rellene los campos");
 	}
 	public void guardarInscripcion(int estado) {
-		//TODO CAMBIAR PARA QUE SE RELLENE CON OTROS
-		String numColeg = view.getTfNumColeg().getText();
-		String dni = view.getDNI().getText();
+		String identificador;
+		if(view.getRadBut().isSelected()) identificador= view.getTfNumColeg().getText();
+		else identificador = view.getDNI().getText();
 		AperturaInscripcionesDisplayDTO disp = model.getListaCursos(view.getCbFiltrado().getSelectedItem().toString()).get(view.getTablaCursos().getSelectedRow());
-		model.insertInscColegiado(numColeg,disp.getId(),estado,view.getCbColectivos().getSelectedItem().toString());
+		model.insertInscColegiado(identificador,disp.getId(),estado,view.getCbColectivos().getSelectedItem().toString());
 		view.getCbFiltrado().setSelectedItem("Todos");
 		String cuota = model.getCuota(view.getCbColectivos().getSelectedItem().toString(),disp.getId());
-		ColegiadoDisplayDTO col = model.aiModel.getColegiado(numColeg);
+		ColegiadoDisplayDTO col = model.aiModel.getColegiado(identificador);
 		getListaCursos("Todos");
-		SwingUtil.showMessage(MSG_COLEG_INSCRITO+"\n"+col.toString()+"\n"+"Fecha de solicitud realizada el: "+Util.getTodayISO()+"\nCuota: "+cuota+"\n"+MSG_CUENTA,"Inscripción Completada",JOptionPane.INFORMATION_MESSAGE);
+		SwingUtil.showMessage(MSG_INSCRITO+"\n"+col.toString()+"\n"+"Fecha de solicitud realizada el: "+Util.getTodayISO()+"\nCuota: "+cuota+"\n"+MSG_CUENTA,"Inscripción Completada",JOptionPane.INFORMATION_MESSAGE);
 	}
 	public void loadInscripciones(int idCurso) {
         List<InscripcionDisplayDTO> inscripciones = model.getInscripcionesPorCurso(idCurso);

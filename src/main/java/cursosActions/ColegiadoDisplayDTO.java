@@ -124,7 +124,7 @@ public class ColegiadoDisplayDTO {
 	 * toString necesario para la HU inscribirColegiado
 	 */
 	public String toString() {
-		return "Nombre: "+nombre+"\nApellidos: "+apellido+"\nNumero de colegiado/precolegiado: "+id;
+		return "Nombre: "+nombre+"\nApellidos: "+apellido+"\nDNI: "+DNI;
 	}
 	
 }

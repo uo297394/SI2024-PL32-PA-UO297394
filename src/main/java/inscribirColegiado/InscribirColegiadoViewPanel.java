@@ -14,7 +14,7 @@ import javax.swing.ButtonGroup;
 public class InscribirColegiadoViewPanel extends JPanel {
 
 	private static final long serialVersionUID = 1L;
-	JButton btnInscColeg = new JButton("Inscribir Colegiado");
+	JButton btnInscColeg = new JButton("Realizar Inscripción");
 	JComboBox<Object> cbColectivo = new JComboBox<>();
 	private JTextField tfNumColeg;
 	private final JRadioButton rdbtnColegiado = new JRadioButton("Soy un Colegiado / Precolegiado");
