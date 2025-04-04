@@ -32,7 +32,7 @@ public class ViewH2 extends JFrame {
         JPanel mainPanel = new JPanel(new BorderLayout(10, 10));
         mainPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
-        // Panel para el formulario en el centro, usando GridBagLayout para lograr simetría
+        // Panel para el formulario en el centro, usando GridBagLayout para lograr simetría.
         JPanel formPanel = new JPanel(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(8, 8, 8, 8);
