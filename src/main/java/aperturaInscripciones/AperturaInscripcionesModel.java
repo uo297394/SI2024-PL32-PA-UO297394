@@ -35,8 +35,11 @@ public class AperturaInscripcionesModel {
 		return db.executeQueryPojo(AperturaInscripcionesDisplayDTO.class, SQL_LISTA_CURSOS_COL,colectivo);
 	}
 	public ColegiadoDisplayDTO getColegiado(String idColeg) {
-		ColegiadoDisplayDTO col = db.executeQueryPojo(ColegiadoDisplayDTO.class, "SELECT id, nombre, apellido, DNI, direccion, correo, telefono, fecha_nacimiento as fechaNacimiento, numero_cuenta as numeroCuenta, banco, precolegiados, estado_solicitud as estadoSolicitud, fecha_solicitud as fechaSolicitud, titulacion FROM Colegiados WHERE id = ?", idColeg).get(0);
-		return col;
+		ColegiadoDisplayDTO c = null;
+		List<ColegiadoDisplayDTO> cols = db.executeQueryPojo(ColegiadoDisplayDTO.class, "SELECT id, nombre, apellido, DNI, direccion, correo, telefono, fecha_nacimiento as fechaNacimiento, numero_cuenta as numeroCuenta, banco, precolegiados, estado_solicitud as estadoSolicitud, fecha_solicitud as fechaSolicitud, titulacion FROM Colegiados WHERE id = ?", idColeg);
+		if(cols.size()==0) cols = db.executeQueryPojo(ColegiadoDisplayDTO.class, "SELECT id, nombre, apellido, DNI, direccion, correo, telefono, fecha_nacimiento as fechaNacimiento FROM Otros WHERE DNI = ?", idColeg);
+		c = cols.get(0);
+		return c;
 		
 	}
 	/**

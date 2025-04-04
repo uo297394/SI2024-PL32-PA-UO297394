@@ -1,5 +1,9 @@
 package cursosActions;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -7,12 +11,15 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
+
+import aperturaInscripciones.AperturaInscripcionesDisplayDTO;
 import aperturaInscripciones.AperturaInscripcionesViewPanel;
 import inscribirColegiado.InscribirColegiadoViewPanel;
 import inscritos_cursos_formacion.InscritosCursosViewPanel;
 import net.miginfocom.swing.MigLayout;
 import javax.swing.JTabbedPane;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.JComboBox;
 
 public class CursosActionsView {
@@ -80,7 +87,7 @@ public class CursosActionsView {
 	}
 	public JButton getBtnRegPlazo() { return ((AperturaInscripcionesViewPanel) abrirInscripcion).getBtnRegPlazo(); }
 	
-	// INSCRIPCION DE COLEGIADOS
+	// INSCRIPCION DE COLEGIADOS Y OTROS
 	public JTextField getTfNumColeg() {
 		return ((InscribirColegiadoViewPanel)inscribirColegiado).getTfNumColeg();
 	}
@@ -95,6 +102,35 @@ public class CursosActionsView {
 	}
 	public void setCbColectivo(JComboBox<Object> cbColectivo) {
 		((InscribirColegiadoViewPanel)inscribirColegiado).setCbColectivo(cbColectivo);
+	}
+	public JTextField getDNI() {
+		return ((InscribirColegiadoViewPanel)inscribirColegiado).getTfDNI();
+	}
+	public JRadioButton getRadBut() {
+		return ((InscribirColegiadoViewPanel)inscribirColegiado).getRdbtnColegiado();
+	}
+	public boolean muestraPanelInsc() {
+		((InscribirColegiadoViewPanel)inscribirColegiado).muestraPanel(((InscribirColegiadoViewPanel)inscribirColegiado).isSelectedCol());
+		return ((InscribirColegiadoViewPanel)inscribirColegiado).isSelectedCol();
+	}
+	public void rellenaDatos(ColegiadoDisplayDTO i) {
+		if(i == null) {
+			((InscribirColegiadoViewPanel)inscribirColegiado).estaRegistrado(((InscribirColegiadoViewPanel)inscribirColegiado).isSelectedCol());
+			((InscribirColegiadoViewPanel)inscribirColegiado).rellenaDatos("","","","","","");
+			return;
+		}
+		((InscribirColegiadoViewPanel)inscribirColegiado).estaRegistrado(true);
+		((InscribirColegiadoViewPanel)inscribirColegiado).rellenaDatos(i.getNombre(),i.getApellido(),i.getCorreo(),i.getDireccion(),i.getTelefono(),i.getFechaNacimiento());
+	}
+	public List<String> getPDatos(){
+		List<String> l = new ArrayList<>();
+		l.add(((InscribirColegiadoViewPanel)inscribirColegiado).getTfNombre().getText());
+		l.add(((InscribirColegiadoViewPanel)inscribirColegiado).getTfApellidos().getText());
+		l.add(((InscribirColegiadoViewPanel)inscribirColegiado).getTfDireccion().getText());
+		l.add(((InscribirColegiadoViewPanel)inscribirColegiado).getTfCorreo().getText());
+		l.add(((InscribirColegiadoViewPanel)inscribirColegiado).getTfNumTelef().getText());
+		l.add(((InscribirColegiadoViewPanel)inscribirColegiado).getTfFechaNac().getText());
+		return l;
 	}
 	// VER INSCRITOS A CURSO
 	public JTable getTable() {

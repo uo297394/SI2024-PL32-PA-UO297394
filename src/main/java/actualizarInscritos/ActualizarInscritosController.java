@@ -12,6 +12,7 @@ import java.text.Normalizer;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import javax.swing.table.TableModel;
@@ -47,25 +48,29 @@ public class ActualizarInscritosController {
 		//ACTUALIZAR INSCRIPCIONES
 		List<InscripcionDisplayDTO> l = model.getInscripcionesPorCurso();
 		Iterator<InscripcionDisplayDTO> it = l.iterator();
+		List<String> lID = new ArrayList<>();
 		while(it.hasNext()) {
-			this.actualizarInscripcion(it.next());
+			InscripcionDisplayDTO n = it.next();
+			lID.add(n.getIdInsc());
+			this.actualizarInscripcion(n);
 		}
 		view.setLblAceptadosCount(aceptadas+"");
 		view.setLblRechazadosCount(rechazadas+"");
 		//FIN
-		this.getListaInscripcionesPorCurso();
+		this.getListaInscripcionesPorCurso(lID);
 		initController();
 		view.setVisible(true); 
 	}
 	/**
 	 * La obtencion de la lista de cursos y insercion de la misma en la tabla de los cursos
 	 */
-	public void getListaInscripcionesPorCurso() {
+	public void getListaInscripcionesPorCurso(List<String> lID) {
 		List<InscripcionDisplayDTO> inscripciones=model.getInscripcionesActualizadas();
 		Iterator<InscripcionDisplayDTO> it = inscripciones.iterator();
 		while(it.hasNext()) {
 			InscripcionDisplayDTO n = it.next();
-			n.setEstado(n.getEstado().equals("0")? "Aceptado" : n.getEstado().equals("1")?"Pendiente":"Rechazado");
+			if(!lID.contains(n.getIdInsc()))it.remove();
+			else n.setEstado(n.getEstado().equals("0")? "Aceptado" : n.getEstado().equals("1")?"Pendiente":"Rechazado");
 		}
 		TableModel tmodel=SwingUtil.getTableModelFromPojos(inscripciones, new String[] {"estado","deuda","id","nombre","apellido","DNI","fechaInscripcion","telefono","correo","cuota","tituloCurso"});
 		view.getTableInscripciones().setModel(tmodel);
@@ -111,7 +116,7 @@ public class ActualizarInscritosController {
 	                
 	                double cuota = Double.parseDouble(fields[1].trim());
 	                //COMPROBAR QUE NO SE TRATE UNA TRANSACCION YA TRATADA DE LA MISMA PERSONA
-	                if (dni.equals(insc.getDNI()) && quitarAcentos(concepto).equals(quitarAcentos(insc.getTituloCurso()))) {
+	                if (quitarAcentos(concepto).equals(quitarAcentos(insc.getTituloCurso())) && dni.equals(insc.getDNI())) {
 	                    long hoursDifference = Duration.between(LocalDateTime.parse(insc.getFechaInscripcion()+" 00:00:00", formatter), fechaTransaccion).toHours();
 	                    if (hoursDifference >= 0 && hoursDifference <= 48) {
 	                    	paid = true;
@@ -125,13 +130,13 @@ public class ActualizarInscritosController {
 	                            model.actualizaDeuda(dni, insc.getTituloCurso(), diferencia+"");
 	                            aceptadas++;
 	                        }
-	                        model.actualizaInscripcion(ap, insc.getDNI());
+	                        model.actualizaInscripcion(ap, insc.getDNI(),insc.getTituloCurso());
 	                    }else {
 	                    	paid = true;
                         	ap = false;
                         	rechazadas++;
                         	model.actualizaDeuda(dni, insc.getTituloCurso(), cuota+"");
-                        	model.actualizaInscripcion(ap, insc.getDNI());
+                        	model.actualizaInscripcion(ap, insc.getDNI(),insc.getTituloCurso());
                         }
 	                }
 	            }
@@ -140,7 +145,7 @@ public class ActualizarInscritosController {
                     	ap = false;
                     	rechazadas++;
                     	model.actualizaDeuda(insc.getDNI(), insc.getTituloCurso(), "NP");
-                    	model.actualizaInscripcion(ap, insc.getDNI());
+                    	model.actualizaInscripcion(ap, insc.getDNI(),insc.getTituloCurso());
                     }
                         
 	            

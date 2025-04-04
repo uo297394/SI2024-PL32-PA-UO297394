@@ -2,6 +2,8 @@ package cursosActions;
 
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.Iterator;
@@ -9,6 +11,7 @@ import java.util.List;
 
 import javax.swing.ComboBoxModel;
 import javax.swing.JOptionPane;
+import javax.swing.JRadioButton;
 import javax.swing.table.TableModel;
 import aperturaInscripciones.AperturaInscripcionesDisplayDTO;
 import inscritos_cursos_formacion.InscripcionDisplayDTO;
@@ -22,9 +25,10 @@ public class CursosActionsController {
 	private CursosActionsView view;
 	private String lastSelectedKey="";
 	private static final String MSG_CURSO_NO_ABIERTO = "Este curso no está abierto";
-	private static final String MSG_COLEG_INSCRITO = "La inscripción se ha realizado con exito";
+	private static final String MSG_INSCRITO = "La inscripción se ha realizado con exito";
 	private static final String MSG_CUENTA = "En caso de haber escogido pago por transferencia, recuerde que la cuota se debe abonar al numero de cuenta: XXXXXXXXX";
 	private static final String MSG_FECHA_INSC = "La fecha de plazo para inscribirse al curso ha cambiado con exito";
+	protected boolean estaColegiado = true;
 
 	public CursosActionsController(CursosActionsModel m, CursosActionsView v) {
 		this.model = m;
@@ -39,6 +43,53 @@ public class CursosActionsController {
 	 * emergentes cuando ocurra algun problema o excepcion controlada.
 	 */
 	public void initController() {
+		view.getRadBut().addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                    estaColegiado = view.muestraPanelInsc();
+                    if(estaColegiado)view.rellenaDatos(null);
+            }
+        });
+		view.getDNI().addKeyListener(new KeyListener() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                
+            }
+	
+            @Override
+            public void keyPressed(KeyEvent e) {
+            	
+            } 
+            @Override
+            public void keyReleased(KeyEvent e) {
+            	if(view.getDNI().getText().length() != 9 || estaColegiado){
+            		view.rellenaDatos(null);
+            		return;
+            	}
+                ColegiadoDisplayDTO col = buscaPersona(view.getDNI().getText());
+                view.rellenaDatos(col);
+            } 
+        });
+		view.getTfNumColeg().addKeyListener(new KeyListener() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                
+            }
+	
+            @Override
+            public void keyPressed(KeyEvent e) {
+            	
+            } 
+            @Override
+            public void keyReleased(KeyEvent e) {
+            	if(view.getTfNumColeg().getText().length() == 0 || !estaColegiado) {
+            		view.rellenaDatos(null);
+            		return;
+            	}
+                ColegiadoDisplayDTO col = buscaColegiado(view.getTfNumColeg().getText());
+                view.rellenaDatos(col);
+            } 
+        });
 		view.getBtnRegPlazo().addActionListener(e -> SwingUtil.exceptionWrapper(() -> updatePlazo()));
 		view.getBtnInscColeg().addActionListener(e -> SwingUtil.exceptionWrapper(() -> inscribir()));
 		view.getTablaCursos().addMouseListener(new MouseAdapter() {
@@ -126,7 +177,15 @@ public class CursosActionsController {
 	
 	public void inscribir() {
 		String numColeg = view.getTfNumColeg().getText();
-		if(this.lastSelectedKey !="" && numColeg != "") {
+		String dni = view.getDNI().getText();
+		boolean camposCubiertos = true;
+		List<String> l = view.getPDatos();
+		Iterator<String> it = l.iterator();
+		while(it.hasNext()) {
+			String s = it.next();
+			camposCubiertos = camposCubiertos && (s.length()>0);
+		}
+		if(this.lastSelectedKey !="" && numColeg != "" && estaColegiado && camposCubiertos) {
 			AperturaInscripcionesDisplayDTO disp = model.getListaCursos(view.getCbFiltrado().getSelectedItem().toString()).get(view.getTablaCursos().getSelectedRow());
 			if(disp.getFechaInicioInscripcion() == null || disp.getFechaFinInscripcion() == null) throw new ApplicationException(MSG_CURSO_NO_ABIERTO);
 			else {
@@ -138,16 +197,34 @@ public class CursosActionsController {
 				}
 			}
 		}
+		else if(this.lastSelectedKey !="" && dni != "" && !estaColegiado && camposCubiertos) {
+			AperturaInscripcionesDisplayDTO disp = model.getListaCursos(view.getCbFiltrado().getSelectedItem().toString()).get(view.getTablaCursos().getSelectedRow());
+			if(disp.getFechaInicioInscripcion() == null || disp.getFechaFinInscripcion() == null) throw new ApplicationException(MSG_CURSO_NO_ABIERTO);
+			else {
+				if(!model.estaInscritoOtro(dni, disp.getId())) {
+					l.add(dni);
+					model.guardaDatosOtro(l);
+					// Ventana pagos
+					PagoInscripcionView piv = new PagoInscripcionView(this);
+					piv.setVisible(true);
+					//FIN ventana pagos
+				}
+			}
+		}
+		if(estaColegiado && !camposCubiertos)throw new ApplicationException("Usted no está colegiado");
+		if(!estaColegiado && !camposCubiertos)throw new ApplicationException("Rellene los campos");
 	}
 	public void guardarInscripcion(int estado) {
-		String numColeg = view.getTfNumColeg().getText();
+		String identificador;
+		if(view.getRadBut().isSelected()) identificador= view.getTfNumColeg().getText();
+		else identificador = view.getDNI().getText();
 		AperturaInscripcionesDisplayDTO disp = model.getListaCursos(view.getCbFiltrado().getSelectedItem().toString()).get(view.getTablaCursos().getSelectedRow());
-		model.insertInscColegiado(numColeg,disp.getId(),estado,view.getCbColectivos().getSelectedItem().toString());
+		model.insertInscColegiado(identificador,disp.getId(),estado,view.getCbColectivos().getSelectedItem().toString());
 		view.getCbFiltrado().setSelectedItem("Todos");
 		String cuota = model.getCuota(view.getCbColectivos().getSelectedItem().toString(),disp.getId());
-		ColegiadoDisplayDTO col = model.aiModel.getColegiado(numColeg);
+		ColegiadoDisplayDTO col = model.aiModel.getColegiado(identificador);
 		getListaCursos("Todos");
-		SwingUtil.showMessage(MSG_COLEG_INSCRITO+"\n"+col.toString()+"\n"+"Fecha de solicitud realizada el: "+Util.getTodayISO()+"\nCuota: "+cuota+"\n"+MSG_CUENTA,"Inscripción Completada",JOptionPane.INFORMATION_MESSAGE);
+		SwingUtil.showMessage(MSG_INSCRITO+"\n"+col.toString()+"\n"+"Fecha de solicitud realizada el: "+Util.getTodayISO()+"\nCuota: "+cuota+"\n"+MSG_CUENTA,"Inscripción Completada",JOptionPane.INFORMATION_MESSAGE);
 	}
 	public void loadInscripciones(int idCurso) {
         List<InscripcionDisplayDTO> inscripciones = model.getInscripcionesPorCurso(idCurso);
@@ -158,4 +235,10 @@ public class CursosActionsController {
         SwingUtil.autoAdjustColumns(view.getTable());
         view.getLblTotal().setText("Total inscritos: " + inscripciones.size());
     }
+	public ColegiadoDisplayDTO buscaPersona(String DNI) {
+		return model.buscaPersona(DNI);
+	}
+	public ColegiadoDisplayDTO buscaColegiado(String DNI) {
+		return model.buscaColegiado(DNI);
+	}
 }
