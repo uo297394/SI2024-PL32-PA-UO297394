@@ -57,11 +57,14 @@ public class CobrarRecibosControlador {
 	      PrintWriter writer = new PrintWriter(new FileWriter(file, false)); 
 		for(int i=0;i<numeroFilas;i++) {
 			String id=tabla.getValueAt(i, 0).toString();
+			int idEntero=Integer.parseInt(id);
+			if(!(m.Recibo(idEntero, 2025))) {
+		    int idRecibo=this.m.lastID();
+			this.m.insertarRecibo(idRecibo, idEntero);
 			System.out.print(id);
 			writer.print(id);
 			writer.print('\n');
-		    int idRecibo=this.m.lastID();
-			this.m.insertarRecibo(idRecibo, i);
+			}
 		}
 		writer.close();
 	
