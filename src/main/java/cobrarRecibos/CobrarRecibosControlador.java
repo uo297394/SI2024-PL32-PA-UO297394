@@ -13,6 +13,7 @@ import javax.swing.table.TableModel;
 
 import enviarSolicitud.ColegiadoDTO;
 import util.SwingUtil;
+import util.Util;
 
 public class CobrarRecibosControlador {
 	private CobrarRecibosVista v;
@@ -55,15 +56,22 @@ public class CobrarRecibosControlador {
 	    	file.createNewFile();
 	    
 	      PrintWriter writer = new PrintWriter(new FileWriter(file, false)); 
+	      writer.print("id;cuota;año_emitido;DNI;numero_cuenta;fecha_emitido\n");
+	      String fechaHoy=Util.getTodayISO();
+	      int año=Integer.parseInt(fechaHoy.split("-")[0]);
 		for(int i=0;i<numeroFilas;i++) {
 			String id=tabla.getValueAt(i, 0).toString();
 			int idEntero=Integer.parseInt(id);
-			if(!(m.Recibo(idEntero, 2025))) {
+			
+			if(!(m.Recibo(idEntero, año))) {
 		    int idRecibo=this.m.lastID();
 			this.m.insertarRecibo(idRecibo, idEntero);
-			System.out.print(id);
-			writer.print(id);
-			writer.print('\n');
+			List<Object []> datos=this.m.datosColegiado(año, idEntero);
+			Object [] objetos=datos.get(0);
+			for(Object o:objetos) {
+			writer.print(o.toString());
+			writer.print(';');}
+			writer.print("\n");
 			}
 		}
 		writer.close();

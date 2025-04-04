@@ -42,12 +42,12 @@ public class CobrarRecibosVista {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 450, 300);
+		frame.setBounds(100, 100, 517, 321);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 66, 294, 184);
+		scrollPane.setBounds(10, 66, 319, 184);
 		frame.getContentPane().add(scrollPane);
 		
 		tablaRecibos = new JTable();
@@ -58,7 +58,7 @@ public class CobrarRecibosVista {
 		frame.getContentPane().add(lblNewLabel);
 		
 		 btEmitirRecibos = new JButton("Emitir recibos");
-		btEmitirRecibos.setBounds(310, 213, 114, 23);
+		btEmitirRecibos.setBounds(379, 216, 114, 23);
 		frame.getContentPane().add(btEmitirRecibos);
 		
 		JLabel lblNewLabel_1 = new JLabel("Emision de recibos");

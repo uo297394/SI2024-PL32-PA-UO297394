@@ -4,6 +4,7 @@ import java.util.List;
 
 import enviarSolicitud.ColegiadoDTO;
 import util.Database;
+import util.Util;
 
 public class CobrarRecibosModelo {
 	private Database db=new Database();
@@ -13,8 +14,9 @@ public class CobrarRecibosModelo {
 		return recibos;
 	}
 	public void insertarRecibo(int id, int idColegiado) {
-		String sql="INSERT INTO Recibos(id , cuota , estado , año_emitido, idColegiado) VALUES (? ,120,'emitido',2025,?)";
-		db.executeUpdate(sql, id, idColegiado);
+		String fechaHoy=Util.getTodayISO();
+		String sql="INSERT INTO Recibos(id , cuota , estado , año_emitido, fecha_emitido, idColegiado) VALUES (? ,120,'emitido',2025,?,?)";
+		db.executeUpdate(sql, id, fechaHoy,idColegiado);
 	}
 	public int lastID() {
 		String ide = "SELECT COUNT(id) FROM Recibos";
@@ -33,7 +35,9 @@ public class CobrarRecibosModelo {
 		return estado>0;
 	}
 	
-	/*private List<Object[]> datosColegiado(){
-		String sql="Select ";
-	}**/
+	public List<Object[]> datosColegiado(int año, int id){
+		String sql="SELECT r.id, r.cuota, r.año_emitido, c.DNI, c.numero_cuenta, r.fecha_emitido  from Recibos r JOIN Colegiados c ON (c.id=r.idColegiado AND r.año_emitido=?) WHERE r.id=?";
+		List<Object[]> listaDatos=db.executeQueryArray(sql, año,id);
+		return listaDatos;
+	}
 }
