@@ -15,7 +15,7 @@ public class ViewH2 extends JFrame {
     private JTextField txtDuracion;
     private JTextField txtMaxPlazas;
     
-    // Nuevos componentes para los requisitos adicionales
+    // Nuevos componentes para los requisitos adicionales.
     private JCheckBox chkListaEspera;
     private JCheckBox chkCancelable;
     private JFormattedTextField txtFechaCancelacion;
