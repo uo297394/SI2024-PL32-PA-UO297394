@@ -10,6 +10,11 @@ public class CursoDisplayDTO {
     private String colectivos;
     private double cuota;
     private int duracion;
+    
+    private boolean listaDeEspera;
+    private boolean cancelable;
+    private String fechaCancelacion;
+    private Double porcentajeCuotaDevuelta;
 
     // Constructor por defecto
     public CursoDisplayDTO() {}
@@ -98,6 +103,38 @@ public int getId() {
 
 public void setId(int id) {
 	this.id = id;
+}
+
+public boolean isListaDeEspera() {
+	return listaDeEspera;
+}
+
+public void setListaDeEspera(boolean listaDeEspera) {
+	this.listaDeEspera = listaDeEspera;
+}
+
+public boolean isCancelable() {
+	return cancelable;
+}
+
+public void setCancelable(boolean cancelable) {
+	this.cancelable = cancelable;
+}
+
+public String getFechaCancelacion() {
+	return fechaCancelacion;
+}
+
+public void setFechaCancelacion(String fechaCancelacion) {
+	this.fechaCancelacion = fechaCancelacion;
+}
+
+public Double getPorcentajeCuotaDevuelta() {
+	return porcentajeCuotaDevuelta;
+}
+
+public void setPorcentajeCuotaDevuelta(Double porcentajeCuotaDevuelta) {
+	this.porcentajeCuotaDevuelta = porcentajeCuotaDevuelta;
 }
  
     
