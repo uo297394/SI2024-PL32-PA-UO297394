@@ -23,7 +23,7 @@ public RecibosDTO(int id, int idColegiado, String estado, double cuota, String n
 	this.nombre=nombre;
 }
 public RecibosDTO() {}
-public void setId(int id) {
+public void setIdRecibo(int id) {
 	this.idRecibo = id;
 }
 public int getIdColegiado() {
