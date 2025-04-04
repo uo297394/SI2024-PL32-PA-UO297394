@@ -25,6 +25,7 @@ public class CobrarRecibosControlador {
 	    @Override
 	    public void actionPerformed(ActionEvent e) {
 	    	generaFichero();
+	    	RellenaTabla();
 	        }});
 	
 	
@@ -58,7 +59,9 @@ public class CobrarRecibosControlador {
 			String id=tabla.getValueAt(i, 0).toString();
 			System.out.print(id);
 			writer.print(id);
-			writer.print('\n');	
+			writer.print('\n');
+		    int idRecibo=this.m.lastID();
+			this.m.insertarRecibo(idRecibo, i);
 		}
 		writer.close();
 	
