@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.swing.JTable;
@@ -84,4 +85,32 @@ public class CobrarRecibosControlador {
 	        System.out.println("An error occurred.");
 	        e.printStackTrace();
 	    }
-	}}
+	}
+	public void procesarFichero() {
+		List<String> listaAceptados=new LinkedList<>();
+		List<String> listaRechazados=new LinkedList<>();
+		//int numeroColegiadosAceptadosRechazados=0;
+		String [] separadores= {";"};
+		int id=0;
+		int año=Integer.parseInt(Util.getTodayISO().split("-")[0]); 
+		List<String[]> listaRecibos=Util.procesarFichero("RecibosEmitidos.txt", ";");
+		for(String [] l:listaRecibos) {
+			id=Integer.parseInt(l[0]);
+			//recorremos cada fila del fichero (almacenado en su conjunto en una lista de String[])
+				//Solo hacemos algo si el recibo del fichero está "emitido"
+				if(m.Emitido(id, año)) {
+					//Variable utilizada para comprobar que se ha realizado la comprobación de al menos un título.
+					//numeroColegiadosAceptadosRechazados++;
+					//en el caso de que la solicitud sea de un coelgiado ingeniero informatico su estado pasará a aprobado, en caso contrario a rechazado
+					if(l[1].equals("pagado") ) {
+							//m.cambiarAprobado(DNI);
+							//listaAceptados.add(DNI);
+							//m.cambiarDenegado(DNI);
+							//listaRechazados.add(DNI);
+							
+				}
+				
+						}
+		}	
+}
+	}

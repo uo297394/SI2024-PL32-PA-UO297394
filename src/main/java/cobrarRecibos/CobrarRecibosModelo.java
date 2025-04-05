@@ -31,7 +31,7 @@ public class CobrarRecibosModelo {
 		return estado>0;
 	}
 	public boolean Emitido(int id, int año) {
-		String sql="SELECT COUNT(r.id) from Recibos r JOIN Colegiados c ON (c.id=r.idColegiado AND r.año_emitido=?) WHERE c.id=? AND r.estado = 'emitido'";
+		String sql="SELECT COUNT(r.id) from Recibos r JOIN Colegiados c ON (c.id=r.idColegiado AND r.año_emitido=?) WHERE r.id=? AND r.estado = 'emitido'";
 		int estado=(int) db.executeQueryArray(sql, año,id).get(0)[0];
 		return estado>0;
 	}

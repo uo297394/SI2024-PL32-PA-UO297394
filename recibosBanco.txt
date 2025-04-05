@@ -1,0 +1,10 @@
+1;pagado
+2;devuelto
+3;pagado
+4;devuelto
+5;pagado
+6;pagado
+7;devuelto
+8;pagado
+9;devuelto
+10;pagado
