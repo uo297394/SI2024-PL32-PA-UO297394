@@ -43,7 +43,7 @@ public class CobrarRecibosVista {
 	private void initialize() {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 517, 321);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
 		JScrollPane scrollPane = new JScrollPane();

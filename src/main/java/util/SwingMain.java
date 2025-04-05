@@ -23,6 +23,9 @@ import mostrar_historico_cursos_inscritos.CursosInscritosVista;
 import cursosActions.*;
 import actualizarInscritos.*;
 import asignarPericiales.*;
+import cobrarRecibos.CobrarRecibosControlador;
+import cobrarRecibos.CobrarRecibosModelo;
+import cobrarRecibos.CobrarRecibosVista;
 import solicitarPericiales.*;
 import enviarSolicitud.*;
 
@@ -154,6 +157,14 @@ public class SwingMain extends JFrame {
 		JButton btnAsignarPericiales = new JButton("Asignar periciales");
 		btnAsignarPericiales.setBounds(205, 211, 177, 30);
 		panel_1.add(btnAsignarPericiales);
+		
+		JButton btnCobrarRecibos = new JButton("Cobro de recibos");
+		btnCobrarRecibos.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnCobrarRecibos.setBounds(413, 155, 159, 21);
+		panel_1.add(btnCobrarRecibos);
 
 		JLabel lblNewLabel = new JLabel("INICIO Y CARGA DE LA BASE DE  DATOS ");
 		lblNewLabel.setBounds(5, 0, 246, 31);
@@ -242,6 +253,14 @@ public class SwingMain extends JFrame {
 				ControllerAsignarPericiales controller = new ControllerAsignarPericiales(new ModelAsignarPericiales(),
 						new ViewAsignarPericiales());
 				controller.initController();
+			}
+		});
+		btnCobrarRecibos.addActionListener(new ActionListener() { // NOSONAR codigo autogenerado
+			public void actionPerformed(ActionEvent e) {
+				 CobrarRecibosVista v=new CobrarRecibosVista();
+				 CobrarRecibosModelo m=new CobrarRecibosModelo();
+				 CobrarRecibosControlador c=new CobrarRecibosControlador(v,m);
+				v.getFrame().setVisible(true);
 			}
 		});
 	}

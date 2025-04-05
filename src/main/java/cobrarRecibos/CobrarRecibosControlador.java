@@ -14,7 +14,7 @@ import javax.swing.table.TableModel;
 import enviarSolicitud.ColegiadoDTO;
 import util.SwingUtil;
 import util.Util;
-
+//Clase que gestiona el cobro de los recibos de un colegiado
 public class CobrarRecibosControlador {
 	private CobrarRecibosVista v;
 	private CobrarRecibosModelo m;
@@ -32,7 +32,8 @@ public class CobrarRecibosControlador {
 	
 	
 	}
-	public void RellenaTabla() {
+	//Función que se encarga de rellenar la tabla de la vista con los datos sobre los colegiados y sus recibos
+	private void RellenaTabla() {
 		int año=2025;
 		List<RecibosDTO> listaRecibos=this.m.ColegiadosRecibos(año);
 		String[] columnas= {"idColegiado", "nombre", "idRecibo","estado","cuota" };
@@ -46,7 +47,8 @@ public class CobrarRecibosControlador {
 		 this.v.getTablaRecibos().getTableHeader().repaint();
 		
 	}
-	public void generaFichero() {
+	//Función que genera el fichero a enviar al banco con los datos de los colegiados que aún no había emitido el recibo anual
+	private void generaFichero() {
 		JTable tabla=this.v.getTablaRecibos();
 		int numeroFilas=tabla.getRowCount();
 		String fileName = "RecibosEmitidos.txt";
@@ -64,8 +66,7 @@ public class CobrarRecibosControlador {
 			int idEntero=Integer.parseInt(id);
 			
 			if(!(m.Recibo(idEntero, año))) {
-		    int idRecibo=this.m.lastID();
-			this.m.insertarRecibo(idRecibo, idEntero);
+			this.m.insertarRecibo(idEntero);
 			List<Object []> datos=this.m.datosColegiado(año, idEntero);
 			Object [] objetos=datos.get(0);
 			for(Object o:objetos) {
