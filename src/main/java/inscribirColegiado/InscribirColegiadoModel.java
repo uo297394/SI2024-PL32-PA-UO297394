@@ -6,6 +6,7 @@ import cursosActions.ColegiadoDisplayDTO;
 import util.Util;
 import util.ApplicationException;
 import util.Database;
+import util.SwingUtil;
 
 
 public class InscribirColegiadoModel {
@@ -39,7 +40,7 @@ public class InscribirColegiadoModel {
 		if(estaInscrito>0)throw new ApplicationException(MSG_COLEG_INSCR);
 		return estaInscrito>0;
 	}
-	private boolean hayPlazas(String idCurso) {
+	public boolean hayPlazas(String idCurso) {
 		String sql="SELECT COUNT(id) FROM Inscripciones WHERE idCurso = ?";
 		String sql2="SELECT max_plazas FROM Cursos WHERE id = ?";
 		Object[] inscr =db.executeQueryArray(sql,idCurso).get(0);
@@ -53,7 +54,7 @@ public class InscribirColegiadoModel {
 	 * Inserta la inscripcion del colegiado al curso si no está inscrito
 	 */
 	public void insertInscColegiado(String idColeg, String idCurso, int estado, String colectivo) {
-		if(hayPlazas(idCurso)) {
+		if(hayPlazas(idCurso) || estado == 4) {
 			String sql;
 			if(!idColeg.matches(".*[a-zA-Z]"))
 				sql="INSERT INTO Inscripciones (id, idColegiado, idCurso, fechaInscripcion, estado, colectivo)"+
@@ -66,6 +67,11 @@ public class InscribirColegiadoModel {
 			db.executeUpdate(sql, id ,idColeg, idCurso, Util.getTodayISO(), estado, colectivo);
 		}
 		else throw new ApplicationException("No hay plazas disponibles para este curso");
+	}
+	public boolean listaEspera(String idCurso) {
+		String sql="SELECT lista_espera FROM Cursos WHERE id = ?";
+		String espera =db.executeQueryArray(sql,idCurso).get(0)[0].toString();
+		return espera.equals("1");
 	}
 	private int lastID() {
 		String ide = "SELECT COUNT(id) FROM Inscripciones";
@@ -106,10 +112,16 @@ public class InscribirColegiadoModel {
 		String sql="INSERT INTO Otros (id, nombre, apellido, direccion, correo, telefono, fecha_nacimiento, DNI)"+
 				" VALUES"+
 				" (?, ?, ?, ?, ?, ?, ?, ?);";
-		int id=lastID();
+		int id=lastIDOtros();
 		db.executeUpdate(sql,id, l.get(0),l.get(1),l.get(2),l.get(3),l.get(4),l.get(5),l.get(6));
 		
 	}
+	private int lastIDOtros() {
+		String ide = "SELECT COUNT(id) FROM Otros";
+	    Object[] numerocolegiados=db.executeQueryArray(ide).get(0);
+	    int numerocoleg=(int) numerocolegiados[0];
+	    return numerocoleg+1;
+	    }
 	
 	
 }

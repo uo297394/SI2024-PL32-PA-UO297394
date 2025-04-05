@@ -45,13 +45,13 @@ public class ControllerH2 {
     
     
     private void registrarCurso() {
-        // Recoger datos del curso desde la vista.
+        // Recoger datos existentes
         String titulo = view.getTxtTitulo().getText();
         String descripcion = view.getTxtDescripcion().getText();
         String fechaInicioStr = view.getTxtFechaInicio().getText().trim();
         String fechaFinStr = view.getTxtFechaFin().getText().trim();
         
-        // Validar formato de fechas.
+        // Validar fechas de inicio y fin (igual que antes)
         LocalDate fechaInicio;
         LocalDate fechaFin;
         try {
@@ -74,7 +74,7 @@ public class ControllerH2 {
             return;
         }
         
-        // Validar campos numéricos.
+        // Validar campos numéricos
         int duracion;
         try {
             duracion = Integer.parseInt(view.getTxtDuracion().getText());
@@ -91,25 +91,59 @@ public class ControllerH2 {
                     "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
-           
-        // Registrar el curso usando el idCuota seleccionado.
+        
+        // Leer valores de los nuevos campos
+        int listaEspera;
+        boolean boollistaEspera;
+        if (view.getChkListaEspera().isSelected()) { listaEspera = 1;boollistaEspera =  view.getChkListaEspera().isSelected();}
+        else { listaEspera = 0; boollistaEspera =  view.getChkListaEspera().isSelected();}
+        boolean cancelable = view.getChkCancelable().isSelected();
+        String fechaCancelacionStr = null;
+        Double porcentajeCuota = null;
+        if (cancelable) {
+            // Validar que se haya ingresado la fecha de cancelación
+            fechaCancelacionStr = view.getTxtFechaCancelacion().getText().trim();
+            LocalDate fechaCancelacion;
+            try {
+                fechaCancelacion = LocalDate.parse(fechaCancelacionStr);
+            } catch (DateTimeParseException ex) {
+                JOptionPane.showMessageDialog(view, "La 'Fecha Máx Cancelación' debe tener el formato AAAA-MM-DD.", 
+                        "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            // Validar porcentaje de cuota devuelta
+            try {
+                porcentajeCuota = Double.parseDouble(view.getTxtPorcentajeCuota().getText().trim());
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(view, "El '% Cuota Devuelta' debe ser un número válido.", 
+                        "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+        }
+        
+        // Registrar el curso usando el modelo con los nuevos parámetros
         try {
             model.registrarCurso(titulo, descripcion, fechaInicioStr, fechaFinStr, 
-                                 duracion, maxPlazas);
+                                 duracion, maxPlazas, listaEspera, cancelable, fechaCancelacionStr, porcentajeCuota);
         } catch (ApplicationException ex) {
             JOptionPane.showMessageDialog(view, "Error al registrar el curso: " + ex.getMessage(), 
                     "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
         
-        // Mostrar mensaje de confirmación con la cuota y el colectivo (en lugar del idCuota)
         String mensaje = "Curso registrado correctamente:\n" +
                          "Título: " + titulo + "\n" +
                          "Descripción: " + descripcion + "\n" +
                          "Fecha Inicio: " + fechaInicioStr + "\n" +
                          "Fecha Fin: " + fechaFinStr + "\n" +
                          "Duración: " + duracion + " horas\n" +
-                         "Máximo de Plazas: " + maxPlazas;
+                         "Máximo de Plazas: " + maxPlazas + "\n" +
+                         "Lista de Espera: " + (boollistaEspera ? "Sí" : "No") + "\n" +
+                         "Cancelable: " + (cancelable ? "Sí" : "No");
+        if (cancelable) {
+            mensaje += "\nFecha Máx Cancelación: " + fechaCancelacionStr + "\n" +
+                       "% Cuota Devuelta: " + porcentajeCuota;
+        }
         JOptionPane.showMessageDialog(view, mensaje, "Confirmación", JOptionPane.INFORMATION_MESSAGE);
         
         view.dispose();

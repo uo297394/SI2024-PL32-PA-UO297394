@@ -5,7 +5,6 @@ import javax.swing.text.MaskFormatter;
 import java.awt.*;
 import java.text.ParseException;
 
-
 public class ViewH2 extends JFrame {
 
     // Campos para datos del curso
@@ -15,7 +14,13 @@ public class ViewH2 extends JFrame {
     private JFormattedTextField txtFechaFin;
     private JTextField txtDuracion;
     private JTextField txtMaxPlazas;
-
+    
+    // Nuevos componentes para los requisitos adicionales.
+    private JCheckBox chkListaEspera;
+    private JCheckBox chkCancelable;
+    private JFormattedTextField txtFechaCancelacion;
+    private JTextField txtPorcentajeCuota;
+    
     // Botones
     private JButton btnRegistrar;
     private JButton btnVerCursos;
@@ -24,15 +29,12 @@ public class ViewH2 extends JFrame {
     public ViewH2() {
         setTitle("Registrar Curso");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        // Se aumentó el ancho de la ventana para que se muestren los 3 botones sin necesidad de agrandar
-        setSize(600, 450);
+        setSize(600, 550); // Aumentado el alto para los nuevos campos
         setLocationRelativeTo(null);
 
-        // Panel principal con BorderLayout para separar el formulario de los botones
         JPanel mainPanel = new JPanel(new BorderLayout(10, 10));
         mainPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
-        // Panel para el formulario en el centro, usando GridBagLayout para lograr simetría
         JPanel formPanel = new JPanel(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(8, 8, 8, 8);
@@ -102,19 +104,65 @@ public class ViewH2 extends JFrame {
         gbc.anchor = GridBagConstraints.WEST;
         formPanel.add(txtMaxPlazas, gbc);
 
-        // Añadimos el formulario al panel principal en el centro
+        // Fila 6: Checkbox Lista de Espera
+        gbc.gridx = 0;
+        gbc.gridy = 6;
+        gbc.anchor = GridBagConstraints.EAST;
+        formPanel.add(new JLabel("Habilitar Lista de Espera:"), gbc);
+        chkListaEspera = new JCheckBox();
+        gbc.gridx = 1;
+        gbc.anchor = GridBagConstraints.WEST;
+        formPanel.add(chkListaEspera, gbc);
+
+        // Fila 7: Checkbox Cancelable
+        gbc.gridx = 0;
+        gbc.gridy = 7;
+        gbc.anchor = GridBagConstraints.EAST;
+        formPanel.add(new JLabel("Curso Cancelable:"), gbc);
+        chkCancelable = new JCheckBox();
+        gbc.gridx = 1;
+        gbc.anchor = GridBagConstraints.WEST;
+        formPanel.add(chkCancelable, gbc);
+        
+        // Fila 8: Fecha Máxima Cancelación (inicialmente deshabilitado)
+        gbc.gridx = 0;
+        gbc.gridy = 8;
+        gbc.anchor = GridBagConstraints.EAST;
+        formPanel.add(new JLabel("Fecha Máx Cancelación (AAAA-MM-DD):"), gbc);
+        txtFechaCancelacion = createFormattedDateField();
+        txtFechaCancelacion.setEnabled(false);
+        gbc.gridx = 1;
+        gbc.anchor = GridBagConstraints.WEST;
+        formPanel.add(txtFechaCancelacion, gbc);
+        
+        // Fila 9: Porcentaje Cuota Devuelta (inicialmente deshabilitado)
+        gbc.gridx = 0;
+        gbc.gridy = 9;
+        gbc.anchor = GridBagConstraints.EAST;
+        formPanel.add(new JLabel("% Cuota Devuelta:"), gbc);
+        txtPorcentajeCuota = new JTextField(10);
+        txtPorcentajeCuota.setEnabled(false);
+        gbc.gridx = 1;
+        gbc.anchor = GridBagConstraints.WEST;
+        formPanel.add(txtPorcentajeCuota, gbc);
+
+        // Habilitar/Deshabilitar campos de cancelación según checkbox
+        chkCancelable.addActionListener(e -> {
+            boolean selected = chkCancelable.isSelected();
+            txtFechaCancelacion.setEnabled(selected);
+            txtPorcentajeCuota.setEnabled(selected);
+        });
+
         mainPanel.add(formPanel, BorderLayout.CENTER);
 
-        // Panel inferior para los 3 botones, centrados
+        // Panel inferior para los botones
         JPanel panelBotones = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 10));
-        btnRegistrarSesiones = new JButton("Registrar Sesiones");
-        btnVerCursos = new JButton("Registrar Cuota");
         btnRegistrar = new JButton("Registrar Curso");
+        btnVerCursos = new JButton("Registrar Cuota");
+        btnRegistrarSesiones = new JButton("Registrar Sesiones");
         panelBotones.add(btnRegistrarSesiones);
         panelBotones.add(btnVerCursos);
         panelBotones.add(btnRegistrar);
-
-        // Añadimos el panel de botones en la parte inferior del panel principal
         mainPanel.add(panelBotones, BorderLayout.SOUTH);
 
         add(mainPanel);
@@ -130,8 +178,22 @@ public class ViewH2 extends JFrame {
             return new JFormattedTextField();
         }
     }
+
+    // Getters para los componentes nuevos
+    public JCheckBox getChkListaEspera() {
+        return chkListaEspera;
+    }
+    public JCheckBox getChkCancelable() {
+        return chkCancelable;
+    }
+    public JFormattedTextField getTxtFechaCancelacion() {
+        return txtFechaCancelacion;
+    }
+    public JTextField getTxtPorcentajeCuota() {
+        return txtPorcentajeCuota;
+    }
     
-    // Getters
+    // Getters ya existentes...
     public JTextField getTxtTitulo() { return txtTitulo; }
     public JTextArea getTxtDescripcion() { return txtDescripcion; }
     public JFormattedTextField getTxtFechaInicio() { return txtFechaInicio; }
@@ -141,5 +203,4 @@ public class ViewH2 extends JFrame {
     public JButton getBtnRegistrar() { return btnRegistrar; }
     public JButton getBtnVerCursos() { return btnVerCursos; }
     public JButton getBtnRegistrarSesiones() { return btnRegistrarSesiones; }
-
 }
