@@ -30,21 +30,18 @@ public class ControllerAsignarPericiales {
 				if (filaSeleccionada != -1) {
 					Object idSolicitud = tabla.getValueAt(filaSeleccionada, 0);
 					view.getTxtIdSolicitud().setText(idSolicitud.toString());
+					Object estadoSolicitud= tabla.getValueAt(filaSeleccionada,1);
+					view.getEstadoActual().setText(estadoSolicitud.toString());
 				}
 			}
 		});
 
-		/*// Manejar la selección de filas en tabla de peritos
-		view.getScrollListaPeritos().getViewport().getView().addMouseListener(new java.awt.event.MouseAdapter() {
-			public void mouseClicked(java.awt.event.MouseEvent evt) {
-				JTable tabla = (JTable) view.getScrollListaPeritos().getViewport().getView();
-				int filaSeleccionada = tabla.getSelectedRow();
-				if (filaSeleccionada != -1) {
-					Object idPerito = tabla.getValueAt(filaSeleccionada, 0);
-					view.getTxtIdPerito().setText(idPerito.toString());
-				}
+		view.getCambioEstado().addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				cambioEstado();
 			}
-		});*/
+		});
 
 		// Acción del botón "Asignar"
 		view.getBtnAsignar().addActionListener(new ActionListener() {
@@ -54,19 +51,55 @@ public class ControllerAsignarPericiales {
 			}
 		});
 	}
+	private void cambioEstado() {
+		String idSolicitud = view.getTxtIdSolicitud().getText();
+		String estadoActual= view.getEstadoActual().getText();
+		String estadoNuevo= view.getEstadoNuevo().getSelectedItem().toString();
+		String justificacion=view.getJustificacion().getText();		
+		if(idSolicitud.isEmpty() || estadoActual.isEmpty() || estadoNuevo.isEmpty() || justificacion.isEmpty()) {
+			javax.swing.JOptionPane.showMessageDialog(view, "Debe seleccionar una solicitud, un estado nuevo y justificar el cambio", "Error",
+					javax.swing.JOptionPane.ERROR_MESSAGE);
+			return;
+		} 
+		if(estadoActual.equals(estadoNuevo)) {
+			javax.swing.JOptionPane.showMessageDialog(view, "El nuevo estado debe de ser distinto del actual", "Error",
+					javax.swing.JOptionPane.ERROR_MESSAGE);
+			return;
+		}
+		else {
+			model.cambiarEstadoSolicitud(estadoNuevo,justificacion, idSolicitud);
+			actualizarVista();
+			String mensaje = "El cambio de estado ha sido realizado correctamente:\n" +
+                    "idSolicitud: " + idSolicitud + "\n" +
+                    "estado anterior: " + estadoActual + "\n" +
+                    "estado nuevo: " + estadoNuevo + "\n" +
+                    "Justificacion de cambio de estado: " + justificacion + "\n";
+
+            JOptionPane.showMessageDialog(view, mensaje, "Justificante cambio de estado", JOptionPane.INFORMATION_MESSAGE);
+            view.getJustificacion().setText("");
+		}
+		
+	}
 
 	// Método para asignar un perito a una solicitud
 	private void asignarPerito() {
 		try {
 			String idSolicitudText = view.getTxtIdSolicitud().getText();
 			String idPeritoText = view.getTxtIdPerito().getText();
-
+			String estadoActual = view.getEstadoActual().getText();
+			
 			if (idSolicitudText.isEmpty() || idPeritoText.isEmpty()) {
 				javax.swing.JOptionPane.showMessageDialog(view, "Debe seleccionar una solicitud y un perito", "Error",
 						javax.swing.JOptionPane.ERROR_MESSAGE);
 				return;
 			}
-
+			
+			if (!estadoActual.equalsIgnoreCase("pendiente")) {
+				JOptionPane.showMessageDialog(view, "Solo se pueden asignar peritos a solicitudes en estado 'pendiente'.", "Error",
+						JOptionPane.ERROR_MESSAGE);
+				return;
+			}
+			
 			int idSolicitud = Integer.parseInt(idSolicitudText);
 			int idPerito = Integer.parseInt(idPeritoText);
 
@@ -110,6 +143,8 @@ public class ControllerAsignarPericiales {
 	        view.getTxtIdPerito().setText(idPerito.toString());
 	    }
 	}
+	
+	
 
 	// Método para iniciar la vista
 	public void initView() {
