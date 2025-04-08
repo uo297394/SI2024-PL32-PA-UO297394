@@ -41,4 +41,12 @@ public class CobrarRecibosModelo {
 		List<Object[]> listaDatos=db.executeQueryArray(sql, año,id);
 		return listaDatos;
 	}
+	public void cambiarPagado(int id) {
+		String sql="UPDATE recibos SET estado = 'pagado' WHERE id = ?";
+		db.executeUpdate(sql, id);
+	}
+	public void cambiarDevuelto(int id) {
+		String sql="UPDATE recibos SET estado = 'devuelto' WHERE id = ?";
+		db.executeUpdate(sql, id);
+	}
 }

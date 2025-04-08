@@ -30,7 +30,12 @@ public class CobrarRecibosControlador {
 	    	RellenaTabla();
 	        }});
 	
-	
+	this.v.getBotonCobrarRecibos().addActionListener(new ActionListener(){
+	    @Override
+	    public void actionPerformed(ActionEvent e) {
+	    	procesarFichero();
+	    	RellenaTabla();
+	        }});
 	
 	}
 	//Función que se encarga de rellenar la tabla de la vista con los datos sobre los colegiados y sus recibos
@@ -93,7 +98,7 @@ public class CobrarRecibosControlador {
 		String [] separadores= {";"};
 		int id=0;
 		int año=Integer.parseInt(Util.getTodayISO().split("-")[0]); 
-		List<String[]> listaRecibos=Util.procesarFichero("RecibosEmitidos.txt", ";");
+		List<String[]> listaRecibos=Util.procesarFichero("RecibosBanco.txt", ";");
 		for(String [] l:listaRecibos) {
 			id=Integer.parseInt(l[0]);
 			//recorremos cada fila del fichero (almacenado en su conjunto en una lista de String[])
@@ -101,14 +106,13 @@ public class CobrarRecibosControlador {
 				if(m.Emitido(id, año)) {
 					//Variable utilizada para comprobar que se ha realizado la comprobación de al menos un título.
 					//numeroColegiadosAceptadosRechazados++;
-					//en el caso de que la solicitud sea de un coelgiado ingeniero informatico su estado pasará a aprobado, en caso contrario a rechazado
+					//en el caso de que que el recibo esté aprobado pasará a aprobado, en caso de que esté devuelto pasará a devuelto
 					if(l[1].equals("pagado") ) {
-							//m.cambiarAprobado(DNI);
-							//listaAceptados.add(DNI);
-							//m.cambiarDenegado(DNI);
-							//listaRechazados.add(DNI);
-							
+							m.cambiarPagado(id);
 				}
+					else if (l[1].equals("devuelto") ) {
+						m.cambiarDevuelto(id);
+			}
 				
 						}
 		}	

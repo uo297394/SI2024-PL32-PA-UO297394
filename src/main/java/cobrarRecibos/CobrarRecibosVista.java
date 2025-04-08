@@ -82,4 +82,7 @@ public class CobrarRecibosVista {
 	public JButton getBotonRecibos() {
 		return this.btEmitirRecibos;
 	}
+	public JButton getBotonCobrarRecibos() {
+		return this.btCobrarRecibos;
+	}
 }
