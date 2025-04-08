@@ -154,7 +154,7 @@ public class SwingMain extends JFrame {
 		lblNewLabel_5.setBounds(622, 27, 125, 22);
 		panel_1.add(lblNewLabel_5);
 
-		JButton btnAsignarPericiales = new JButton("Asignar periciales");
+		JButton btnAsignarPericiales = new JButton("Administrar periciales");
 		btnAsignarPericiales.setBounds(205, 211, 177, 30);
 		panel_1.add(btnAsignarPericiales);
 		

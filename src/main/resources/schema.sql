@@ -27,7 +27,7 @@ create table Sesiones (id int primary key not null, idCurso int,
     duracion int, FOREIGN KEY (idCurso) REFERENCES Cursos(id));
     
 create table Periciales (id int auto_increment primary key,idColegiado int, idSolicitante int not null, descripcion varchar(100) not null, estado enum, 
-	 caracter enum,FOREIGN KEY (idColegiado) REFERENCES Colegiados(id), FOREIGN KEY (idSolicitante) REFERENCES Solicitante(id));
+	 caracter enum,justificacion VARCHAR(40),FOREIGN KEY (idColegiado) REFERENCES Colegiados(id), FOREIGN KEY (idSolicitante) REFERENCES Solicitante(id));
 	  
 create table Cuotas (id int primary key not null, idCurso int, cuota float not null,
  	colectivo varchar(40) not null,FOREIGN KEY (idCurso) REFERENCES Cursos(id));
