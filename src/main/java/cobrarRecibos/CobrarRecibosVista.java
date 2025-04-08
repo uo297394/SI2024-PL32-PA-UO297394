@@ -46,12 +46,12 @@ public class CobrarRecibosVista {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 517, 321);
+		frame.setBounds(100, 100, 555, 321);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 66, 319, 184);
+		scrollPane.setBounds(0, 66, 412, 205);
 		frame.getContentPane().add(scrollPane);
 		
 		tablaRecibos = new JTable();
@@ -66,7 +66,7 @@ public class CobrarRecibosVista {
 		 	public void actionPerformed(ActionEvent e) {
 		 	}
 		 });
-		btEmitirRecibos.setBounds(361, 184, 132, 23);
+		btEmitirRecibos.setBounds(415, 181, 124, 23);
 		frame.getContentPane().add(btEmitirRecibos);
 		
 		JLabel lblNewLabel_1 = new JLabel("Emision de recibos");
@@ -78,7 +78,7 @@ public class CobrarRecibosVista {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		btCobrarRecibos.setBounds(361, 218, 132, 21);
+		btCobrarRecibos.setBounds(415, 211, 124, 21);
 		frame.getContentPane().add(btCobrarRecibos);
 		
 		 etiquetaAño = new JLabel("Año:");

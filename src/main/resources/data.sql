@@ -107,8 +107,8 @@ INSERT INTO Otros (id, nombre, apellido, DNI, direccion, correo, telefono, fecha
 (4, 'Ana', 'Martínez', '38527190T', 'C/ Secundaria 8, Sevilla', 'ana.martinez@email.com', '633456789', '1995-05-30'),
 (5, 'Pedro', 'Fernández', '56789012D', 'Paseo del Río 99, Zaragoza', NULL, '644567890', '1978-09-05');
 delete from Recibos;
-INSERT INTO Recibos(id , cuota , estado , año_emitido , fecha_pagado , fecha_devuelto ,fecha_emitido,idColegiado) VALUES
-(1,120,'emitido',2025,NULL,NULL,'2025-05-11',1),
-(2,120,'pagado',2025,'2025-08-28',NULL,'2025-05-11',2),
-(3,120,'pagado',2025,'2025-08-28',NULL,'2025-05-11',3);
+INSERT INTO Recibos(id , cuota , estado , año_emitido , fecha_pagado , fecha_devuelto ,fecha_emitido,motivo,idColegiado) VALUES
+(1,120,'emitido',2025,NULL,NULL,'2025-05-11',NULL,1),
+(2,120,'pagado',2025,'2025-08-28',NULL,'2025-05-11',NULL,2),
+(3,120,'pagado',2025,'2025-08-28',NULL,'2025-05-11',NULL,3);
 

@@ -43,8 +43,8 @@ public class CobrarRecibosControlador {
 	private void RellenaTabla() {
 		int año=2025;
 		List<RecibosDTO> listaRecibos=this.m.ColegiadosRecibos(año);
-		String[] columnas= {"idColegiado", "nombre", "idRecibo","estado","cuota" };
-		String [] ticolumnas= {"idColegiado", "nombre", "idRecibo","estadoRecibo","cuota" };
+		String[] columnas= {"idColegiado", "nombre", "idRecibo","estado","cuota", "motivo"};
+		String [] ticolumnas= {"idColegiado", "nombre", "idRecibo","estadoRecibo","cuota" , "motivoDevuelto"};
 		TableModel tablaCursos = SwingUtil.getTableModelFromPojos(listaRecibos, columnas);
 		this.v.setTablaRecibos(tablaCursos);
 		for(int i=0;i<ticolumnas.length;i++) {
@@ -108,7 +108,7 @@ public class CobrarRecibosControlador {
 							m.cambiarPagado(id);
 				}
 					else if (l[1].equals("devuelto") ) {
-						m.cambiarDevuelto(id);
+						m.cambiarDevuelto(id,l[2]);
 			}
 				
 						}
