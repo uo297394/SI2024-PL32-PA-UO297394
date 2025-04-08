@@ -14,7 +14,7 @@ public class CursosInscritosModelo {
 		 		+ "WHEN c.fecha_inicio_curso IS NOT NULL AND c.fecha_fin_curso IS NOT NULL "
 		 		+ "THEN 'Abierto' "
 		 		+ "ELSE 'Cerrado' "
-		 		+ "END AS estado "
+		 		+ "END AS estado, i.id as idInsc, cr.fecha_cancelacion as fechaMaximaCancelacion, cr.porcentaje_cuota_devuelta as porcentaje,cr.cuota"
 		 		+ "FROM Inscripciones i JOIN Cursos c ON i.idCurso = c.id "
 		 		+ "LEFT JOIN Colegiados cl ON cl.id = i.idColegiado "
 		 		+ "LEFT JOIN Otros o ON o.id = i.idOtros "
@@ -54,4 +54,10 @@ public void hayDatos(String DNI) {
 		throw new ApplicationException("Esta persona no cuenta con ningún curso:");
 		}
 	}
+public void cancelaInscripcion(String idInsc, String porcentaje,String cuota) {
+	String deuda = db.executeQueryArray("SELECT deuda FROM Inscripciones WHERE id = ", idInsc).get(0)[0].toString();
+	Float d = Float.parseFloat(deuda) + (Float.parseFloat(cuota)*Float.parseFloat(porcentaje));
+	db.executeUpdate("UPDATE Inscripciones SET estado=5, deuda=? WHERE id = ?", d.toString(),idInsc);
+	
+}
 }
