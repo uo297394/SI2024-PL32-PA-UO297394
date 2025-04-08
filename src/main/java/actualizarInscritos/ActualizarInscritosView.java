@@ -21,7 +21,7 @@ public class ActualizarInscritosView extends JFrame {
 	 */
 	public ActualizarInscritosView() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 572, 370);
+		setBounds(100, 100, 639, 371);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		this.setTitle("Inscripciones Actualizadas");
@@ -30,7 +30,7 @@ public class ActualizarInscritosView extends JFrame {
 		contentPane.setLayout(null);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(0, 10, 548, 282);
+		scrollPane.setBounds(0, 10, 613, 282);
 		contentPane.add(scrollPane);
 		
 		tableInscripciones = new JTable();
@@ -55,7 +55,7 @@ public class ActualizarInscritosView extends JFrame {
 		contentPane.add(lblRechazadosCount);
 		
 		
-		btnNewButton.setBounds(390, 303, 158, 23);
+		btnNewButton.setBounds(455, 303, 158, 23);
 		contentPane.add(btnNewButton);
 	}
 

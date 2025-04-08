@@ -76,7 +76,7 @@ public class ActualizarInscritosController {
 			if(!lID.contains(n.getIdInsc()))it.remove();
 			else n.setEstado(n.getEstado().equals("0")? "Aceptado" : n.getEstado().equals("1")?"Pendiente":"Rechazado");
 		}
-		TableModel tmodel=SwingUtil.getTableModelFromPojos(inscripciones, new String[] {"estado","deuda","id","nombre","apellido","DNI","fechaInscripcion","telefono","correo","cuota","tituloCurso"});
+		TableModel tmodel=SwingUtil.getTableModelFromPojos(inscripciones, new String[] {"estado","tituloCurso","deuda","id","nombre","apellido","DNI","fechaInscripcion","telefono","correo","cuota"});
 		view.getTableInscripciones().setModel(tmodel);
 		SwingUtil.autoAdjustColumns(view.getTableInscripciones());
 		//Como se guarda la clave del ultimo elemento seleccionado, restaura la seleccion de los detalles
@@ -89,7 +89,7 @@ public class ActualizarInscritosController {
 			InscripcionDisplayDTO n = it.next();
 			n.setEstado(n.getEstado().equals("0")? "Aceptado" : n.getEstado().equals("1")?"Pendiente":n.getEstado().equals("2")?"Rechazado":"Lista de Espera");
 		}
-		TableModel tmodel=SwingUtil.getTableModelFromPojos(inscripciones, new String[] {"estado","deuda","id","nombre","apellido","DNI","fechaInscripcion","telefono","correo","cuota","tituloCurso"});
+		TableModel tmodel=SwingUtil.getTableModelFromPojos(inscripciones, new String[] {"estado","tituloCurso","deuda","id","nombre","apellido","DNI","fechaInscripcion","telefono","correo","cuota"});
 		view.getTableInscripciones().setModel(tmodel);
 		SwingUtil.autoAdjustColumns(view.getTableInscripciones());
 		//Como se guarda la clave del ultimo elemento seleccionado, restaura la seleccion de los detalles
