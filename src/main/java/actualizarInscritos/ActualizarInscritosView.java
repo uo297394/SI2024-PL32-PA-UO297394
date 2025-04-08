@@ -15,7 +15,7 @@ public class ActualizarInscritosView extends JFrame {
 	private JTable tableInscripciones;
 	JLabel lblAceptadosCount = new JLabel("");
 	JLabel lblRechazadosCount = new JLabel("");
-
+	JButton btnNewButton = new JButton("Actualizar Inscripciones");
 	/**
 	 * Create the frame.
 	 */
@@ -53,6 +53,10 @@ public class ActualizarInscritosView extends JFrame {
 		
 		lblRechazadosCount.setBounds(401, 310, 45, 13);
 		contentPane.add(lblRechazadosCount);
+		
+		
+		btnNewButton.setBounds(390, 303, 158, 23);
+		contentPane.add(btnNewButton);
 	}
 
 	public JTable getTableInscripciones() {
@@ -78,5 +82,10 @@ public class ActualizarInscritosView extends JFrame {
 	public void setLblRechazadosCount(String lblRechazadosCount) {
 		this.lblRechazadosCount.setText(lblRechazadosCount);;
 	}
+
+	public JButton getBtnActualizar() {
+		return btnNewButton;
+	}
+
 	
 }
