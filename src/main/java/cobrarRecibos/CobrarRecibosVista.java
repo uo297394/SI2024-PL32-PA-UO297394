@@ -8,6 +8,8 @@ import javax.swing.JTable;
 import javax.swing.table.TableModel;
 import javax.swing.JLabel;
 import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class CobrarRecibosVista {
 
@@ -60,7 +62,11 @@ public class CobrarRecibosVista {
 		frame.getContentPane().add(lblNewLabel);
 		
 		 btEmitirRecibos = new JButton("Emitir recibos");
-		btEmitirRecibos.setBounds(361, 216, 132, 23);
+		 btEmitirRecibos.addActionListener(new ActionListener() {
+		 	public void actionPerformed(ActionEvent e) {
+		 	}
+		 });
+		btEmitirRecibos.setBounds(361, 184, 132, 23);
 		frame.getContentPane().add(btEmitirRecibos);
 		
 		JLabel lblNewLabel_1 = new JLabel("Emision de recibos");
@@ -68,7 +74,11 @@ public class CobrarRecibosVista {
 		frame.getContentPane().add(lblNewLabel_1);
 		
 		btCobrarRecibos = new JButton("Cobrar recibos");
-		btCobrarRecibos.setBounds(379, 184, 114, 21);
+		btCobrarRecibos.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btCobrarRecibos.setBounds(361, 218, 132, 21);
 		frame.getContentPane().add(btCobrarRecibos);
 		
 		 etiquetaAño = new JLabel("Año:");
