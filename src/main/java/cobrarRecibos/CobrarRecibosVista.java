@@ -15,6 +15,7 @@ public class CobrarRecibosVista {
 	private JTable tablaRecibos;
 	private JButton btEmitirRecibos;
 	private JButton btCobrarRecibos;
+	private JLabel etiquetaAño;
 	/**
 	 * Launch the application.
 	 */
@@ -55,11 +56,11 @@ public class CobrarRecibosVista {
 		scrollPane.setViewportView(tablaRecibos);
 		
 		JLabel lblNewLabel = new JLabel("Estado actual de los recibos");
-		lblNewLabel.setBounds(21, 41, 174, 14);
+		lblNewLabel.setBounds(23, 41, 197, 14);
 		frame.getContentPane().add(lblNewLabel);
 		
 		 btEmitirRecibos = new JButton("Emitir recibos");
-		btEmitirRecibos.setBounds(379, 216, 114, 23);
+		btEmitirRecibos.setBounds(361, 216, 132, 23);
 		frame.getContentPane().add(btEmitirRecibos);
 		
 		JLabel lblNewLabel_1 = new JLabel("Emision de recibos");
@@ -69,6 +70,10 @@ public class CobrarRecibosVista {
 		btCobrarRecibos = new JButton("Cobrar recibos");
 		btCobrarRecibos.setBounds(379, 184, 114, 21);
 		frame.getContentPane().add(btCobrarRecibos);
+		
+		 etiquetaAño = new JLabel("Año:");
+		etiquetaAño.setBounds(256, 41, 87, 14);
+		frame.getContentPane().add(etiquetaAño);
 	}
 	public JTable getTablaRecibos() {
 		return this.tablaRecibos;
@@ -84,5 +89,8 @@ public class CobrarRecibosVista {
 	}
 	public JButton getBotonCobrarRecibos() {
 		return this.btCobrarRecibos;
+	}
+	public void setEtiquetaAño(String año) {
+		this.etiquetaAño.setText("Año:"+año);
 	}
 }

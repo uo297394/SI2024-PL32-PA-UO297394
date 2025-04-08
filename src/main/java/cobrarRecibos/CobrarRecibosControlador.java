@@ -23,6 +23,7 @@ public class CobrarRecibosControlador {
 	this.v=v;
 	this.m=m;
 	this.RellenaTabla();
+	establecerEtiqueta();
 	this.v.getBotonRecibos().addActionListener(new ActionListener(){
 	    @Override
 	    public void actionPerformed(ActionEvent e) {
@@ -92,9 +93,6 @@ public class CobrarRecibosControlador {
 	    }
 	}
 	public void procesarFichero() {
-		List<String> listaAceptados=new LinkedList<>();
-		List<String> listaRechazados=new LinkedList<>();
-		//int numeroColegiadosAceptadosRechazados=0;
 		String [] separadores= {";"};
 		int id=0;
 		int año=Integer.parseInt(Util.getTodayISO().split("-")[0]); 
@@ -105,7 +103,6 @@ public class CobrarRecibosControlador {
 				//Solo hacemos algo si el recibo del fichero está "emitido"
 				if(m.Emitido(id, año)) {
 					//Variable utilizada para comprobar que se ha realizado la comprobación de al menos un título.
-					//numeroColegiadosAceptadosRechazados++;
 					//en el caso de que que el recibo esté aprobado pasará a aprobado, en caso de que esté devuelto pasará a devuelto
 					if(l[1].equals("pagado") ) {
 							m.cambiarPagado(id);
@@ -117,4 +114,10 @@ public class CobrarRecibosControlador {
 						}
 		}	
 }
+	public void establecerEtiqueta() {
+		String fechaHoy=Util.getTodayISO();
+		String año=fechaHoy.split("-")[0];
+		this.v.setEtiquetaAño(año);
+		
+	}
 	}
