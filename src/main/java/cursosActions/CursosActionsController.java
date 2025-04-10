@@ -178,7 +178,7 @@ public class CursosActionsController {
 	public void inscribir() {
 		String numColeg = view.getTfNumColeg().getText();
 		String dni = view.getDNI().getText();
-		boolean camposCubiertos = true;
+		boolean camposCubiertos = dni.length() == 9 || numColeg.length()>0;
 		List<String> l = view.getPDatos();
 		Iterator<String> it = l.iterator();
 		while(it.hasNext()) {
@@ -233,7 +233,10 @@ public class CursosActionsController {
 		ColegiadoDisplayDTO col = model.aiModel.getColegiado(identificador);
 		getListaCursos("Todos");
 		if(estado != 4)SwingUtil.showMessage(MSG_INSCRITO+"\n"+col.toString()+"\n"+"Fecha de solicitud realizada el: "+Util.getTodayISO()+"\nCuota: "+cuota+"\n"+MSG_CUENTA,"Inscripción Completada",JOptionPane.INFORMATION_MESSAGE);
-		else SwingUtil.showMessage("Usted ha pasado a lista de espera, no se le realizará el cobro de la inscripción","Inscripción Completada",JOptionPane.INFORMATION_MESSAGE);
+		else {
+			String pos = model.calculaPosicion(disp,identificador);
+			SwingUtil.showMessage("Usted ha pasado a lista de espera (Posición: "+pos+"), no se le realizará el cobro de la inscripción","Inscripción Completada",JOptionPane.INFORMATION_MESSAGE);
+		}
 	}
 	public void loadInscripciones(int idCurso) {
         List<InscripcionDisplayDTO> inscripciones = model.getInscripcionesPorCurso(idCurso);

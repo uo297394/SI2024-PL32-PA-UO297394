@@ -71,4 +71,8 @@ public class CursosActionsModel {
 		icModel.guardaDatosOtro(l);
 		
 	}
+
+	public String calculaPosicion(AperturaInscripcionesDisplayDTO disp, String identificador) {
+		return aiModel.calculaPosicion(disp,identificador);
+	}
 }
