@@ -4,14 +4,15 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.swing.JOptionPane;
 import javax.swing.table.TableModel;
 
-import lombok.launch.PatchFixesHider.Util;
 import util.ApplicationException;
 import util.SwingUtil;
+import util.Util;
 
 public class CursosInscritosControlador {
 	private CursosInscritosVista v;
@@ -79,10 +80,25 @@ public class CursosInscritosControlador {
 		if(v.getDNI().length() != 9)throw new ApplicationException("DNI no valido");
 		if(this.lastSelectedKey=="")throw new ApplicationException("Seleccione un curso");
 		List<CursosInscritosDTO> l = m.getListaTodosCursos(v.getDNI());
-		CursosInscritosDTO inst = l.get(Integer.parseInt((String) this.lastSelectedKey));
+		Iterator<CursosInscritosDTO> it = l.iterator();
+		CursosInscritosDTO inst = null;
+		while(it.hasNext()) {
+			inst = it.next();
+			if(inst.getTitulo_curso().equals(((String) this.lastSelectedKey)))break;
+			}
+		if(inst==null)throw new ApplicationException("Ha ocurrido un error, cierre y vuelva a abrir la ventana");
 		if(inst.getFechaMaximaCancelacion()==null)throw new ApplicationException("El curso no admite cancelación");
 		if(util.Util.isoStringToDate(inst.getFechaMaximaCancelacion()).before(util.Util.isoStringToDate(util.Util.getTodayISO())))
 			throw new ApplicationException("La inscripción ya no puede ser cancelada") ;
+		if(inst.getEstado().equals("5"))throw new ApplicationException("Su inscripción ya fue cancelada con anterioridad");
 		m.cancelaInscripcion(inst.getIdInsc(),inst.getPorcentaje(),inst.getCuota());
+		float adev = Float.parseFloat(inst.getPorcentaje()) * Float.parseFloat(inst.getCuota());
+		SwingUtil.showMessage("<html><b>Se ha realizado la cancelación</b><br>"
+									+ "La cancelación se ha realizado en la fecha: "+Util.getTodayISO()+"<br>"
+									+ "Importe que se le devolverá de la cuota: "+adev+"<br>"
+									+ "Titulo del Curso: "+inst.getTitulo_curso()+"<br>"
+									+ "Duración del curso: "+inst.getDuracion()+"<br>"
+									+ "Fechas de inicio y fin: "+inst.getFecha_inicio_curso()+" - "+inst.getFecha_fin_curso() +"</html>",
+									"Cancelación realizada", JOptionPane.INFORMATION_MESSAGE);
 	}
 }

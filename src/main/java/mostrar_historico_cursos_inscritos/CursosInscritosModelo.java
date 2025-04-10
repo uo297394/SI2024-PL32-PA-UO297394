@@ -14,12 +14,13 @@ public class CursosInscritosModelo {
 		 		+ "WHEN c.fecha_inicio_curso IS NOT NULL AND c.fecha_fin_curso IS NOT NULL "
 		 		+ "THEN 'Abierto' "
 		 		+ "ELSE 'Cerrado' "
-		 		+ "END AS estado, i.id as idInsc, cr.fecha_cancelacion as fechaMaximaCancelacion, cr.porcentaje_cuota_devuelta as porcentaje,cr.cuota"
-		 		+ "FROM Inscripciones i JOIN Cursos c ON i.idCurso = c.id "
+		 		+ "END AS estado, i.id as idInsc, c.fecha_cancelacion as fechaMaximaCancelacion, "
+		 		+ "c.porcentaje_cuota_devuelta as porcentaje,ct.cuota "
+		 		+ "FROM Inscripciones as i LEFT JOIN Cursos c ON i.idCurso = c.id "
+		 		+ "LEFT JOIN Cuotas ct ON c.id = ct.idCurso "
 		 		+ "LEFT JOIN Colegiados cl ON cl.id = i.idColegiado "
 		 		+ "LEFT JOIN Otros o ON o.id = i.idOtros "
-		 		+ "WHERE o.DNI = ? OR cl.DNI = ?";
-		 //String sql = "SELECT titulo_curso, fecha_inicio_curso, fecha_fin_curso, duracion FROM Cursos c JOIN Inscripciones i ON i.idColegiado=?";
+		 		+ "WHERE (o.DNI = ? OR cl.DNI = ?) AND i.colectivo = ct.colectivo AND i.estado = 0";
 	        List<CursosInscritosDTO> listaCursos=db.executeQueryPojo(CursosInscritosDTO.class, sql, DNI,DNI);
 	        return listaCursos;
 	   
@@ -29,7 +30,7 @@ public int getTotalCursos(String DNI) {
 			+ "LEFT JOIN Inscripciones i ON i.idCurso=c.id "
 			+ "LEFT JOIN Colegiados cl ON cl.id = i.idColegiado "
 			+ "LEFT JOIN Otros o ON o.id = i.idOtros "
-			+ "WHERE o.DNI = ? OR cl.DNI = ?";
+			+ "WHERE (o.DNI = ? OR cl.DNI = ?) AND i.estado = 0";
 	int total=(int)db.executeQueryArray(sql, DNI,DNI).get(0)[0];
 	return total;
 }
@@ -38,9 +39,12 @@ public int getTotalHoras(String DNI) {
 			+ "LEFT JOIN Inscripciones i ON i.idCurso=c.id "
 			+ "LEFT JOIN Colegiados cl ON cl.id = i.idColegiado "
 			+ "LEFT JOIN Otros o ON o.id = i.idOtros "
-			+ "WHERE o.DNI = ? OR cl.DNI = ?";
+			+ "WHERE (o.DNI = ? OR cl.DNI = ?) AND i.estado = 0";
+	try {
 	int total=(int)db.executeQueryArray(sql, DNI,DNI).get(0)[0];
 	return total;
+	}catch(NullPointerException e) {}
+	return 0;
 }
 public void hayDatos(String DNI) {
 	String sql="SELECT COUNT(*) FROM Inscripciones i "
@@ -55,7 +59,7 @@ public void hayDatos(String DNI) {
 		}
 	}
 public void cancelaInscripcion(String idInsc, String porcentaje,String cuota) {
-	String deuda = db.executeQueryArray("SELECT deuda FROM Inscripciones WHERE id = ", idInsc).get(0)[0].toString();
+	String deuda = db.executeQueryArray("SELECT deuda FROM Inscripciones WHERE id = ?", idInsc).get(0)[0].toString();
 	Float d = Float.parseFloat(deuda) + (Float.parseFloat(cuota)*Float.parseFloat(porcentaje));
 	db.executeUpdate("UPDATE Inscripciones SET estado=5, deuda=? WHERE id = ?", d.toString(),idInsc);
 	
