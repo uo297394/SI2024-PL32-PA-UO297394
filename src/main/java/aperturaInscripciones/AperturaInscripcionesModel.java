@@ -82,6 +82,16 @@ public class AperturaInscripcionesModel {
 		String s = db.executeQueryArray("SELECT cuota FROM Cuotas WHERE colectivo LIKE ? AND idCurso = ?",string,string2).get(0)[0].toString();
 		return s;
 	}
+	public String calculaPosicion(AperturaInscripcionesDisplayDTO disp, String identificador) {
+		String sql_id = "SELECT i.id FROM Inscripciones as i "
+				+ "LEFT JOIN Cursos as cur on cur.id = i.idCurso "
+				+ "LEFT JOIN Colegiados as c on c.id = i.idColegiado "
+				+ "LEFT JOIN Otros as o on o.id = i.idOtros "
+				+ "WHERE cur.titulo_curso = ? AND (o.DNI = ? OR c.id = ?)";
+		String id = db.executeQueryArray(sql_id, disp.getTituloCurso(),identificador,identificador).get(0)[0].toString();
+		String sql_pos = "SELECT COUNT(i.id) FROM Inscripciones as i LEFT JOIN Cursos as c ON c.id = i.idCurso WHERE c.titulo_curso = ? AND i.id <= ? ";
+		return db.executeQueryArray(sql_pos, disp.getTituloCurso(),id).get(0)[0].toString();
+	}
 	
 	
 }

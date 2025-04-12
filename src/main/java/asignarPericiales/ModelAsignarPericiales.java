@@ -23,7 +23,7 @@ public class ModelAsignarPericiales {
 	 */
 	public List<SolicitudesDisplayDTO> getListaSolicitudes() {
 		String sql = "SELECT id, estado, idSolicitante, caracter, descripcion "
-				+ "FROM Periciales WHERE estado LIKE 'pendiente'";
+				+ "FROM Periciales";
 		return db.executeQueryPojo(SolicitudesDisplayDTO.class, sql);
 	}
 
@@ -37,6 +37,12 @@ public class ModelAsignarPericiales {
 				+ "FROM Colegiados WHERE es_perito = true ORDER BY orden_TAP ASC";
 		return db.executeQueryPojo(ColegiadosDisplayDTO.class, sql);
 	}
+	
+	public void cambiarEstadoSolicitud(String nuevoEstado, String justificacion, String idSolicitud) {
+	    String sql = "UPDATE Periciales SET estado = ?, justificacion = ? WHERE id = ?";
+	    db.executeUpdate(sql, nuevoEstado, justificacion, idSolicitud);
+	}
+
 
 	/**
 	 * Ejecuta una actualización SQL y devuelve el número de filas afectadas.

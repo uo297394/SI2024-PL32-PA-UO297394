@@ -98,7 +98,7 @@ VALUES
 (1,NULL,1,'Extraer metadatos de la foto','pendiente','Urgente'),
 (2,NULL,3,'Análisis forense de un disco duro','pendiente','Urgente'),
 (3,NULL,5,'Aalizar geolocalización de un movil','pendiente','Normal'),
-(4,NULL,2,'Inspeccionar coche accidentado','pendiente','Normal');
+(4,NULL,2,'Inspeccionar coche accidentado','cancelada','Normal');
 
 delete from Otros;
 INSERT INTO Otros (id, nombre, apellido, DNI, direccion, correo, telefono, fecha_nacimiento) VALUES
@@ -107,3 +107,9 @@ INSERT INTO Otros (id, nombre, apellido, DNI, direccion, correo, telefono, fecha
 (3, 'Carlos', 'López', '34567890V', 'Plaza Mayor 12, Valencia', 'carlos.lopez@email.com', '622345678', '1982-12-10'),
 (4, 'Ana', 'Martínez', '38527190T', 'C/ Secundaria 8, Sevilla', 'ana.martinez@email.com', '633456789', '1995-05-30'),
 (5, 'Pedro', 'Fernández', '56789012D', 'Paseo del Río 99, Zaragoza', NULL, '644567890', '1978-09-05');
+delete from Recibos;
+INSERT INTO Recibos(id , cuota , estado , año_emitido , fecha_pagado , fecha_devuelto ,fecha_emitido,idColegiado) VALUES
+(1,120,'emitido',2025,NULL,NULL,'2025-05-11',1),
+(2,120,'pagado',2025,'2025-08-28',NULL,'2025-05-11',2),
+(3,120,'pagado',2025,'2025-08-28',NULL,'2025-05-11',3);
+
