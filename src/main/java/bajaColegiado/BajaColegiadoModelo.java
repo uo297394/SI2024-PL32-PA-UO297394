@@ -1,11 +1,14 @@
 package bajaColegiado;
 
+import java.util.List;
+
+import cobrarRecibos.RecibosDTO;
 import util.Database;
 
 public class BajaColegiadoModelo {
 	private Database db=new Database();
 	public void cambiarCancelado(int id, String motivos) {
-		String sql="UPDATE Colegiados SET estado_solicitud = 'cancelado', motivosCancelacion=? WHERE id = ?";
+		String sql="UPDATE Colegiados SET estado_solicitud = 'cancelado', motivosCancelacion=?, es_perito=FALSE WHERE id = ?";
 		db.executeUpdate(sql,motivos, id);
 	}
 	public String getDNI(int id) {
@@ -18,5 +21,10 @@ public class BajaColegiadoModelo {
 		int cancelados=(int)db.executeQueryArray(sql, id).get(0)[0];
 		return cancelados>0;
 
+	}
+	public List<BajaColegiadoDTO> Colegiados(int id,int año) {
+		String sql="SELECT c.id as idColegiado, c.nombre,c.estado_solicitud, c.es_perito, c.DNI, r.id as idRecibo, r.estado FROM Colegiados c LEFT JOIN Recibos r ON(c.id=r.idColegiado AND r.año_emitido=?) WHERE c.id=? ";
+		List<BajaColegiadoDTO> colegiado=db.executeQueryPojo(BajaColegiadoDTO.class,sql,año,id);
+		return colegiado;
 	}
 }
