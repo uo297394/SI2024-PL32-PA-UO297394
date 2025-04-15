@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.swing.JTable;
@@ -22,6 +23,7 @@ public class CobrarRecibosControlador {
 	this.v=v;
 	this.m=m;
 	this.RellenaTabla();
+	establecerEtiqueta();
 	this.v.getBotonRecibos().addActionListener(new ActionListener(){
 	    @Override
 	    public void actionPerformed(ActionEvent e) {
@@ -29,15 +31,20 @@ public class CobrarRecibosControlador {
 	    	RellenaTabla();
 	        }});
 	
-	
+	this.v.getBotonCobrarRecibos().addActionListener(new ActionListener(){
+	    @Override
+	    public void actionPerformed(ActionEvent e) {
+	    	procesarFichero();
+	    	RellenaTabla();
+	        }});
 	
 	}
 	//Función que se encarga de rellenar la tabla de la vista con los datos sobre los colegiados y sus recibos
 	private void RellenaTabla() {
 		int año=2025;
 		List<RecibosDTO> listaRecibos=this.m.ColegiadosRecibos(año);
-		String[] columnas= {"idColegiado", "nombre", "idRecibo","estado","cuota" };
-		String [] ticolumnas= {"idColegiado", "nombre", "idRecibo","estadoRecibo","cuota" };
+		String[] columnas= {"idColegiado", "nombre", "idRecibo","estado","cuota", "motivo"};
+		String [] ticolumnas= {"idColegiado", "nombre", "idRecibo","estadoRecibo","cuota" , "motivoDevuelto"};
 		TableModel tablaCursos = SwingUtil.getTableModelFromPojos(listaRecibos, columnas);
 		this.v.setTablaRecibos(tablaCursos);
 		for(int i=0;i<ticolumnas.length;i++) {
@@ -84,4 +91,33 @@ public class CobrarRecibosControlador {
 	        System.out.println("An error occurred.");
 	        e.printStackTrace();
 	    }
-	}}
+	}
+	public void procesarFichero() {
+		String [] separadores= {";"};
+		int id=0;
+		int año=Integer.parseInt(Util.getTodayISO().split("-")[0]); 
+		List<String[]> listaRecibos=Util.procesarFichero("RecibosBanco.txt", ";");
+		for(String [] l:listaRecibos) {
+			id=Integer.parseInt(l[0]);
+			//recorremos cada fila del fichero (almacenado en su conjunto en una lista de String[])
+				//Solo hacemos algo si el recibo del fichero está "emitido"
+				if(m.Emitido(id, año)) {
+					//Variable utilizada para comprobar que se ha realizado la comprobación de al menos un título.
+					//en el caso de que que el recibo esté aprobado pasará a aprobado, en caso de que esté devuelto pasará a devuelto
+					if(l[1].equals("pagado") ) {
+							m.cambiarPagado(id);
+				}
+					else if (l[1].equals("devuelto") ) {
+						m.cambiarDevuelto(id,l[2]);
+			}
+				
+						}
+		}	
+}
+	public void establecerEtiqueta() {
+		String fechaHoy=Util.getTodayISO();
+		String año=fechaHoy.split("-")[0];
+		this.v.setEtiquetaAño(año);
+		
+	}
+	}

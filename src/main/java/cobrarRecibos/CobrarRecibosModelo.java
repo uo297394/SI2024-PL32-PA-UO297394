@@ -9,7 +9,7 @@ import util.Util;
 public class CobrarRecibosModelo {
 	private Database db=new Database();
 	public List<RecibosDTO> ColegiadosRecibos(int año) {
-		String sql="SELECT c.id as idColegiado, c.nombre,r.id as idRecibo, r.estado, r.cuota FROM Colegiados c LEFT JOIN Recibos r ON(c.id=r.idColegiado AND r.año_emitido=?) ";
+		String sql="SELECT c.id as idColegiado, c.nombre,r.id as idRecibo, r.estado, r.cuota, r.motivo FROM Colegiados c LEFT JOIN Recibos r ON(c.id=r.idColegiado AND r.año_emitido=?) ";
 		List<RecibosDTO> recibos=db.executeQueryPojo(RecibosDTO.class,sql,año);
 		return recibos;
 	}
@@ -31,7 +31,7 @@ public class CobrarRecibosModelo {
 		return estado>0;
 	}
 	public boolean Emitido(int id, int año) {
-		String sql="SELECT COUNT(r.id) from Recibos r JOIN Colegiados c ON (c.id=r.idColegiado AND r.año_emitido=?) WHERE c.id=? AND r.estado = 'emitido'";
+		String sql="SELECT COUNT(r.id) from Recibos r JOIN Colegiados c ON (c.id=r.idColegiado AND r.año_emitido=?) WHERE r.id=? AND r.estado = 'emitido'";
 		int estado=(int) db.executeQueryArray(sql, año,id).get(0)[0];
 		return estado>0;
 	}
@@ -40,5 +40,13 @@ public class CobrarRecibosModelo {
 		String sql="SELECT r.id, r.cuota, r.año_emitido, c.DNI, c.numero_cuenta, r.fecha_emitido  from Recibos r JOIN Colegiados c ON (c.id=r.idColegiado AND r.año_emitido=?) WHERE r.id=?";
 		List<Object[]> listaDatos=db.executeQueryArray(sql, año,id);
 		return listaDatos;
+	}
+	public void cambiarPagado(int id) {
+		String sql="UPDATE recibos SET estado = 'pagado' WHERE id = ?";
+		db.executeUpdate(sql, id);
+	}
+	public void cambiarDevuelto(int id, String motivo) {
+		String sql="UPDATE recibos SET estado = 'devuelto', motivo=? WHERE id = ?";
+		db.executeUpdate(sql, motivo,id);
 	}
 }

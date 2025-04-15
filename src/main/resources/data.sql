@@ -16,18 +16,19 @@ VALUES
 
 -- Inserciones para la tabla Cursos
 delete from Cursos;
-INSERT INTO Cursos (id, titulo_curso, descripcion, fecha_inicio_curso, fecha_fin_curso, duracion, max_plazas, fecha_inicio_inscripcion, fecha_fin_inscripcion)
+INSERT INTO Cursos (id, titulo_curso, descripcion, fecha_inicio_curso, fecha_fin_curso, duracion, max_plazas, fecha_inicio_inscripcion, fecha_fin_inscripcion, lista_espera,
+	cancelable, cancelado)
 VALUES 
-(1, 'SQL Básico', 'Introducción a SQL', '2027-06-01', '2027-06-30', 30, 20, '2024-02-01', '2026-05-31'), 
-(2, 'Python Avanzado', 'Programación avanzada en Python', '2027-07-10', '2027-08-10', 30, 25, '2024-06-01', '2026-07-05'), 
-(3, 'Machine Learning', 'Fundamentos de ML', '2027-09-01', '2027-10-01', 30, 15, '2026-08-01', '2026-08-31'), 
-(4, 'Desarrollo Web', 'Creación de aplicaciones web', '2024-10-15', '2024-11-15', 30, 30, '2024-09-01', '2024-10-10'),
-(5, 'Ciberseguridad', 'Seguridad en sistemas', '2024-11-20', '2024-12-20', 30, 20, '2024-10-01', '2024-11-15'), 
-(6, 'SQL Básico II', 'Introducción a SQL', '2024-06-01', '2024-06-30', 30, 20, NULL, NULL),
-(7, 'Python Avanzado II', 'Programación avanzada en Python', '2024-07-10', '2024-08-10', 30, 25, NULL, NULL),
-(8, 'Machine Learning II', 'Fundamentos de ML', '2024-09-01', '2024-10-01', 30, 15, NULL, NULL),
-(9, 'Desarrollo Web II', 'Creación de aplicaciones web', '2024-10-15', '2024-11-15', 30, 30, NULL, NULL),
-(10, 'Ciberseguridad II', 'Seguridad en sistemas', '2024-11-20', '2024-12-20', 30, 20, NULL, NULL);
+(1, 'SQL Básico', 'Introducción a SQL', '2027-06-01', '2027-06-30', 30, 20, '2024-02-01', '2026-05-31', 1, TRUE, FALSE), 
+(2, 'Python Avanzado', 'Programación avanzada en Python', '2027-07-10', '2027-08-10', 30, 25, '2024-06-01', '2026-07-05', 0, TRUE, FALSE), 
+(3, 'Machine Learning', 'Fundamentos de ML', '2027-09-01', '2027-10-01', 30, 15, '2026-08-01', '2026-08-31', 1, FALSE, FALSE), 
+(4, 'Desarrollo Web', 'Creación de aplicaciones web', '2024-10-15', '2024-11-15', 30, 30, '2024-09-01', '2024-10-10', 1, TRUE, FALSE),
+(5, 'Ciberseguridad', 'Seguridad en sistemas', '2024-11-20', '2024-12-20', 30, 20, '2024-10-01', '2024-11-15', 0, TRUE, FALSE), 
+(6, 'SQL Básico II', 'Introducción a SQL', '2024-06-01', '2024-06-30', 30, 20, NULL, NULL, 1, FALSE, FALSE),
+(7, 'Python Avanzado II', 'Programación avanzada en Python', '2024-07-10', '2024-08-10', 30, 25, NULL, NULL, 0, FALSE, FALSE),
+(8, 'Machine Learning II', 'Fundamentos de ML', '2024-09-01', '2024-10-01', 30, 15, NULL, NULL, 1, TRUE, FALSE),
+(9, 'Desarrollo Web II', 'Creación de aplicaciones web', '2024-10-15', '2024-11-15', 30, 30, NULL, NULL, 1, TRUE, FALSE),
+(10, 'Ciberseguridad II', 'Seguridad en sistemas', '2024-11-20', '2024-12-20', 30, 20, NULL, NULL, 0, FALSE, FALSE);
 
 INSERT INTO Cursos (id, titulo_curso, descripcion, fecha_inicio_curso, fecha_fin_curso, duracion, max_plazas, fecha_inicio_inscripcion, fecha_fin_inscripcion, lista_espera)
 VALUES 
@@ -35,22 +36,22 @@ VALUES
 (12, 'Yo no', 'Introducción a SQL', '2027-06-01', '2027-06-30', 30, 1, '2024-02-01', '2026-05-31',0);
 -- Inserciones para la tabla Inscripciones
 delete from Inscripciones;
-INSERT INTO Inscripciones (id, idColegiado, idCurso, fechaInscripcion,colectivo, estado)
+INSERT INTO Inscripciones (id, idColegiado, idCurso, fechaInscripcion, colectivo, deuda, estado)
 VALUES 
-(1, 1, 1, '2024-05-05','Estudiantes', 0),
-(2, 2, 2, '2024-06-10','Estudiantes', 1),
-(3, 3, 3, '2024-08-15','Estudiantes', 2),
-(4, 4, 4, '2024-09-20','Estudiantes', 1),
-(5, 5, 5, '2024-10-25','Estudiantes', 1),
-(6, 2, 1, '2024-05-05','Estudiantes', 0);
-INSERT INTO Inscripciones (id, idOtros, idCurso, fechaInscripcion,colectivo, estado)
+(1, 1, 1, '2024-05-05','Estudiantes', 0, 0),
+(2, 2, 2, '2024-06-10','Estudiantes', 5, 1),
+(3, 3, 3, '2024-08-15','Estudiantes', 0, 2),
+(4, 4, 4, '2024-09-20','Estudiantes', 20, 1),
+(5, 5, 5, '2024-10-25','Estudiantes', 0, 1),
+(6, 2, 1, '2024-05-05','Estudiantes', 0, 0);
+INSERT INTO Inscripciones (id, idOtros, idCurso, fechaInscripcion, colectivo, deuda, estado)
 VALUES 
-(7, 1, 1, '2024-05-05','Estudiantes', 1),
-(8, 2, 2, '2024-06-08','Estudiantes', 1),
-(9, 3, 3, '2024-08-15','Estudiantes', 2),
-(10,4, 4, '2024-09-20','Estudiantes', 1),
-(11,5, 5, '2024-10-25','Estudiantes', 1),
-(12, 2, 1, '2024-05-05','Estudiantes', 0);
+(7, 1, 1, '2024-05-05','Estudiantes', 10, 1),
+(8, 2, 2, '2024-06-08','Estudiantes', 0, 1),
+(9, 3, 3, '2024-08-15','Estudiantes', 0, 2),
+(10,4, 4, '2024-09-20','Estudiantes', 0, 1),
+(11,5, 5, '2024-10-25','Estudiantes', 40, 1),
+(12, 2, 1, '2024-05-05','Estudiantes', 0, 0);
 
 delete from Sesiones;
 INSERT INTO Sesiones (id, idCurso, nombre_sesion, fecha_sesion, hora_inicio, duracion)
@@ -107,8 +108,8 @@ INSERT INTO Otros (id, nombre, apellido, DNI, direccion, correo, telefono, fecha
 (4, 'Ana', 'Martínez', '38527190T', 'C/ Secundaria 8, Sevilla', 'ana.martinez@email.com', '633456789', '1995-05-30'),
 (5, 'Pedro', 'Fernández', '56789012D', 'Paseo del Río 99, Zaragoza', NULL, '644567890', '1978-09-05');
 delete from Recibos;
-INSERT INTO Recibos(id , cuota , estado , año_emitido , fecha_pagado , fecha_devuelto ,fecha_emitido,idColegiado) VALUES
-(1,120,'emitido',2025,NULL,NULL,'2025-05-11',1),
-(2,120,'pagado',2025,'2025-08-28',NULL,'2025-05-11',2),
-(3,120,'pagado',2025,'2025-08-28',NULL,'2025-05-11',3);
+INSERT INTO Recibos(id , cuota , estado , año_emitido , fecha_pagado , fecha_devuelto ,fecha_emitido,motivo,idColegiado) VALUES
+(1,120,'emitido',2025,NULL,NULL,'2025-05-11',NULL,1),
+(2,120,'pagado',2025,'2025-08-28',NULL,'2025-05-11',NULL,2),
+(3,120,'pagado',2025,'2025-08-28',NULL,'2025-05-11',NULL,3);
 
