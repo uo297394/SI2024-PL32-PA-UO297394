@@ -92,12 +92,12 @@ VALUES
 
 
 delete from Periciales;
-INSERT INTO Periciales(id ,idColegiado, idSolicitante, descripcion, estado, caracter)
+INSERT INTO Periciales(id ,idColegiado, idSolicitante, descripcion, estado, caracter,fecha_pericial)
 VALUES
-(1,NULL,1,'Extraer metadatos de la foto','pendiente','Urgente'),
-(2,NULL,3,'Análisis forense de un disco duro','pendiente','Urgente'),
-(3,NULL,5,'Aalizar geolocalización de un movil','pendiente','Normal'),
-(4,NULL,2,'Inspeccionar coche accidentado','cancelada','Normal');
+(1,NULL,1,'Extraer metadatos de la foto','pendiente','Urgente','2025-05-11'),
+(2,NULL,3,'Análisis forense de un disco duro','pendiente','Urgente','2025-07-11'),
+(3,NULL,5,'Aalizar geolocalización de un movil','pendiente','Normal','2025-01-01'),
+(4,NULL,2,'Inspeccionar coche accidentado','cancelada','Normal','2025-06-06');
 
 delete from Otros;
 INSERT INTO Otros (id, nombre, apellido, DNI, direccion, correo, telefono, fecha_nacimiento) VALUES
