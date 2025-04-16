@@ -16,6 +16,7 @@ import aperturaInscripciones.AperturaInscripcionesDisplayDTO;
 import aperturaInscripciones.AperturaInscripcionesViewPanel;
 import inscribirColegiado.InscribirColegiadoViewPanel;
 import inscritos_cursos_formacion.InscritosCursosViewPanel;
+import listaEspera.ListaEsperaViewPanel;
 import net.miginfocom.swing.MigLayout;
 import javax.swing.JTabbedPane;
 import javax.swing.JPanel;
@@ -31,6 +32,7 @@ public class CursosActionsView {
 	JPanel abrirInscripcion = new AperturaInscripcionesViewPanel();
 	JPanel inscribirColegiado = new InscribirColegiadoViewPanel();
 	JPanel inscritosCurso = new InscritosCursosViewPanel();
+	JPanel listaEspera = new ListaEsperaViewPanel();
 
 	/**
 	 * Create the application.
@@ -74,6 +76,7 @@ public class CursosActionsView {
 		tabbedPane.addTab("Inscribir colegiado a Curso", null, inscribirColegiado, null);
 		tabbedPane.addTab("Abrir inscripción a Curso", null, abrirInscripcion, null);
 		tabbedPane.addTab("Mostrar inscritos al curso", null, inscritosCurso, null);
+		tabbedPane.addTab("Lista de Espera", null, listaEspera, null);
 		
 		//Cancelar Curso
 		btnCancelarCurso = new JButton("Cancelar Curso Seleccionado");
@@ -158,6 +161,14 @@ public class CursosActionsView {
 	
 	public JButton getBtnCancelarCurso() {
 	    return btnCancelarCurso;
+	}
+	
+	public JTable getTablaListaEspera() {
+	    return ((ListaEsperaViewPanel) listaEspera).getTable();
+	}
+
+	public JLabel getLblTotalListaEspera() {
+	    return ((ListaEsperaViewPanel) listaEspera).getLblTotal();
 	}
 
 }

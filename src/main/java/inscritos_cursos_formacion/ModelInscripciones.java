@@ -25,4 +25,15 @@ public class ModelInscripciones {
         		+ "LEFT JOIN Otros o ON o.id = i.idOtros WHERE i.idCurso = ?";
         return db.executeQueryPojo(InscripcionDisplayDTO.class, sql, idCurso);
     }
+    
+    public List<InscripcionDisplayDTO> getListaEsperaPorCurso(int idCurso) {
+        String sql = "SELECT p.nombre, p.apellido, p.DNI, p.telefono, p.correo " +
+                     "FROM Inscripciones i " +
+                     "LEFT JOIN Colegiados p ON i.idColegiado = p.id " + 
+                     "WHERE i.idCurso = ? AND i.estado = 4";
+
+        List<InscripcionDisplayDTO> listaEspera = db.executeQueryPojo(InscripcionDisplayDTO.class, sql, idCurso);
+        
+        return listaEspera;
+    }
 }

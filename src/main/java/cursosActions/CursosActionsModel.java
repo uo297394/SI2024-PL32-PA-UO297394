@@ -75,4 +75,10 @@ public class CursosActionsModel {
 	public String calculaPosicion(AperturaInscripcionesDisplayDTO disp, String identificador) {
 		return aiModel.calculaPosicion(disp,identificador);
 	}
+	
+	public List<InscripcionDisplayDTO> getListaEsperaPorCurso(int idCurso) {
+	    // Asumiendo que iModel es tu instancia de ModelInscripciones o similar
+	    return iModel.getListaEsperaPorCurso(idCurso); 
+	}
+
 }
