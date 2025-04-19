@@ -6,6 +6,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.sql.SQLException;
 import java.util.Iterator;
 import java.util.List;
 
@@ -14,6 +15,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 import javax.swing.table.TableModel;
 import aperturaInscripciones.AperturaInscripcionesDisplayDTO;
+import cancelacion_cursos.CancelacionController;
 import inscritos_cursos_formacion.InscripcionDisplayDTO;
 import pagoInscripcion.PagoInscripcionView;
 import util.ApplicationException;
@@ -29,10 +31,12 @@ public class CursosActionsController {
 	private static final String MSG_CUENTA = "En caso de haber escogido pago por transferencia, recuerde que la cuota se debe abonar al numero de cuenta: XXXXXXXXX";
 	private static final String MSG_FECHA_INSC = "La fecha de plazo para inscribirse al curso ha cambiado con exito";
 	protected boolean estaColegiado = true;
+	private CancelacionController cancelacionController;
 
 	public CursosActionsController(CursosActionsModel m, CursosActionsView v) {
 		this.model = m;
 		this.view = v;
+		this.cancelacionController = new CancelacionController();
 		//no hay inicializacion especifica del modelo, solo de la vista
 		this.initView();
 	}
@@ -105,13 +109,17 @@ public class CursosActionsController {
 				SwingUtil.exceptionWrapper(() -> getListaCursos(view.getCbFiltrado().getSelectedItem().toString()));
 			}
 		});
+		
+		view.getBtnCancelarCurso().addActionListener(e -> SwingUtil.exceptionWrapper(() -> intentarMarcarCancelado()));
 	}
 	
 	public void initView() {
+		view.getBtnCancelarCurso().setEnabled(false); // Asegurar estado inicial
 		this.setCbFiltrado();
 		view.getCbFiltrado().setSelectedItem("Todos");
 		this.getListaCursos("Todos");
 		view.getFrame().setVisible(true); 
+		//
 	}
 	private void setCbFiltrado() {
 		List<Object[]> colectivos = model.getListaColectivos();
@@ -137,7 +145,8 @@ public class CursosActionsController {
 		}else {
 			cursos=model.getListaCursos(colectivo);
 		}
-		TableModel tmodel=SwingUtil.getTableModelFromPojos(cursos, new String[] {"id","tituloCurso","descripcion","fechaInicioCurso","fechaFinCurso","duracion","maxPlazas","cuotas","colectivos","fechaInicioInscripcion","fechaFinInscripcion"});
+		view.getBtnCancelarCurso().setEnabled(false);
+		TableModel tmodel=SwingUtil.getTableModelFromPojos(cursos, new String[] {"id","tituloCurso","descripcion","fechaInicioCurso","fechaFinCurso","duracion","maxPlazas","cuotas","colectivos","fechaInicioInscripcion","fechaFinInscripcion","cancelable","cancelado"});
 		view.getTablaCursos().setModel(tmodel);
 		SwingUtil.autoAdjustColumns(view.getTablaCursos());
 		//Como se guarda la clave del ultimo elemento seleccionado, restaura la seleccion de los detalles
@@ -160,7 +169,26 @@ public class CursosActionsController {
 		this.lastSelectedKey=SwingUtil.getSelectedKey(view.getTablaCursos());
 		this.loadInscripciones(Integer.parseInt(model.getListaCursos(view.getCbFiltrado().getSelectedItem().toString()).get(view.getTablaCursos().getSelectedRow()).getId()));
 		this.setCbColectivos();
-		
+		boolean enableButton = false;
+		//
+		this.lastSelectedKey=SwingUtil.getSelectedKey(view.getTablaCursos());
+	    view.getBtnCancelarCurso().setEnabled(false); // Deshabilitar por defecto
+
+	    if (!"".equals(this.lastSelectedKey)) {
+	         int selectedRow = view.getTablaCursos().getSelectedRow();
+	         if (selectedRow != -1) { // Doble check por si acaso
+	             AperturaInscripcionesDisplayDTO cursoSel = model.getListaCursos(view.getCbFiltrado().getSelectedItem().toString()).get(selectedRow);
+	             
+	             if (cursoSel.isCancelable() && !cursoSel.isCancelado()) {
+                     enableButton = true;
+                 }
+	             
+	             // Cargar inscripciones y colectivos como antes
+	             this.loadInscripciones(Integer.parseInt(cursoSel.getId()));
+	             this.setCbColectivos();
+	         }
+	    }
+	    view.getBtnCancelarCurso().setEnabled(enableButton);
 	}
 	
 	
@@ -222,6 +250,87 @@ public class CursosActionsController {
 		if(estaColegiado && !camposCubiertos)throw new ApplicationException("Usted no está colegiado");
 		if(!estaColegiado && !camposCubiertos)throw new ApplicationException("Rellene los campos");
 	}
+	
+	//Cancelacion Curso
+	private void intentarMarcarCancelado() {
+        int selectedRow = view.getTablaCursos().getSelectedRow();
+
+        if (selectedRow == -1) {
+            SwingUtil.showMessage("Por favor, seleccione un curso de la tabla primero.", "Selección Requerida", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        AperturaInscripcionesDisplayDTO cursoSeleccionado = null;
+        try {
+             cursoSeleccionado = model.getListaCursos(view.getCbFiltrado().getSelectedItem().toString()).get(selectedRow);
+        } catch (IndexOutOfBoundsException e) {
+             // O maneja el error de forma más robusta
+             SwingUtil.showMessage("Error al obtener los datos del curso seleccionado.", "Error", JOptionPane.ERROR_MESSAGE);
+             return;
+        } catch (Exception e) { // Captura genérica por si acaso
+            SwingUtil.showMessage("Error inesperado al obtener datos del curso: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
+            return;
+        }
+
+        // *** NUEVA COMPROBACIÓN: Ya está cancelado? ***
+        if (cursoSeleccionado.isCancelado()) {
+             SwingUtil.showMessage("El curso '" + cursoSeleccionado.getTituloCurso() + "' ya se encuentra cancelado.",
+                                  "Operación No Necesaria", JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
+
+        // Comprobar si ES cancelable (la precondición)
+        if (!cursoSeleccionado.isCancelable()) {
+            SwingUtil.showMessage("El curso '" + cursoSeleccionado.getTituloCurso() + "' NO se puede cancelar en este momento (no es cancelable).",
+                                  "Operación No Permitida", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        // Confirmación del usuario (menos severa que la de borrar)
+        int confirm = JOptionPane.showConfirmDialog(
+                view.getFrame(),
+                "¿Está seguro de que desea marcar el curso '" + cursoSeleccionado.getTituloCurso() + "' como CANCELADO?",
+                "Confirmar Cancelación",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE); // Opcional: cambiar icono
+
+        if (confirm != JOptionPane.YES_OPTION) {
+            return;
+        }
+
+        // Llama al controlador de cancelación
+        try {
+            int cursoId = Integer.parseInt(cursoSeleccionado.getId());
+            // Llamar al método renombrado del controlador
+            cancelacionController.procesarMarcadoCanceladoYAjustarDeuda(cursoId);
+
+            // Mensaje de éxito
+            SwingUtil.showMessage("El curso '" + cursoSeleccionado.getTituloCurso() + "' ha sido marcado como CANCELADO con éxito.",
+                                  "Cancelación Completada", JOptionPane.INFORMATION_MESSAGE);
+
+            // Refrescar la tabla para mostrar el cambio (si muestras el estado)
+            this.getListaCursos(view.getCbFiltrado().getSelectedItem().toString());
+
+        } catch (NumberFormatException e) {
+             SwingUtil.showMessage("Error interno: El ID del curso no es válido.", "Error", JOptionPane.ERROR_MESSAGE);
+             System.err.println("Error al parsear ID del curso: " + cursoSeleccionado.getId());
+        } catch (ApplicationException ae) { // Capturar error lógico del modelo
+             SwingUtil.showMessage("No se pudo cancelar el curso: " + ae.getMessage(),
+                                  "Error de Lógica", JOptionPane.WARNING_MESSAGE);
+             ae.printStackTrace();
+        } catch (SQLException e) {
+            SwingUtil.showMessage("Error de Base de Datos durante la cancelación: " + e.getMessage(),
+                                  "Error de Base de Datos", JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
+        } catch (Exception e) {
+             SwingUtil.showMessage("Ocurrió un error inesperado durante la cancelación: " + e.getMessage(),
+                                  "Error Inesperado", JOptionPane.ERROR_MESSAGE);
+             e.printStackTrace();
+        }
+    }
+	
+	
 	public void guardarInscripcion(int estado) {
 		String identificador;
 		if(view.getRadBut().isSelected()) identificador= view.getTfNumColeg().getText();

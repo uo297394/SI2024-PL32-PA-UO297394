@@ -16,11 +16,11 @@ public class AperturaInscripcionesModel {
 	
 	//SQL para obtener la lista de titulos de los cursos que no han sido planificados
 	public static final String SQL_LISTA_CURSOS=
-			"SELECT cr.id,cr.titulo_curso as tituloCurso,cr.descripcion,cr.fecha_inicio_curso as fechaInicioCurso,cr.fecha_fin_curso as fechaFinCurso,cr.duracion,cr.max_plazas as maxPlazas,GROUP_CONCAT(ct.cuota) as cuotas,GROUP_CONCAT(ct.colectivo) as colectivos,cr.fecha_inicio_inscripcion as fechaInicioInscripcion, cr.fecha_fin_inscripcion as fechaFinInscripcion"
+			"SELECT cr.id,cr.titulo_curso as tituloCurso,cr.descripcion,cr.fecha_inicio_curso as fechaInicioCurso,cr.fecha_fin_curso as fechaFinCurso,cr.duracion,cr.max_plazas as maxPlazas, cr.cancelable, cr.cancelado,GROUP_CONCAT(ct.cuota) as cuotas,GROUP_CONCAT(ct.colectivo) as colectivos,cr.fecha_inicio_inscripcion as fechaInicioInscripcion, cr.fecha_fin_inscripcion as fechaFinInscripcion"
 					+" from Cursos cr "
 					+"LEFT JOIN Cuotas ct ON cr.id = ct.idCurso GROUP BY cr.id";
 	public static final String SQL_LISTA_CURSOS_COL=
-			"SELECT cr.id,cr.titulo_curso as tituloCurso,cr.descripcion,cr.fecha_inicio_curso as fechaInicioCurso,cr.fecha_fin_curso as fechaFinCurso,cr.duracion,cr.max_plazas as maxPlazas,GROUP_CONCAT(ct.cuota) as cuotas,GROUP_CONCAT(ct.colectivo) as colectivos,cr.fecha_inicio_inscripcion as fechaInicioInscripcion, cr.fecha_fin_inscripcion as fechaFinInscripcion"
+			"SELECT cr.id,cr.titulo_curso as tituloCurso,cr.descripcion,cr.fecha_inicio_curso as fechaInicioCurso,cr.fecha_fin_curso as fechaFinCurso,cr.duracion,cr.max_plazas as maxPlazas, cr.cancelable, cr.cancelado,GROUP_CONCAT(ct.cuota) as cuotas,GROUP_CONCAT(ct.colectivo) as colectivos,cr.fecha_inicio_inscripcion as fechaInicioInscripcion, cr.fecha_fin_inscripcion as fechaFinInscripcion"
 					+" from Cursos cr "
 					+"LEFT JOIN Cuotas ct ON cr.id = ct.idCurso WHERE ct.colectivo LIKE ? GROUP BY cr.id";
 	/**

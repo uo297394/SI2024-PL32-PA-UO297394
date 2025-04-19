@@ -4,14 +4,57 @@ public class CursosInscritosDTO {
 private String titulo_curso, fecha_inicio_curso,fecha_fin_curso;
 private int duracion;
 private String estado;
+private String idInsc;
+private String fechaMaximaCancelacion;
+private String porcentaje;
+private String cuota;
 public CursosInscritosDTO() {}
-public CursosInscritosDTO(String titulo, String fechaInicio, String fechaFin,  int horas, String estado) {
-	this.titulo_curso=titulo;
-	this.fecha_inicio_curso=fechaInicio;
-	this.fecha_fin_curso=fechaFin;
-	this.estado=estado;	
-	this.duracion=horas;
+
+public CursosInscritosDTO(String titulo_curso, String fecha_inicio_curso, String fecha_fin_curso, int duracion,
+		String estado, String idInsc, String fechaMaximaCancelacion,String porcentaje, String cuota) {
+	this.titulo_curso = titulo_curso;
+	this.fecha_inicio_curso = fecha_inicio_curso;
+	this.fecha_fin_curso = fecha_fin_curso;
+	this.duracion = duracion;
+	this.estado = estado;
+	this.idInsc = idInsc;
+	this.fechaMaximaCancelacion = fechaMaximaCancelacion;
+	this.porcentaje = porcentaje;
+	this.cuota = cuota;
 }
+
+public String getCuota() {
+	return cuota;
+}
+
+public void setCuota(String cuota) {
+	this.cuota = cuota;
+}
+
+public String getPorcentaje() {
+	return porcentaje;
+}
+
+public void setPorcentaje(String porcentaje) {
+	this.porcentaje = porcentaje;
+}
+
+public String getIdInsc() {
+	return idInsc;
+}
+
+public void setIdInsc(String idInsc) {
+	this.idInsc = idInsc;
+}
+
+public String getFechaMaximaCancelacion() {
+	return fechaMaximaCancelacion;
+}
+
+public void setFechaMaximaCancelacion(String fechaMaximaCancelacion) {
+	this.fechaMaximaCancelacion = fechaMaximaCancelacion;
+}
+
 public String getEstado() {
 	return estado;
 }

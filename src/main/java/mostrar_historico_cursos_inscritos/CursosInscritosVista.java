@@ -23,7 +23,7 @@ public class CursosInscritosVista {
 	private JTable tablaCursos;
 	private JButton mostrarCursos;
 	private JTextArea totalCursos;
-
+	private JButton btnCancelar = new JButton("Cancelar Inscripción");
 	/**
 	 * Launch the application.
 	 */
@@ -57,11 +57,11 @@ public class CursosInscritosVista {
 		frame.getContentPane().setLayout(null);
 		
 		JLabel lblNewLabel = new JLabel("DNI:");
-		lblNewLabel.setBounds(10, 51, 93, 13);
+		lblNewLabel.setBounds(7, 34, 93, 13);
 		frame.getContentPane().add(lblNewLabel);
 		
 		tfdni = new JTextField();
-		tfdni.setBounds(7, 74, 96, 19);
+		tfdni.setBounds(7, 47, 96, 19);
 		frame.getContentPane().add(tfdni);
 		tfdni.setColumns(10);
 		
@@ -69,7 +69,7 @@ public class CursosInscritosVista {
 		lblNewLabel_1.setBounds(179, 10, 184, 13);
 		frame.getContentPane().add(lblNewLabel_1);
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 119, 621, 171);
+		scrollPane.setBounds(7, 77, 621, 171);
 		frame.getContentPane().add(scrollPane);
 		tablaCursos = new JTable();
 		//frame.getContentPane().add(tablaCursos);
@@ -80,13 +80,16 @@ public class CursosInscritosVista {
 		tablaCursos.setDefaultEditor(Object.class, null); 
 		 mostrarCursos = new JButton("Mostrar cursos");
 		mostrarCursos.setBackground(new Color(240, 240, 240));
-		mostrarCursos.setBounds(140, 73, 127, 21);
+		mostrarCursos.setBounds(113, 47, 127, 21);
 		frame.getContentPane().add(mostrarCursos);
 		
 		 totalCursos = new JTextArea();
 		 totalCursos.setEditable(false);
-		totalCursos.setBounds(346, 34, 162, 65);
+		totalCursos.setBounds(346, 28, 162, 40);
 		frame.getContentPane().add(totalCursos);
+		
+		btnCancelar.setBounds(7, 259, 162, 23);
+		frame.getContentPane().add(btnCancelar);
 		 frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 	}
 	public JTable getTablaCursos() {
@@ -107,5 +110,10 @@ public class CursosInscritosVista {
 	public void setTotalCursos(String c) {
 	this.totalCursos.setText(c);
 	}
+
+	public JButton getBtnCancelar() {
+		return btnCancelar;
+	}
+	
 }
 

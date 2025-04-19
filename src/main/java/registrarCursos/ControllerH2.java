@@ -20,6 +20,8 @@ public class ControllerH2 {
         initController();
     }
     
+    //Hubo un fallin con el push y lo del pull request
+    
     public void initController() {   
         // Agregar listener para el botón de registrar curso.
         view.getBtnRegistrar().addActionListener(new ActionListener() {

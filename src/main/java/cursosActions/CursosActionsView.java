@@ -26,6 +26,7 @@ public class CursosActionsView {
 
 	private JFrame frame;
 	private JTable tabSelecionCurso;
+	private JButton btnCancelarCurso;
 	JComboBox<Object> cbFiltrado = new JComboBox<>();
 	JPanel abrirInscripcion = new AperturaInscripcionesViewPanel();
 	JPanel inscribirColegiado = new InscribirColegiadoViewPanel();
@@ -73,6 +74,12 @@ public class CursosActionsView {
 		tabbedPane.addTab("Inscribir colegiado a Curso", null, inscribirColegiado, null);
 		tabbedPane.addTab("Abrir inscripción a Curso", null, abrirInscripcion, null);
 		tabbedPane.addTab("Mostrar inscritos al curso", null, inscritosCurso, null);
+		
+		//Cancelar Curso
+		btnCancelarCurso = new JButton("Cancelar Curso Seleccionado");
+		btnCancelarCurso.setName("btnCancelarCurso");
+		panelFiltrado.add(btnCancelarCurso);
+		btnCancelarCurso.setEnabled(false);
 	}
 	// GETTERS Y SETTERS
 	public JFrame getFrame() {
@@ -148,6 +155,9 @@ public class CursosActionsView {
 	public void setCbFiltrado(JComboBox<Object> cbFiltrado) {
 		this.cbFiltrado = cbFiltrado;
 	}
-
+	
+	public JButton getBtnCancelarCurso() {
+	    return btnCancelarCurso;
+	}
 
 }
