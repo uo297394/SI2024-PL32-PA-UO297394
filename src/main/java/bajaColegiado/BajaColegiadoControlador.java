@@ -51,7 +51,7 @@ public class BajaColegiadoControlador {
 		String DNI=this.m.getDNI(idColegiado);
 		JOptionPane.showMessageDialog(null,"El colegiado con id:"+idColegiado+"y DNI:"+DNI +"Se ha dado de baja","Resultado",JOptionPane.INFORMATION_MESSAGE);
 		int año=Integer.parseInt(Util.getTodayISO().split("-")[0]); 
-		if(this.m.Emitido(idColegiado,año)) {
+		if(this.m.Emitido(idColegiado,año)|| !this.m.Recibo(idColegiado, año)) {
 			JOptionPane.showMessageDialog(null,"Aún no se le ha cobrado la cuota, se pasará a su cobro próximamente","Recibo",JOptionPane.INFORMATION_MESSAGE);
 		}
 	}

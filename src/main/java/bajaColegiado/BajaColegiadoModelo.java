@@ -37,4 +37,9 @@ public class BajaColegiadoModelo {
 		int colegiado=(int)db.executeQueryArray(sql, id).get(0)[0];
 		return colegiado>0;
 	}
+	public boolean Recibo(int id, int año) {
+		String sql="SELECT COUNT(r.id) from Recibos r JOIN Colegiados c ON (c.id=r.idColegiado AND r.año_emitido=?) WHERE c.id=?";
+		int estado=(int) db.executeQueryArray(sql, año,id).get(0)[0];
+		return estado>0;
+	}
 }
