@@ -27,4 +27,14 @@ public class BajaColegiadoModelo {
 		List<BajaColegiadoDTO> colegiado=db.executeQueryPojo(BajaColegiadoDTO.class,sql,año,id);
 		return colegiado;
 	}
+	public boolean Emitido(int id, int año) {
+		String sql="SELECT COUNT(r.id) from Recibos r JOIN Colegiados c ON (c.id=r.idColegiado AND r.año_emitido=?) WHERE r.id=? AND r.estado = 'emitido'";
+		int estado=(int) db.executeQueryArray(sql, año,id).get(0)[0];
+		return estado>0;
+	}
+	public boolean EstaColegiado(int id) {
+		String sql="SELECT COUNT(id) FROM Colegiados WHERE id=?";
+		int colegiado=(int)db.executeQueryArray(sql, id).get(0)[0];
+		return colegiado>0;
+	}
 }

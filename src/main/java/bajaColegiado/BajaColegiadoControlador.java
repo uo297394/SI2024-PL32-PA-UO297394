@@ -9,6 +9,7 @@ import javax.swing.table.TableModel;
 
 import cobrarRecibos.RecibosDTO;
 import util.SwingUtil;
+import util.Util;
 
 public class BajaColegiadoControlador {
 	private BajaColegiadoVista v;
@@ -49,12 +50,16 @@ public class BajaColegiadoControlador {
 		this.m.cambiarCancelado(idColegiado, motivosCancelacion);
 		String DNI=this.m.getDNI(idColegiado);
 		JOptionPane.showMessageDialog(null,"El colegiado con id:"+idColegiado+"y DNI:"+DNI +"Se ha dado de baja","Resultado",JOptionPane.INFORMATION_MESSAGE);
+		int año=Integer.parseInt(Util.getTodayISO().split("-")[0]); 
+		if(this.m.Emitido(idColegiado,año)) {
+			JOptionPane.showMessageDialog(null,"Aún no se le ha cobrado la cuota, se pasará a su cobro próximamente","Recibo",JOptionPane.INFORMATION_MESSAGE);
+		}
 	}
 	
 	
 	private void RellenaTabla() {
 		int año=2025;
-		
+		if(!this.m.EstaColegiado(idColegiado)) {return;}
 		List<BajaColegiadoDTO> listaRecibos=this.m.Colegiados(idColegiado, año);
 		String[] columnas= {"idColegiado", "nombre","estado_solicitud","es_perito", "DNI","idRecibo","estado"};
 		String [] ticolumnas= {"id", "nombre","estadoSolicitud","esPerito", "DNI","idRecibo","estadoRecibo"};
@@ -76,6 +81,10 @@ public class BajaColegiadoControlador {
 				JOptionPane.showMessageDialog(null, "El id del colegiado introducido debe tener un formato válido", "Error", JOptionPane.ERROR_MESSAGE);
 				return;
 			}
+		if(!this.m.EstaColegiado(idColegiado)) {
+			JOptionPane.showMessageDialog(null, "El id introducido no corresponde a ningún colegiado", "Error", JOptionPane.ERROR_MESSAGE);
+			return;
+		}
 		JOptionPane.showMessageDialog(null, "Iniciada sesion como colegiado con id:"+idColegiado, "Information", JOptionPane.INFORMATION_MESSAGE);
 	}
 
