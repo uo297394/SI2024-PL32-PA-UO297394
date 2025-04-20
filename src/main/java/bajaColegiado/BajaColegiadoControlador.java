@@ -3,10 +3,8 @@ package bajaColegiado;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
-
 import javax.swing.JOptionPane;
 import javax.swing.table.TableModel;
-
 import cobrarRecibos.RecibosDTO;
 import util.SwingUtil;
 import util.Util;
@@ -25,7 +23,6 @@ public class BajaColegiadoControlador {
 	    public void actionPerformed(ActionEvent e) {
 	    	iniciarSesion();
 	    	RellenaTabla();
-	    	
 	        }});
 	
 	this.v.getBotonCancelacion().addActionListener(new ActionListener(){

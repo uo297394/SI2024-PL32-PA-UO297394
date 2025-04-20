@@ -1,7 +1,6 @@
 package bajaColegiado;
 
 import java.util.List;
-
 import cobrarRecibos.RecibosDTO;
 import util.Database;
 
