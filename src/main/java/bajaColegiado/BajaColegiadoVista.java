@@ -54,7 +54,7 @@ public class BajaColegiadoVista {
 		frame.getContentPane().setLayout(null);
 		
 		 motivosCancelacion = new JTextArea();
-		motivosCancelacion.setBounds(441, 106, 213, 125);
+		motivosCancelacion.setBounds(460, 106, 194, 125);
 		frame.getContentPane().add(motivosCancelacion);
 		
 		 btnCancelarColegiacion = new JButton("Cancelar colegiacion");
@@ -83,7 +83,7 @@ public class BajaColegiadoVista {
 		frame.getContentPane().add(lblNewLabel_2);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 110, 421, 125);
+		scrollPane.setBounds(10, 110, 440, 125);
 		frame.getContentPane().add(scrollPane);
 		
 		situacionColegiado = new JTable();
