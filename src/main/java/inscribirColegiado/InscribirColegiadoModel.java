@@ -41,7 +41,7 @@ public class InscribirColegiadoModel {
 		return estaInscrito>0;
 	}
 	public boolean hayPlazas(String idCurso) {
-		String sql="SELECT COUNT(id) FROM Inscripciones WHERE idCurso = ?";
+		String sql="SELECT COUNT(id) FROM Inscripciones WHERE idCurso = ? AND (estado = 1 OR estado = 0)";
 		String sql2="SELECT max_plazas FROM Cursos WHERE id = ?";
 		Object[] inscr =db.executeQueryArray(sql,idCurso).get(0);
 		Object[] maxPlazas = db.executeQueryArray(sql2,idCurso).get(0);
