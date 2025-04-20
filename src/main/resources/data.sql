@@ -38,7 +38,7 @@ VALUES
 delete from Inscripciones;
 INSERT INTO Inscripciones (id, idColegiado, idCurso, fechaInscripcion, colectivo, deuda, estado)
 VALUES 
-(1, 1, 1, '2024-05-05','Estudiantes', 0, 0),
+(1, 1, 1, '2024-05-05','Estudiantes', 0, 4),
 (2, 2, 2, '2024-06-10','Estudiantes', 5, 1),
 (3, 3, 3, '2024-08-15','Estudiantes', 0, 2),
 (4, 4, 4, '2024-09-20','Estudiantes', 20, 1),
@@ -46,7 +46,7 @@ VALUES
 (6, 2, 1, '2024-05-05','Estudiantes', 0, 0);
 INSERT INTO Inscripciones (id, idOtros, idCurso, fechaInscripcion, colectivo, deuda, estado)
 VALUES 
-(7, 1, 1, '2024-05-05','Estudiantes', 10, 1),
+(7, 1, 1, '2024-05-05','Estudiantes', 10, 4),
 (8, 2, 2, '2024-06-08','Estudiantes', 0, 1),
 (9, 3, 3, '2024-08-15','Estudiantes', 0, 2),
 (10,4, 4, '2024-09-20','Estudiantes', 0, 1),

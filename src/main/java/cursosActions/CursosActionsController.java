@@ -7,10 +7,12 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
 import javax.swing.ComboBoxModel;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 import javax.swing.table.TableModel;
@@ -178,15 +180,26 @@ public class CursosActionsController {
 	         int selectedRow = view.getTablaCursos().getSelectedRow();
 	         if (selectedRow != -1) { // Doble check por si acaso
 	             AperturaInscripcionesDisplayDTO cursoSel = model.getListaCursos(view.getCbFiltrado().getSelectedItem().toString()).get(selectedRow);
+	             int cursoId = Integer.parseInt(cursoSel.getId());
 	             
 	             if (cursoSel.isCancelable() && !cursoSel.isCancelado()) {
                      enableButton = true;
                  }
 	             
-	             // Cargar inscripciones y colectivos como antes
+	             // Cargar inscripciones y colectivos
 	             this.loadInscripciones(Integer.parseInt(cursoSel.getId()));
 	             this.setCbColectivos();
+	             
+	             boolean tieneListaEspera = (cursoSel.getLista_espera() == 1); // Comprueba el flag
+	             this.loadListaEspera(cursoId, tieneListaEspera); // Llama al nuevo método
 	         }
+	    }
+	    
+	    else {
+	        // Limpiar detalles si no hay selección
+	         this.loadInscripciones(0); // Limpiar panel inscritos
+	         this.loadListaEspera(0, false); // Limpiar panel lista espera
+	         view.getCbColectivos().setModel(new DefaultComboBoxModel<>()); // Limpiar combo
 	    }
 	    view.getBtnCancelarCurso().setEnabled(enableButton);
 	}
@@ -356,6 +369,30 @@ public class CursosActionsController {
         SwingUtil.autoAdjustColumns(view.getTable());
         view.getLblTotal().setText("Total inscritos: " + inscripciones.size());
     }
+	
+	private void loadListaEspera(int idCurso, boolean tieneListaEspera) {
+	    List<InscripcionDisplayDTO> listaEspera;
+	    String totalLabelText;
+
+	    if (tieneListaEspera) {
+	        // Obtiene la lista de espera del modelo
+	        listaEspera = model.getListaEsperaPorCurso(idCurso);
+	        totalLabelText = "Total en lista de espera: " + listaEspera.size();
+	    } else {
+	        listaEspera = new ArrayList<>();
+	        totalLabelText = "Lista de espera no habilitada para este curso";
+	    }
+
+	    // Crea el TableModel (usa las mismas columnas que para inscritos)
+	    TableModel tmodel = SwingUtil.getTableModelFromPojos(listaEspera, new String[] {
+	        "nombre", "apellido", "DNI", "telefono", "correo"});
+
+	    // Actualiza la tabla y la etiqueta en la vista
+	    view.getTablaListaEspera().setModel(tmodel);
+	    SwingUtil.autoAdjustColumns(view.getTablaListaEspera());
+	    view.getLblTotalListaEspera().setText(totalLabelText);
+	}
+	
 	public ColegiadoDisplayDTO buscaPersona(String DNI) {
 		return model.buscaPersona(DNI);
 	}
