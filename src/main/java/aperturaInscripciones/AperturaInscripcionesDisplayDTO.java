@@ -18,10 +18,14 @@ public class AperturaInscripcionesDisplayDTO {
 	private String colectivos;
 	private String fechaInicioInscripcion; 
 	private String fechaFinInscripcion; 
+	private boolean cancelable;
+	private boolean cancelado;
+	private int lista_espera;
+	
 	public AperturaInscripcionesDisplayDTO() {}
 	public AperturaInscripcionesDisplayDTO(String id, String tituloCurso, String descripcion,
 			String fechaInicioCurso, String fechaFinCurso, String duracion, String maxPlazas, String cuotas,
-			String colectivos, String fechaInicioInscripcion, String fechaFinInscripcion) {
+			String colectivos, String fechaInicioInscripcion, String fechaFinInscripcion, boolean cancelable, boolean cancelado, int lista_espera) {
 		this.id = id;
 		this.tituloCurso = tituloCurso;
 		this.descripcion = descripcion;
@@ -33,6 +37,9 @@ public class AperturaInscripcionesDisplayDTO {
 		this.colectivos = colectivos;
 		this.fechaInicioInscripcion = fechaInicioInscripcion; 
 		this.fechaFinInscripcion = fechaFinInscripcion;
+		this.cancelable = cancelable;
+		this.cancelado = cancelado;
+		this.lista_espera = lista_espera;
 	}
 	public String getId() {
 		return id;
@@ -107,6 +114,24 @@ public class AperturaInscripcionesDisplayDTO {
 				+ ", duracion=" + duracion + ", maxPlazas=" + maxPlazas + ", cuotas=" + cuotas + ", colectivos="
 				+ colectivos + ", fechaInicioInscripcion=" + fechaInicioInscripcion + ", fechaFinInscripcion="
 				+ fechaFinInscripcion + "]";
+	}
+	public boolean isCancelable() {
+		return cancelable;
+	}
+	public void setCancelable(boolean cancelable) {
+		this.cancelable = cancelable;
+	}
+	public boolean isCancelado() {
+		return cancelado;
+	}
+	public void setCancelado(boolean cancelado) {
+		this.cancelado = cancelado;
+	}
+	public int getLista_espera() {
+		return lista_espera;
+	}
+	public void setLista_espera(int lista_espera) {
+		this.lista_espera = lista_espera;
 	}
 	
 		
