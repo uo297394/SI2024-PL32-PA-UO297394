@@ -31,6 +31,7 @@ import cobrarRecibos.CobrarRecibosModelo;
 import cobrarRecibos.CobrarRecibosVista;
 import solicitarPericiales.*;
 import enviarSolicitud.*;
+import pericialesAnuales.*;
 
 public class SwingMain extends JFrame {
 
@@ -59,7 +60,7 @@ public class SwingMain extends JFrame {
 	public SwingMain() {
 		setTitle("Pantalla inicial");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 844, 445);
+		setBounds(100, 100, 846, 475);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -95,7 +96,7 @@ public class SwingMain extends JFrame {
 
 		JPanel panel_1 = new JPanel();
 		panel_1.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
-		panel_1.setBounds(5, 112, 815, 252);
+		panel_1.setBounds(5, 112, 815, 304);
 		contentPane.add(panel_1);
 		panel_1.setLayout(null);
 		/*
@@ -169,9 +170,17 @@ public class SwingMain extends JFrame {
 		btnCobrarRecibos.setBounds(413, 155, 159, 21);
 		panel_1.add(btnCobrarRecibos);
 		
+
 		JButton btnDarmeBaja = new JButton("Darme de Baja");
 		btnDarmeBaja.setBounds(36, 155, 159, 22);
 		panel_1.add(btnDarmeBaja);
+
+
+		JButton btnPericialesAnuales = new JButton("Información periciales");
+		btnPericialesAnuales.setBounds(205, 255, 177, 30);
+		panel_1.add(btnPericialesAnuales);
+
+
 
 		JLabel lblNewLabel = new JLabel("INICIO Y CARGA DE LA BASE DE  DATOS ");
 		lblNewLabel.setBounds(5, 0, 246, 31);
@@ -270,6 +279,7 @@ public class SwingMain extends JFrame {
 				v.getFrame().setVisible(true);
 			}
 		});
+
 		btnDarmeBaja.addActionListener(new ActionListener() { // NOSONAR codigo autogenerado
 			public void actionPerformed(ActionEvent e) {
 				 BajaColegiadoVista v=new BajaColegiadoVista();
@@ -278,5 +288,23 @@ public class SwingMain extends JFrame {
 				v.getFrame().setVisible(true);
 			}
 		});
+		btnPericialesAnuales.addActionListener(new ActionListener() { // NOSONAR codigo autogenerado
+			public void actionPerformed(ActionEvent e) {
+				ControllerPericialesAnuales controller = new ControllerPericialesAnuales(new ModelPericialesAnuales(),
+						new ViewPericialesAnuales());
+				controller.initController();
+			}
+		});
+		btnDarmeBaja.addActionListener(new ActionListener() { // NOSONAR codigo autogenerado
+			public void actionPerformed(ActionEvent e) {
+				 BajaColegiadoVista v=new BajaColegiadoVista();
+				 BajaColegiadoModelo m=new BajaColegiadoModelo();
+				 BajaColegiadoControlador c=new BajaColegiadoControlador(v,m);
+				v.getFrame().setVisible(true);
+
+
+			}
+		});
 	}
 }
+	
