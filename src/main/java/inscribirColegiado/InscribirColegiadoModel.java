@@ -16,16 +16,15 @@ public class InscribirColegiadoModel {
 	//SQL para obtener la lista de titulos de los cursos que no han sido planificados
 	public static final String SQL_LISTA_CURSOS=
 			"SELECT id,titulo_curso as tituloCurso,descripcion,fecha_inicio_curso as fechaInicioCurso,fecha_fin_curso as fechaFinCurso,"
-			+ "duracion,max_plazas as maxPlazas,cuota,colectivos,fecha_inicio_inscripcion as fechaInicioInscripcion, fecha_fin_inscripcion as fechaFinInscripcion"
-					+" from Cursos AS c  where NOT(fechaInicioInscripcion IS NULL) AND NOT(fechaFinInscripcion IS NULL) AND NOT(fechaInicioInscripcion > ?) AND NOT(fechaFinInscripcion < ?)"
-					+ " AND (SELECT COUNT(id) FROM Inscripciones AS i WHERE i.idCurso = c.id) < c.max_plazas";
+			+ "duracion,max_plazas as maxPlazas,fecha_inicio_inscripcion as fechaInicioInscripcion, fecha_fin_inscripcion as fechaFinInscripcion"
+					+" from Cursos AS c";
 	/**
 	 * Obtiene la lista de curso que han sido planificados y que se encuentran abiertos
 	 * Implementacion usando la utilidad que obtiene una lista de arrays de objetos 
 	 * resultado de la ejecucion de una query sql
 	 */
 	public List<InscribirColegiadoDisplayDTO> getListaCursos() {
-		return db.executeQueryPojo(InscribirColegiadoDisplayDTO.class, SQL_LISTA_CURSOS, Util.getTodayISO(),Util.getTodayISO());
+		return db.executeQueryPojo(InscribirColegiadoDisplayDTO.class, SQL_LISTA_CURSOS);
 	}
 	/**
 	 * Comprueba si el colegiado está inscrito al curso
