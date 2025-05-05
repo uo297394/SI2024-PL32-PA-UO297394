@@ -34,7 +34,6 @@ public class InscripcionAUnCursoTest {
         assertFalse(modelo.buscaColegiado(numeroColegiado)!=null);
     }
 
-    // Pruebas para DNI de colectivo externo
 	/**
 	 * El modelo busca una persona perteneciente a un colectivo externo en la base de datos que está registrada
 	 */
@@ -57,7 +56,6 @@ public class InscripcionAUnCursoTest {
         assertFalse(modelo.buscaPersona(dni)!=null);
     }
 
-    // Pruebas para inscripción a cursos
     /**
 	 * El modelo busca el curso seleccionado y comprueba que sus fechas de inscripción no sean nulas
 	 */
@@ -128,7 +126,7 @@ public class InscripcionAUnCursoTest {
     	InscribirColegiadoModel modelo = new InscribirColegiadoModel();
         int idCurso = 6;
         
-        // Curso lleno y sin lista de espera
+
         assertFalse(!modelo.hayPlazas(idCurso+"") && modelo.listaEspera(idCurso+""));
     }
 
@@ -140,7 +138,7 @@ public class InscripcionAUnCursoTest {
     	InscribirColegiadoModel modelo = new InscribirColegiadoModel();
         int idCurso = 5;
         
-        // Curso lleno y sin lista de espera
+
         assertTrue(!modelo.hayPlazas(idCurso+"") && modelo.listaEspera(idCurso+""));
     }
     /**
@@ -151,7 +149,6 @@ public class InscripcionAUnCursoTest {
     	InscribirColegiadoModel modelo = new InscribirColegiadoModel();
         int idCurso = 7;
         
-        // Curso lleno y sin lista de espera
         assertTrue(modelo.hayPlazas(idCurso+""));
     }
 }
